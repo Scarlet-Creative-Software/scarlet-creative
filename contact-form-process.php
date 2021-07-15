@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['Email'])) {
+if (isset($_POST['email'])) {
 
     // EDIT THE FOLLOWING TWO LINES:
     $email_to = "contact@scarletcreative.org";
@@ -24,9 +24,10 @@ if (isset($_POST['Email'])) {
         problem('We\'re sorry, but there appears to be a problem with the form you submitted.');
     }
 
-    $name = $_POST['Name']; // required
-    $email = $_POST['Email']; // required
-    $message = $_POST['Message']; // required
+    $name = $_POST['name']; // required
+    $email = $_POST['email']; // required
+    $email = $_POST['phone']; // required
+    $message = $_POST['message']; // required
 
     $error_message = "";
     $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
@@ -59,6 +60,7 @@ if (isset($_POST['Email'])) {
 
     $email_message .= "Name: " . clean_string($name) . "\n";
     $email_message .= "Email: " . clean_string($email) . "\n";
+    $email_message .= "Email: " . clean_string($phone) . "\n";
     $email_message .= "Message: " . clean_string($message) . "\n";
 
     // create email headers
