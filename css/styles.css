@@ -208,11 +208,11 @@ sup {
 }
 
 a {
-  color: #ffc800;
+  color: #ffffff;
   text-decoration: underline;
 }
 a:hover {
-  color: #cca000;
+  color: #faebeb;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -3114,23 +3114,23 @@ textarea.form-control-lg {
 
 .btn-danger {
   color: #fff;
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: #ad0602;
+  border-color: #ad0602;
 }
 .btn-danger:hover {
   color: #fff;
-  background-color: #bb2d3b;
-  border-color: #b02a37;
+  background-color: #870909;
+  border-color: #870909;
 }
 .btn-check:focus + .btn-danger, .btn-danger:focus {
   color: #fff;
-  background-color: #bb2d3b;
-  border-color: #b02a37;
+  background-color: #870909;
+  border-color: #870909;
   box-shadow: 0 0 0 0.25rem rgba(225, 83, 97, 0.5);
 }
 .btn-check:checked + .btn-danger, .btn-check:active + .btn-danger, .btn-danger:active, .btn-danger.active, .show > .btn-danger.dropdown-toggle {
   color: #fff;
-  background-color: #b02a37;
+  background-color: #870909;
   border-color: #a52834;
 }
 .btn-check:checked + .btn-danger:focus, .btn-check:active + .btn-danger:focus, .btn-danger:active:focus, .btn-danger.active:focus, .show > .btn-danger.dropdown-toggle:focus {
@@ -3866,7 +3866,7 @@ textarea.form-control-lg {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #ffc800;
+  color: #ad0602;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -3883,6 +3883,29 @@ textarea.form-control-lg {
   pointer-events: none;
   cursor: default;
 }
+
+/* REQUEST A QUOTE */
+.request-quote-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .request-quote-link {
+    transition: none;
+  }
+}
+.request-quote-link:hover, .request-quote-link:focus {
+  color: #cca000;
+}
+.request-quote-link.disabled {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: default;
+}
+/* REQUEST A QUOTE */
 
 .nav-tabs {
   border-bottom: 1px solid #dee2e6;
@@ -3979,6 +4002,7 @@ textarea.form-control-lg {
   font-size: 1.25rem;
   text-decoration: none;
   white-space: nowrap;
+  max-width: 22em;
 }
 .navbar-nav {
   display: flex;
@@ -4241,7 +4265,7 @@ textarea.form-control-lg {
   color: #fff;
 }
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.6);
 }
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
   color: rgba(255, 255, 255, 0.75);
@@ -7352,6 +7376,10 @@ textarea.form-control-lg {
 /* rtl:end:remove */
 .text-primary {
   color: #ffc800 !important;
+}
+
+.text-darkgrey {
+  color: #50565c !important;
 }
 
 .text-secondary {
@@ -10915,7 +10943,7 @@ p {
   font-weight: 700;
 }
 #mainNav .navbar-brand {
-  color: #ffc800;
+  color: #ffffff;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
   letter-spacing: 0.0625em;
@@ -10931,7 +10959,13 @@ p {
   letter-spacing: 0.0625em;
 }
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #ffc800;
+  color: #ad0602;
+}
+
+/* TODO: Need to put the correct font for .request-quote-link like above! */
+
+#mainNav .request-quote-link.active, #mainNav .request-quote-link:hover {
+  color: #ffffff;
 }
 
 @media (min-width: 992px) {
@@ -10952,8 +10986,9 @@ p {
   }
   #mainNav.navbar-shrink {
     padding-top: 0.03rem;
-    padding-bottom: 0.03rem;
-    background-color: #212529;
+    padding-bottom: 0.5rem;
+    background-color: #14171a;
+    opacity: 0.9;
   }
   #mainNav.navbar-shrink .navbar-brand {
     font-size: 1.25em;
@@ -10970,15 +11005,19 @@ p {
   }
 }
 header.masthead {
+  position: relative;
   padding-top: 10.5rem;
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../assets/img/header-bg.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
+  /* background-image: url("../assets/img/header-bg.jpg");
+  background-repeat: no-repeat; */
+  /* background-attachment: scroll;
   background-position: center center;
-  background-size: cover;
+  background-size: cover; */
+  /* box-shadow: inset 0 0 0 1400px rgba(0,0,0,.8); */
+  /* background: rgba(0, 0, 0, 0.7); */
+  z-index: 2;
 }
 header.masthead .masthead-subheading {
   font-size: 1.5rem;
@@ -11028,7 +11067,7 @@ header.masthead .masthead-heading {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(255, 200, 0, 0.9);
+  background: rgba(152,40,36, 0.7);
   align-items: center;
   justify-content: center;
   opacity: 0;
@@ -11154,7 +11193,7 @@ header.masthead .masthead-heading {
   color: white;
   border: 7px solid #e9ecef;
   border-radius: 100%;
-  background-color: #ffc800;
+  background-color: #ad0602;
 }
 .timeline > li .timeline-image h4, .timeline > li .timeline-image .h4 {
   font-size: 10px;
@@ -11283,7 +11322,7 @@ header.masthead .masthead-heading {
 }
 
 section#contact {
-  background-color: #212529;
+  background-color: #14171a;
   background-image: url("../assets/img/map-image.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -11344,11 +11383,111 @@ section#contact form#contactForm :-ms-input-placeholder {
 
 
 .my-header {
-  text-shadow: 5px 5px #5f0a0a;
-  color:#e00500;
+  text-shadow: 5px 5px #4a0505;
+  color:#ad0602;
 }
 
 .my-subheader {
-  text-shadow: 2px 2px #5f0a0a !important;
-  color:#e00500 !important;
+  text-shadow: 2px 2px #4a0505 !important;
+  color:#ad0602 !important;
 }
+
+.clients {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .clients {
+    transition: none;
+  }
+}
+.clients:hover, .clients:focus {
+  color: #ad0602;
+}
+.clients.disabled {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* position: absolute;
+  top: 0;
+  left: 0; */
+
+.content-landing {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+video {
+  /** Simulationg background-size: cover */
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: 1;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.video-wrapper {
+  /* Telling our absolute positioned video to 
+  be relative to this element */
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  /* Will not allow the video to overflow the 
+  container */
+  overflow: hidden;
+
+  /* Centering the container's content vertically 
+  and horizontally */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-wrapper .overlay {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    background: black;
+    opacity: 0.5;
+}
+
+/* .quote {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .quote {
+    transition: none;
+  }
+}
+.quote:hover, .quote:focus {
+  color: #e00500;
+}
+.quote.disabled {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: default;
+} */
