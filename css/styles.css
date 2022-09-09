@@ -3871,8 +3871,8 @@ textarea.form-control-lg {
 
 .nav-link {
   display: block;
-  padding: 0.5rem 1rem;
-  color: #e00500;
+  padding: 1rem 1rem;
+  color: #eb4642;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -3882,8 +3882,8 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .nav-link:focus {
-  color: #e00500;
-  font-weight: 600;
+  color: #eb4642;
+  /* font-weight: 500; */
 }
 .nav-link.disabled {
   color: #6c757d;
@@ -10966,8 +10966,8 @@ p {
   letter-spacing: 0.0625em;
 }
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #e00500;
-  font-weight: 600;
+  color: #eb4642;
+  /* font-weight: 600; */
 }
 
 /* TODO: Need to put the correct font for .request-quote-link like above! */
@@ -11391,8 +11391,8 @@ section#contact form#contactForm :-ms-input-placeholder {
 
 
 .my-header {
-  text-shadow: 5px 5px #4a0505;
-  color:#e00500;
+  text-shadow: 5px 5px #730909;
+  color: #eb4642;
 }
 
 .my-subheader {
@@ -11413,7 +11413,7 @@ section#contact form#contactForm :-ms-input-placeholder {
   }
 }
 .clients:hover, .clients:focus {
-  color: #e00500;
+  color: #eb4642;
 }
 .clients.disabled {
   color: #6c757d;
