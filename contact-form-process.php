@@ -72,7 +72,7 @@ if (isset($_POST['email'])) {
 
     <!-- INCLUDE YOUR SUCCESS MESSAGE BELOW -->
 
-    Thanks for getting in touch. One of our representatives will get back to you within 24-48 hours.
+    Thanks for getting in touch. One of our representatives will get back to you within 24-48 hours. For a faster response, call us at +1 (868) 765-7621 or +1 (868) 751-7481.
 
 <?php
 }
