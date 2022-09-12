@@ -11531,6 +11531,7 @@ video {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: black;
 }
 
 .video-wrapper .overlay {
