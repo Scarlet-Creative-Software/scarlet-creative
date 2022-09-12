@@ -41,8 +41,12 @@
         <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=163625125698118&ev=PageView&noscript=1"
         /></noscript>
-        <!-- End Meta Pixel Code -->
-        
+        <!-- End Meta Pixel Code --> 
+        <!-- For International Phone Numbers -->
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -611,23 +615,11 @@
 
                             <div class="form-group">
                                 <!-- Phone number input-->
-                                <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
+                                <input class="form-control phone-form" id="phone" type="tel" placeholder="Your Phone *" oninput="process(event)" data-sb-validations="required" />
                                 <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                                <div class="mt-2 validate-info" style="display: none"></div>
+                                <div class="mt-2 validate-error" style="display: none"></div>
                             </div>
-      
-                            <!-- <div class="row">
-                              <div class="col">
-                                <div class="form-group mb-md-0">
-                                <input class="form-control" id="test" type="text" placeholder="Test">
-                              </div>
-                              </div>
-                              <div class="col">
-                                <div class="form-group mb-md-0">
-                                  <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                                  <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                                </div>
-                              </div>
-                            </div> -->
       
                             <div class="form-group">
                               <!-- Email address input-->
@@ -943,4 +935,32 @@
         </div>
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            preferredCountries: ["tt", "us", "uk"],
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        const info = document.querySelector(".validate-info");
+        const error = document.querySelector(".validate-error");
+
+        function process(event) {
+            event.preventDefault();
+           
+            const phoneNumber = phoneInput.getNumber();
+           
+            info.style.display = "none";
+            error.style.display = "none";
+           
+            if (phoneInput.isValidNumber()) {
+              info.style.display = "";
+              info.innerHTML = `Phone number entered: <strong>${phoneNumber}</strong>`;
+            } else {
+              error.style.display = "";
+              error.innerHTML = `Invalid phone number.`;
+            }
+        }
+    </script>
 </html>

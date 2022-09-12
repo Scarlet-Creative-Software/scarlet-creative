@@ -25,6 +25,11 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+         <!-- For International Phone Numbers -->
+         <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
         
     </head>
     <body id="page-top">
@@ -2323,11 +2328,13 @@
                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                          </div>
 
-                         <div class="form-group">
-                             <!-- Phone number input-->
-                             <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                             <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                         </div>
+                        <div class="form-group">
+                           <!-- Phone number input-->
+                           <input class="form-control phone-form" id="phone" type="tel" placeholder="Your Phone *" oninput="process(event)" data-sb-validations="required" />
+                           <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                           <div class="mt-2 validate-info" style="display: none"></div>
+                           <div class="mt-2 validate-error" style="display: none"></div>
+                        </div>
    
                          <!-- <div class="row">
                            <div class="col">
@@ -2394,6 +2401,34 @@
      </section>
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
+    <script>
+      const phoneInputField = document.querySelector("#phone");
+      const phoneInput = window.intlTelInput(phoneInputField, {
+          preferredCountries: ["tt", "us", "uk"],
+          utilsScript:
+              "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+      });
+
+      const info = document.querySelector(".validate-info");
+      const error = document.querySelector(".validate-error");
+
+      function process(event) {
+          event.preventDefault();
+         
+          const phoneNumber = phoneInput.getNumber();
+         
+          info.style.display = "none";
+          error.style.display = "none";
+         
+          if (phoneInput.isValidNumber()) {
+            info.style.display = "";
+            info.innerHTML = `Phone number entered: <strong>${phoneNumber}</strong>`;
+          } else {
+            error.style.display = "";
+            error.innerHTML = `Invalid phone number.`;
+          }
+      }
+  </script>
    <!-- Footer-->
    <footer class="footer bg-dark py-4">
       <div class="container">
