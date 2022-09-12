@@ -481,7 +481,10 @@
                     <!-- an error submitting the form-->
                     <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                     <!-- Submit Button-->
-                    <div class="text-center"><button class="btn btn-danger btn-xl text-uppercase disabled" id="submitButton" type="submit" onclick="fbq('track', 'Lead')">Send Message</button>
+                    <div class="text-center"><button class="btn btn-danger btn-xl text-uppercase disabled" id="submitButton" type="submit" onclick=
+                        <script>
+                          fbq('track', 'Contact');
+                        </script>>Send Message</button>
                     </div>
                 </form>
             </div>
