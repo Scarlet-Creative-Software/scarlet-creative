@@ -72,7 +72,7 @@ if (isset($_POST['email'])) {
 
     <!-- INCLUDE YOUR SUCCESS MESSAGE BELOW -->
 
-    Thanks for getting in touch. We'll get back to you soon.
+    Thanks for getting in touch. One of our representatives will get back to you within 24-48 hours.
 
 <?php
 }
