@@ -25,7 +25,11 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        
+        <!-- For International Phone Numbers -->
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -38,7 +42,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><button class="btn btn-danger btn-xs"><a class="request-quote-link" href="#contact">Request a Quote</a></button></li>
+                        <li class="nav-item"><button class="btn btn-danger btn-xs"><a class="request-quote-link" href="#contact-terms">Request a Quote</a></button></li>
                     </ul>
                 </div>
             </div>
@@ -195,7 +199,157 @@
                 </div>
             </div>
         </section>
+
+        <!-- Contact-->
+        <section class="page-section bg-dark" class="contact" id="contact-terms">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="_form-05-box">
+                  <div class="row">
+                    <div class="col-sm-5 _lk_nb">
+                      <div class="form-05-box-a">
+                        <div class="_form_05_logo">
+                          <h2>Opening Hours</h2>
+                          <p class="mb-5">Reach out to us during the times below!</p>
+                          <h5 style="text-shadow: 2px 2px #730909;color:#e00500;">Monday - Friday</h5>
+                          <hr>
+                          <h3 class="mb-4" style="color:#ffffff; text-shadow: 2px 2px #e00500!important;">
+                            9
+                            <sup>00 am</sup>
+                              - 6
+                            <sup>00 pm</sup>
+                          </h3>
+                          <h5 style="text-shadow: 2px 2px #730909;color:#e00500;">Saturday</h5>
+                          <hr>
+                          <h3 style="color:#ffffff; text-shadow: 2px 2px #e00500!important;">
+                            9
+                            <sup>00 am</sup>
+                              - 2
+                            <sup>00 pm</sup>
+                          </h3>
+
+                          <!-- <h2 class="section-heading my-subheader text-uppercase">Request a Quote</h2> -->
+                          <!-- <h4 style="text-shadow: 2px 2px #e00500;color:#ffffff;padding-bottom: 20px;" class="masthead-subheading px-5">Do you want to discuss creative solutions with us? Contact me at: <br></h4> -->
+                          <!-- <hr> -->
+                          <!-- <h2 class="mb-3">Reach us at</h2> -->
+                          <h5 style="text-shadow: 2px 2px #730909;color:#e00500;padding-bottom: 20px;" class="pt-3 mt-5 masthead-subheading">We're happy to help!</h5>
+                          <!-- <h5 class="pt-3 masthead-subheading" style="padding-bottom: 20px;">
+                              <span style="text-shadow: 2px 2px #730909; color:#e00500;">Reach</span>
+                              <span style="text-shadow: 2px 2px #e00500;color:#ffffff;">us at</span>
+                          </h5> -->
+                                  
+                          <h6 style="font-size: 1.1rem;text-shadow: 2px 2px #e00500;color:#ffffff;" class="masthead-subheading">
+                              <i class="fa fa-phone fa-inverse fa-1x"></i> &nbsp;
+                              <a href="tel:+18687657621">+1 (868) 765-7621</a>
+                          </h6>   
+      
+                          <h6 style="font-size: 1.1rem;text-shadow: 2px 2px #e00500;" class="mb-5 masthead-subheading">
+                              <i class="fa fa-envelope fa-inverse fa-1x"></i> &nbsp;
+                              <a href="mailto:contact@scarletcreative.org?subject=Request Quote" onclick="fbq('track', 'Contact')">contact@scarletcreative.org</a>
+                          </h6>   
+                      
+                          <!-- <h5 style="text-shadow: 2px 2px #e00500;color:#ffffff;padding-bottom: 20px;" class="pt-3 masthead-subheading">We're happy to help!</h5> -->
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-7 _nb-pl">
+                      <form class="contactForm" data-sb-form-api-token="33add458-1c0b-4f06-80c8-98ccc4868a73">
+                      <div class="_mn_df">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <!-- Name input-->
+                            <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
+                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                          </div>
+
+                          <div class="form-group">
+                              <!-- Phone number input-->
+                              <input class="form-control phone-form" id="phone" type="tel" placeholder="Your Phone *" oninput="process(event)" data-sb-validations="required" />
+                              <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                              <div class="mt-2 validate-info" style="display: none"></div>
+                              <div class="mt-2 validate-error" style="display: none"></div>
+                          </div>
+    
+                          <div class="form-group">
+                            <!-- Email address input-->
+                            <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
+                            <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                            <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                          </div>
+    
+                          <div class="col-md-12">
+                            <div class="form-group form-group-textarea">
+                                <!-- Message input-->
+                                <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                            </div>
+                          </div>
+                        </div>
+    
+                        <!-- Submit success message-->
+                        <!---->
+                        <!-- This is what your users will see when the form-->
+                        <!-- has successfully submitted-->
+                        <div class="d-none" id="submitSuccessMessage">
+                          <div class="text-center text-white mb-3">
+                              <div class="fw-bolder">Form submission successful!</div>
+                              We'll be in touch shortly!
+                          </div>
+                        </div>
+                        <!-- Submit error message-->
+                        <!---->
+                        <!-- This is what your users will see when there is-->
+                        <!-- an error submitting the form-->
+                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                        <!-- Submit Button-->
+                        <div class="text-center"><button class="btn btn-danger _btn_04 btn-xl text-uppercase disabled" id="submitButton" type="submit" onclick="fbq('track', 'Lead')">Get a Quote</button>
+                        </div>
+    
+                        <!-- <div class="form-group">
+                          <div class="_btn_04">
+                            <a href="#">Get a Quote</a>
+                          </div>
+                        </div> -->
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
     </body>
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            preferredCountries: ["tt", "us", "uk"],
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        const info = document.querySelector(".validate-info");
+        const error = document.querySelector(".validate-error");
+
+        function process(event) {
+            event.preventDefault();
+           
+            const phoneNumber = phoneInput.getNumber();
+           
+            info.style.display = "none";
+            error.style.display = "none";
+           
+            if (phoneInput.isValidNumber()) {
+              info.style.display = "";
+              info.innerHTML = `Phone number entered: <strong>${phoneNumber}</strong>`;
+            } else {
+              error.style.display = "";
+              error.innerHTML = `Invalid phone number.`;
+            }
+        }
+    </script>
     <!-- Footer-->
     <footer class="footer bg-dark py-4">
       <div class="container">
