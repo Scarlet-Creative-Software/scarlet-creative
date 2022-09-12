@@ -26,7 +26,7 @@ if (isset($_POST['email'])) {
 
     $name = $_POST['name']; // required
     $email = $_POST['email']; // required
-    $email = $_POST['phone']; // required
+    $phone = $_POST['phone']; // required
     $message = $_POST['message']; // required
 
     $error_message = "";
@@ -60,7 +60,7 @@ if (isset($_POST['email'])) {
 
     $email_message .= "Name: " . clean_string($name) . "\n";
     $email_message .= "Email: " . clean_string($email) . "\n";
-    $email_message .= "Email: " . clean_string($phone) . "\n";
+    $email_message .= "Phone: " . clean_string($phone) . "\n";
     $email_message .= "Message: " . clean_string($message) . "\n";
 
     // create email headers
@@ -72,7 +72,7 @@ if (isset($_POST['email'])) {
 
     <!-- INCLUDE YOUR SUCCESS MESSAGE BELOW -->
 
-    Thanks for getting in touch. We'll get back to you soon.
+    Thanks for getting in touch. One of our representatives will get back to you within 24-48 hours. For a faster response, call us at +1 (868) 765-7621 or +1 (868) 751-7481.
 
 <?php
 }
