@@ -11987,6 +11987,17 @@ font-size:15px;
 color:#fff;
 }
 
+.validate-info {
+  color: #ffffff;
+  text-shadow: 2px 2px 730909;
+  font-size: 0.875em;
+}
+
+.validate-error{
+  color: #e00500;
+  font-size: 0.875em;
+}
+
 @media screen and (max-width: 767px){
   ._form-05-box{
     height: auto;
@@ -12007,6 +12018,14 @@ color:#fff;
     padding-right:0px !important;
   }
 }
+
+/* International Phone */
+#phone {
+  width: 100% !important;
+  padding-top: 40px;
+}
+
+.iti { width: 100%; padding-left:40px;}
 
 /* @media only screen and (max-width: 767px)
 .section_wrapper, .container, .four.columns .widget-area {
