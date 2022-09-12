@@ -11679,6 +11679,12 @@ video {
   background-color: #ffffff;
 }
 
+@media screen and (max-width: 767px){
+  .service-card-outer {
+    padding-bottom: 35px;
+  }
+}
+
 .card-wrapper {  
   position: relative;  
   width: 400px;  
