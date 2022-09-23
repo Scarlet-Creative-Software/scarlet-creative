@@ -3914,6 +3914,7 @@ textarea.form-control-lg {
 
 .request-quote-btn {
   border: 2px solid #e00500;
+  color: #fff;
   z-index: 1;
 }
 .request-quote-btn:after {
