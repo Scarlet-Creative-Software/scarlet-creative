@@ -64,7 +64,15 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><button class="custom-btn request-quote-btn"><a class="request-quote-link" href="#contact-careers">Request a Quote</a></button></li>
+                      <!-- Dark Mode Icon -->
+                        <!-- <li class="nav-item">
+                          <div class="dark-light">
+                            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                            </svg>
+                          </div>
+                        </li> -->
+                        <li class="nav-item"><button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="#contact-careers">Request a Quote</a></button></li>
                     </ul>
                 </div>
             </div>
@@ -142,7 +150,7 @@
             </div>
             <div class="job-explain-content">
               <div class="job-title-wrapper">
-              <div class="job-card-title">Front-End Developer</div>
+                <div class="job-card-title">Front-End Developer</div>
              </div>
              <div class="job-subtitle-wrapper">
               <div class="company-name">Scarlet Creative Software Limited <span class="comp-location">Trinidad and Tobago</span></div>
@@ -240,9 +248,9 @@
           
         </section>
 
-        <section class="bg-light mission backend-dev careers">
-          <div class="job-explain">
-            <p>This is a test</p>
+        <section class="bg-light-grey mission backend-dev careers">
+          <div class="center">
+            <button class="custom-btn btn-4"><span>Coming Soon!</span></button>
           </div>
         </section>
 
@@ -406,6 +414,14 @@
             dropdownDepartment.classList.remove("is-open");
           }
         };
+      </script>
+      <!-- Toggle dark mode -->
+      <script>
+        const toggleButton = document.querySelector(".dark-light");
+
+        toggleButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        });
       </script>
       <!-- This dynamically changes the selected career details -->
       <!-- TODO: When there is more than 1 department, the options under "Role" should dynamically change
