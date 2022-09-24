@@ -412,13 +412,13 @@
       based on the selected department -->
       <script>
         var hideAll = function() {
-          $('.careers').hide();
+          $('.careers').hide("slow");
         }
       
         $('#job-roles-list').on('change', function() {
           hideAll();
           var category = $("input[name='selected-role']:checked").val();
-          $('.' + category).show();
+          $('.' + category).show("slow");
         });
       </script>
 </html>
