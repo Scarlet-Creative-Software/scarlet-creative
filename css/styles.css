@@ -4039,7 +4039,7 @@ textarea.form-control-lg {
   z-index: 1;
 }
 .request-quote-btn a {
-  padding: 10px 25px;
+  padding: 0.725em 1.6625em;
 }
 .request-quote-btn:after {
   position: absolute;
@@ -4072,13 +4072,21 @@ textarea.form-control-lg {
   border-color: #dc3545;
 }
 
-/* @media (min-width: 576px) {
+@media (max-width: 576px) {
+  .request-quote-btn a {
+    padding: 0.375rem 0.15rem;
+  }
+}
 
-} */
-
-@media (max-width: 768px) {
+@media (min-width: 577px) {
   .request-quote-btn a {
     padding: 0.375rem 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .request-quote-btn a {
+    padding: 0.725em 1.6625em;
   }
 }
 
