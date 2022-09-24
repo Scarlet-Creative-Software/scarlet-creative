@@ -36,6 +36,8 @@
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 
+  --color-white: #fff;
+  --color-red: #e00500;
   --body-bg-color: #e5ecef;
   --theme-bg-color: #fafafb;
   --body-font: "Poppins", sans-serif;
@@ -13217,4 +13219,34 @@ select::-ms-expand {
   .header {
     padding: 0 20px;
  }
+}
+
+/* Button to go back to the top of the page */
+.back-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  cursor: pointer;
+  z-index: 999;
+  width: 50px;
+  height: 50px;
+  line-height: 46px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgb(0 0 0 / 25%);
+}
+
+/* .back-top:hover {
+  background-color: var(--color-red);
+} */
+
+@media only screen and (max-width: 767px) {
+  .back-top {
+    bottom: 20px;
+    right: 20px;
+  }
 }

@@ -51,4 +51,11 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
 
+    // Scroll to the top of the page
+    $('.back-top').on('click', function() {
+        window.scrollTo(0, 0);
+    });
+
 });
+
+
