@@ -89,7 +89,7 @@
                     <div class="masthead-subheading">Where function meets <span style="text-shadow: 2px 2px #730909;color:#eb4642">elegance.</span></div>
                     <br>
                     <div style="font-size: 1.65rem;text-shadow: 2px 2px #730909;color:#eb4642" class="masthead-subheading px-5">Scarlet Creative is a Software Development firm located in <span style="font-size: 1.5rem;text-shadow: 2px 2px #e00500;color:#ffffff">Trinidad & Tobago</span> with chapters in the <span style="font-size: 1.5rem;text-shadow: 2px 2px #e00500;color:#ffffff">US and UK</span>, serving a wide variety of satisfied clients and producing powerful and scalable technological solutions.</div>
-                    <a class="btn btn-danger mt-5 btn-xl text-uppercase" href="#services">Tell Me More</a>
+                    <a class="custom-btn request-quote-btn mt-5 btn-xl text-uppercase" href="#services">Tell Me More</a>
                 </div>
             </header>
         </div>
@@ -977,6 +977,35 @@
     
     <script type="text/javascript">
         window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+    </script>
+    <script>
+        // Script for phone number field
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            preferredCountries: ["tt", "us", "uk"],
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        const info = document.querySelector(".validate-info");
+        const error = document.querySelector(".validate-error");
+
+        $('#phone').on('input', function(event) {
+            event.preventDefault();
+        
+            const phoneNumber = phoneInput.getNumber();
+        
+            info.style.display = "none";
+            error.style.display = "none";
+        
+            if (phoneInput.isValidNumber()) {
+            info.style.display = "";
+            info.innerHTML = `Phone number entered: <strong>${phoneNumber}</strong>`;
+            } else {
+            error.style.display = "";
+            error.innerHTML = `Invalid phone number.`;
+            }
+        });
     </script>
     <script>
         //console.log("Creating module");
