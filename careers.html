@@ -43,6 +43,8 @@
         /></noscript>
         <!-- End Meta Pixel Code --> 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
          <!-- Facebook Tracking-->
@@ -394,8 +396,9 @@
         $('#job-roles-list').on('change', function() {
           hideAll();
           var category = $("input[name='selected-role']:checked").val();
-          $('.' + category).show("slow");
-          $('html, body').scrollTop($('#' + category).offset().top);
+          $('.' + category).show("slide", {direction: 'left'}, 700);
+          // show("slow");
+          // $('html, body').scrollTop($('#' + category).offset().top);
         });
 
       </script>
