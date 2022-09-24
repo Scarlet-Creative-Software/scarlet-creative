@@ -47,10 +47,16 @@
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
     </head>
     <body id="page-top">
+         <!-- Facebook Tracking-->
+        <script>
+             fbq('track', 'ViewContent');
+        </script>
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg shadow-5-strong navbar-dark fixed-top" id="mainNav">
+        <nav class="navbar navbar-expand-lg shadow-5-strong navbar-dark fixed-top mainNav">
             <div class="container">
                 <a class="navbar-brand" href="#page-top"><img src="assets/img/logo-white.png" style="width:20%;height:20%" alt="logo" />Scarlet</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +69,8 @@
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-                        <li class="nav-item"><button class="btn btn-danger btn-xs"><a class="request-quote-link" href="#contact">Request a Quote</a></button></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="careers.html">Careers</a></li> -->
+                        <li class="nav-item"><button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="#contact-index">Request a Quote</a></button></li>
                     </ul>
                 </div>
             </div>
@@ -71,7 +78,7 @@
         <!-- Masthead-->
         <div class="video-wrapper">
             <div class="overlay"></div>
-            <video playsinline autoplay muted loop poster="/assets/img/black.jpg">
+            <video playsinline autoplay muted loop poster="assets/img/black.jpg">
               <source src="assets/img/header-bg-video-updated.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
@@ -79,7 +86,7 @@
                 <div class="container">
                     <div class="masthead-subheading">Welcome to</div>
                     <div class="masthead-heading text-uppercase my-header">Scarlet Creative</div>
-                    <div class="masthead-subheading">Where function meets <span style="text-shadow: 3px 3px #730909;color:#eb4642">elegance.</span></div>
+                    <div class="masthead-subheading">Where function meets <span style="text-shadow: 2px 2px #730909;color:#eb4642">elegance.</span></div>
                     <br>
                     <div style="font-size: 1.65rem;text-shadow: 2px 2px #730909;color:#eb4642" class="masthead-subheading px-5">Scarlet Creative is a Software Development firm located in <span style="font-size: 1.5rem;text-shadow: 2px 2px #e00500;color:#ffffff">Trinidad & Tobago</span> with chapters in the <span style="font-size: 1.5rem;text-shadow: 2px 2px #e00500;color:#ffffff">US and UK</span>, serving a wide variety of satisfied clients and producing powerful and scalable technological solutions.</div>
                     <a class="btn btn-danger mt-5 btn-xl text-uppercase" href="#services">Tell Me More</a>
@@ -98,7 +105,7 @@
                 </div>
                 
                 <div class="row text-left">
-                    <div class="col-md-4 service-card-outer">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
                         <div class="service-card">
                             <div class="services">
                                 <i class="fa-duotone fa-brackets-curly fa-4x filter-red"></i>
@@ -119,7 +126,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 service-card-outer">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
                         <div class="service-card">
                             <div class="services">
                                 <!-- <img src="assets/img/Icons/data-analytics-icon.svg" class="card-icon filter-red"/> -->
@@ -142,7 +149,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 service-card-outer">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
                         <div class="service-card">
                             <div class="services">
                                 <!-- <img src="assets/img/Icons/data-analytics-icon.svg" class="card-icon filter-red"/> -->
@@ -176,7 +183,7 @@
                 </div>
                 
                 <div class="row text-left">
-                    <div class="col-md-4 service-card-outer">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
                         <div class="service-card">
                             <div class="services">
                                 <img style="width:5em;" src="assets/img/Icons/data-analytics-icon.svg" class="card-icon filter-red"/>
@@ -199,7 +206,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 service-card-outer">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
                         <div class="service-card">
                             <div class="services">
                                 <i class="fa-duotone fa-paintbrush-fine fa-4x filter-red"></i>
@@ -217,7 +224,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 service-card-outer">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
                         <div class="service-card">
                             <div class="services">
                                 <img style="width:5em;" src="assets/img/Icons/consultation-icon.svg" class="card-icon filter-red"/>
@@ -393,13 +400,13 @@
             <div class="py-2 page-section" id="other-services">
                 <div class="container">
                     <div class="row align-items-center">
-                        <div class="col-md-6 col-sm-12 my-6">
+                        <div class="col-md-6 col-sm-12 my-4">
                             <a href="https://azure.microsoft.com/en-us/" target="_blank"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/microsoft.svg" alt="..." /></a>
                         </div>
-                        <div class="col-md-4 col-sm-8 my-4">
+                        <!-- <div class="col-md-4 col-sm-8 my-4">
                             <a href="https://cloud.google.com/"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/google.svg" alt="..." /></a>
                         </div> -->
-                        <div class="col-md-6 col-sm-12 my-6">
+                        <div class="col-md-6 col-sm-12 my-4">
                             <a href="https://aws.amazon.com/" target="_blank"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/amazon.png" alt="..." /></a>
                         </div>
                     </div>
@@ -511,7 +518,7 @@
         </section>
 
         <!-- Contact-->
-        <section class="page-section bg-dark" id="contact">
+        <section class="page-section bg-dark" class="contact" id="contact-index">
             <div class="container">
               <div class="row">
                 <div class="col-12">
@@ -538,17 +545,7 @@
                                - 2
                               <sup>00 pm</sup>
                             </h3>
-
-                            <!-- <h2 class="section-heading my-subheader text-uppercase">Request a Quote</h2> -->
-                            <!-- <h4 style="text-shadow: 2px 2px #e00500;color:#ffffff;padding-bottom: 20px;" class="masthead-subheading px-5">Do you want to discuss creative solutions with us? Contact me at: <br></h4> -->
-                            <!-- <hr> -->
-                            <!-- <h2 class="mb-3">Reach us at</h2> -->
                             <h5 style="text-shadow: 2px 2px #730909;color:#e00500;padding-bottom: 20px;" class="pt-3 mt-5 masthead-subheading">We're happy to help!</h5>
-                            <!-- <h5 class="pt-3 masthead-subheading" style="padding-bottom: 20px;">
-                                <span style="text-shadow: 2px 2px #730909; color:#e00500;">Reach</span>
-                                <span style="text-shadow: 2px 2px #e00500;color:#ffffff;">us at</span>
-                            </h5> -->
-                                    
                             <h6 style="font-size: 1.1rem;text-shadow: 2px 2px #e00500;color:#ffffff;" class="masthead-subheading">
                                 <i class="fa fa-phone fa-inverse fa-1x"></i> &nbsp;
                                 <a href="tel:+18687657621">+1 (868) 765-7621</a>
@@ -558,41 +555,122 @@
                                 <i class="fa fa-envelope fa-inverse fa-1x"></i> &nbsp;
                                 <a href="mailto:contact@scarletcreative.org?subject=Request Quote" onclick="fbq('track', 'Contact')">contact@scarletcreative.org</a>
                             </h6>   
-                        
-                            <!-- <h5 style="text-shadow: 2px 2px #e00500;color:#ffffff;padding-bottom: 20px;" class="pt-3 masthead-subheading">We're happy to help!</h5> -->
-
                           </div>
                         </div>
                       </div>
                       <div class="col-sm-7 _nb-pl">
-                        <form id="contactForm" data-sb-form-api-token="33add458-1c0b-4f06-80c8-98ccc4868a73">
+                        <form class="contactForm" data-sb-form-api-token="33add458-1c0b-4f06-80c8-98ccc4868a73">
                         <div class="_mn_df">
                           <div class="col-md-12">
-                            <div class="form-group">
-                              <!-- Name input-->
-                              <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
-                              <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+  
+                            <div class="row">
+                              <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <!-- Name input-->
+                                  <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
+                                  <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                </div>
+                              </div>
+  
+                              <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <!-- Company Name input-->
+                                  <input class="form-control" id="companyName" type="text" placeholder="Company Name *" data-sb-validations="required" />
+                                  <div class="invalid-feedback" data-sb-feedback="companyName:required">A company name is required.</div>
+                                </div>
+                              </div>
                             </div>
-
-                            <div class="form-group">
-                                <!-- Phone number input-->
-                                <input class="form-control phone-form" id="phone" type="tel" placeholder="Your Phone *" oninput="process(event)" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                                <div class="mt-2 validate-info" style="display: none"></div>
-                                <div class="mt-2 validate-error" style="display: none"></div>
+  
+                            <div class="row">
+                              <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <!-- Email address input-->
+                                  <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
+                                  <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                  <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                </div>
+                              </div>
+  
+                              <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <!-- Phone number input-->
+                                  <input class="form-control phone-form" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
+                                  <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                                  <div class="mt-2 validate-info" style="display: none"></div>
+                                  <div class="mt-2 validate-error" style="display: none"></div>
+                                </div>
+                              </div>
                             </div>
-      
-                            <div class="form-group">
-                              <!-- Email address input-->
-                              <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                              <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                              <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                            </div>
+  
+                            <div class="row">
+                              <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <!-- Team Size -->
+                                  <select class="form-group-select form-control" name="teamSize" id="teamSize" data-sb-validations="required">
+                                    <span class="dropdown-arrow right-arrow"></span>
+                                    <option value="" disabled selected>Size of your Team *</option>
+                                    <option value="1-3">1-3</option>
+                                    <option value="4-8">4-8</option>
+                                    <option value="9-18">9-18</option>
+                                    <option value="19-30">19-30</option>
+                                    <option value="over-30">31+</option>
+                                  </select>
+                                  <div class="invalid-feedback" data-sb-feedback="teamSize:required">The size of your team is required.</div>
+                                </div>
+                              </div>
+  
+                              <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <!-- Organisation Size -->
+                                  <select class="form-group-select form-control" name="organisationSize" id="organisationSize">
+                                    <option value="" disabled selected>Organisation Size</option>
+                                    <option value="Small">Small</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Large">Large</option>
+                                    <option value="Enterprise">Enterprise</option>
+                                  </select>
+                                </div>
+                              </div>
+                          </div>
+  
+                            <div class="row">
+                              <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <!-- Project Type -->
+                                  <select class="form-group-select form-control" name="projectType" id="projectType" data-sb-validations="required">
+                                    <option value="" disabled selected>Project Type *</option>
+                                    <option value="Simple Website">Simple Website</option>
+                                    <option value="Interactive Website/Web App">Interactive Website/Web App</option>
+                                    <option value="eCommerce">eCommerce</option>
+                                    <option value="Mobile App">Mobile App</option>
+                                    <option value="Graphics/Logo Design">Graphics/Logo Design</option>
+                                    <option value="Consultation">Consultation</option>
+                                    <option value="Data Science/Analytics">Data Science/Analytics</option>
+                                    <option value="Blockchain/Web3 Solution">Blockchain/Web3 Solution</option>
+                                  </select>
+                                  <div class="invalid-feedback" data-sb-feedback="projectType:required">The project type is required.</div>
+                                </div>
+                              </div>
+  
+                              <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                  <!-- Budget -->
+                                  <select class="form-group-select form-control" name="budget" id="budget" data-sb-validations="required">
+                                    <option value="" disabled selected>Budget *</option>
+                                    <option value="$1000 TTD - $3000 TTD">$1000 TTD - $3000 TTD</option>
+                                    <option value="$3000 TTD - $7000 TTD">$3000 TTD - $7000 TTD</option>
+                                    <option value="$7000 TTD - $15000 TTD">$7000 TTD - $15000 TTD</option>
+                                    <option value="Over $15000 TTD">$15000+ TTD</option>
+                                  </select>
+                                  <div class="invalid-feedback" data-sb-feedback="budget:required">The budget is required.</div>
+                                </div>
+                              </div>
+                          </div>
       
                             <div class="col-md-12">
                               <div class="form-group form-group-textarea">
                                   <!-- Message input-->
-                                  <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
+                                  <textarea class="form-control" id="message" placeholder="Please add any details here *" data-sb-validations="required"></textarea>
                                   <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
                               </div>
                             </div>
@@ -614,14 +692,8 @@
                           <!-- an error submitting the form-->
                           <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                           <!-- Submit Button-->
-                          <div class="text-center"><button class="btn btn-danger _btn_04 btn-xl text-uppercase disabled" id="submitButton" type="submit" onclick="fbq('track', 'Lead')">Get a Quote</button>
+                          <div class="text-center"><button class="custom-btn request-quote-btn _btn_04 btn-xl text-uppercase disabled" id="submitButton" type="submit" onclick="fbq('track', 'Lead')">Get a Quote</button>
                           </div>
-      
-                          <!-- <div class="form-group">
-                            <div class="_btn_04">
-                              <a href="#">Get a Quote</a>
-                            </div>
-                          </div> -->
                         </div>
                       </form>
                       </div>
@@ -631,6 +703,7 @@
               </div>
             </div>
         </section>
+
         <!-- Footer-->
    <footer class="footer bg-dark py-4">
       <div class="container">
@@ -645,8 +718,12 @@
                   <a class="link-dark text-decoration-none text-white" href="terms.html" data-toggle="tooltip" data-placement="top">Terms of Use</a>
                </div>
             </div>
-      </div>
-   </footer>
+        </footer>
+
+        <div class="back-top" style="opacity: 1;">
+            <i class="fa-duotone fa-arrow-up"></i>
+        </div>
+
         <!-- Portfolio Modals-->
         <!-- Portfolio item 1 modal popup-->
         <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
@@ -674,7 +751,7 @@
                                             AI-Powered KYC Tool
                                         </li>
                                     </ul>
-                                    <button class="btn btn-danger btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fa fa-times me-1"></i>
                                         Close Project
                                     </button>
@@ -709,7 +786,7 @@
                                             Insurance
                                         </li>
                                     </ul>
-                                    <button class="btn btn-danger btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fa fa-times me-1"></i>
                                         Close Project
                                     </button>
@@ -744,7 +821,7 @@
                                             Insurance
                                         </li>
                                     </ul>
-                                    <button class="btn btn-danger btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fa fa-times me-1"></i>
                                         Close Project
                                     </button>
@@ -780,7 +857,7 @@
                                             AI Real-Estate
                                         </li>
                                     </ul>
-                                    <button class="btn btn-danger btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fa fa-times me-1"></i>
                                         Close Project
                                     </button>
@@ -813,7 +890,7 @@
                                             AI-Powered Child Online Protection
                                         </li>
                                     </ul>
-                                    <button class="btn btn-danger btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fa fa-times me-1"></i>
                                         Close Project
                                     </button>
@@ -848,7 +925,7 @@
                                             Smart Agriculture
                                         </li>
                                     </ul>
-                                    <button class="btn btn-danger btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fa fa-times me-1"></i>
                                         Close Project
                                     </button>
@@ -883,7 +960,7 @@
                                             Insurance, Claims & Mortgage
                                         </li>
                                     </ul>
-                                    <button class="btn btn-danger btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fa fa-times me-1"></i>
                                         Close Project
                                     </button>
@@ -896,32 +973,124 @@
         </div>
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
+    
+    <script type="text/javascript">
+        window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+    </script>
     <script>
-        const phoneInputField = document.querySelector("#phone");
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            preferredCountries: ["tt", "us", "uk"],
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-
-        const info = document.querySelector(".validate-info");
-        const error = document.querySelector(".validate-error");
-
-        function process(event) {
-            event.preventDefault();
-           
-            const phoneNumber = phoneInput.getNumber();
-           
-            info.style.display = "none";
-            error.style.display = "none";
-           
-            if (phoneInput.isValidNumber()) {
-              info.style.display = "";
-              info.innerHTML = `Phone number entered: <strong>${phoneNumber}</strong>`;
-            } else {
-              error.style.display = "";
-              error.innerHTML = `Invalid phone number.`;
+        //console.log("Creating module");
+        angular.module('app', [])
+        .controller("TestController", function TestController($scope) {
+        var tc = $scope;
+        tc.valueSelected = '';
+        tc.itemSelected = '';
+        tc.clicked = false;
+        
+        tc.tcClicked = function(value, item) {
+            tc.valueSelected = value;
+            tc.itemSelected = item;
+            tc.clicked = true;
+        };
+        })
+        .directive('filterSelect', function($compile) {
+        return {
+        restrict: 'E',
+        template: '<div class="selectmenu" ng-transclude></div>',
+        transclude: true,
+        replace: true,
+        // Isolate scope so we can filter items under _this_ list.
+        scope: {
+            selected: '&'
+        }, 
+        link: function($scope, $element, $attr) {
+            // Collect all event handlers for deregistration.
+            var deregisterHandlers = [];
+            
+            // Set first element as non selected item.
+            var nonSelected = $($element.find('li')[0]);
+            var display = nonSelected.text();
+            nonSelected.addClass('default');
+            
+            // Grab the entire list and start if off hidden.
+            var items = $($element.find('ul')[0]);
+            items.toggleClass('hide');
+            
+            // Create chevron to indicate expand/collapse action.
+            var chevron = $('<span class="glyphicon glyphicon-chevron-up pull-right rotate-down"></span>');
+            
+            // Separate text for easier updates.
+            var selectedText = $('<span>' + display + '</span>');
+            
+            // Build up the header and attach it to the top of the list.
+            var menuHeader = $('<div class="menu-header"></div>');
+            menuHeader.append(selectedText);
+            menuHeader.append(chevron);
+            $(menuHeader).insertBefore(items);
+            
+            // Provide function to hide/show filtered values.
+            $scope.filterValues = function() {
+            var filter = $scope.filter.toUpperCase();
+            var list = $element.find('li');
+            for (var i = 0; i < list.length; i++) {
+                var text = $(list[i]).text();
+                if (text.toUpperCase().indexOf(filter) !== -1) 
+                    list[i].style.display = 'list-item';
+                else
+                    list[i].style.display = 'none';
             }
+            };
+            
+            // Create an input box for filtering items.
+            var filterBox = $compile(
+            '<div class="search">' +
+                '<i class="glyphicon glyphicon-search"></i>' +
+                '<input type="text" placeholder="Filter..." class="filter-select-input"' +
+                        'ng-model="filter" ng-change="filterValues()" />' +
+            '</div>')($scope);
+            $(items).prepend(filterBox);
+            
+            // Attach event listeners for the header and displayed items.
+            var menuHeaderClick = menuHeader.on('click', function(){
+            console.log("Menu Header::clicked!");
+            items.toggleClass('hide');
+            chevron.toggleClass('rotate');
+            chevron.toggleClass('rotate-down');
+            });
+            deregisterHandlers.push(menuHeaderClick);
+            
+            // Attach click events, on click report and toggle the chevron.
+            angular.forEach($element.find('li'), function(li) {
+            var item = $(li);
+            var clickHandle = item.on('click', function(){
+                // Separate the value/text.
+                var valueSelected = item[0].attributes['x-value'].value;
+                var textSelected = item.text();
+                
+                // Notify relevant listeners.
+                if($scope.selected) {
+                $scope.selected({arg1: valueSelected, arg2: textSelected});
+                }
+                
+                // Update the menu to reflect the selected item.
+                selectedText.text(textSelected);
+                chevron.toggleClass('rotate');
+                chevron.toggleClass('rotate-down');
+                items.toggleClass('hide');
+                
+                // Bring us back onto the digest cycle.
+                $scope.$apply();
+            });
+            
+            deregisterHandlers.push(clickHandle);
+            });
+            
+            $scope.$on('$destroy', function() {
+            deregisterHandlers.forEach(function(handle) {
+                handle();
+            });
+            });
         }
+        };
+        }); 
     </script>
 </html>

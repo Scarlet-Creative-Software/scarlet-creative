@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Expert Caribbean-based software development" />
+        <meta name="author" content="Scarlet Creative Software Limited" />
+        <title>Scarlet Creative Software Limited: Creativity Engineered</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
+        <!-- Font Awesome icons (free version)-->
+        <!-- <script src="https://use.fontawesome.com/5a18be030b.js" crossorigin="anonymous"></script> -->
+        <script defer src="assets/fontawesome/js/solid.js"></script>
+        <script defer src="assets/fontawesome/js/brands.js"></script>
+        <script defer src="assets/fontawesome/js/duotone.js"></script>
+        <script defer src="assets/fontawesome/js/sharp-solid.js"></script>
+        <script defer src="assets/fontawesome/js/fontawesome.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <!-- Meta Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '163625125698118');
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=163625125698118&ev=PageView&noscript=1"
+        /></noscript>
+        <!-- End Meta Pixel Code --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body id="careers-top">
+         <!-- Facebook Tracking-->
+        <script>
+             fbq('track', 'ViewContent');
+        </script>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg shadow-5-strong navbar-dark fixed-top mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="index.html"><img src="assets/img/logo-white.png" style="width:20%;height:20%" alt="logo" />Scarlet</a>
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fa fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                      Dark Mode Icon
+                        <li class="nav-item">
+                          <div class="dark-light">
+                            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                            </svg>
+                          </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    </ul>
+                </div> -->
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <div class="video-wrapper">
+            <div class="overlay"></div>
+            <video playsinline autoplay muted loop poster="assets/img/black.jpg">
+              <source src="assets/img/header-bg-video-updated.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <header class="masthead">
+                <div class="container">
+                    <div class="masthead-heading text-uppercase my-header">Explore, <span style="text-shadow: 2px 2px #730909;color:#eb4642">Design</span>, Create</div>
+                    <div class="masthead-subheading">Join our team at <span style="text-shadow:  2px 2px #730909;color:#eb4642">Scarlet Creative</span></div>
+                    <br>
+                    <div class="content form-inline">
+                        <!-- <h3>Join The Future </h3> -->
+                        <div class="dropdown inline" id="dropdown-role">
+                          <label class="label" for="dropdown-role">Role</label>
+                          <button class="careers-dropdown round_first" type="button" name="button" aria-haspopup="listbox" onclick="toggleDropdownRole()">
+                            <span id="role-label" class="dropdown-label">Select A Role</span>
+                            <span class="dropdown-arrow left-arrow"></span>
+                          </button>
+                          <form id="form-role" name="formRole" class="dropdown-form">
+                            <ul class="dropdown-options" role="listbox" tabindex="-1" id="job-roles-list">
+                              <li class="option">
+                                <label for="frontend-dev">
+                                  <input type="radio" value="frontend-dev" id="frontend-dev" name="selected-role">
+                                  <span>Front-End Developer <i class="icon-colour-hover fa-duotone fa-paintbrush-pencil filter-red"></i></span>
+                                </label>
+                              </li>
+                              <li class="option">
+                                <label for="backend-dev">
+                                  <input type="radio" value="backend-dev" id="backend-dev" name="selected-role">
+                                  <span>Back-End Developer <i class="fa-duotone fa-rectangle-terminal filter-red"></i></span>
+                                </label>
+                              </li>
+                            </ul>
+                          </form>
+                        </div>
+                      
+                        <span class="between-select">in</span>
+                        
+                        <div class="dropdown inline" id="dropdown-department">
+                          <label class="label" for="dropdown-department">Department</label>
+                          <button class ="round_second" type="button" name="button" aria-haspopup="listbox" onclick="toggleDropdownDepartment()">
+                            <span id="department-label" class="dropdown-label">Select A Department</span>
+                            <span class="dropdown-arrow right-arrow"></span>
+                          </button>
+                          <form id="form-department" name="formDepartment" class="dropdown-form">
+                            <ul class="dropdown-options" role="listbox" tabindex="-1">
+                              <li class="option">
+                                <label for="software-dev">
+                                  <input type="radio" value="software-dev" id="software-dev" name="selected-department">
+                                  <span>Software Development <i class="fa-duotone fa-alien-8bit filter-red"></i></span>
+                                </label>
+                              </li>
+                            </ul>
+                          </form>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </header>
+        </div>
+        
+        <!-- Careers -->
+        <section class="bg-light mission frontend-dev careers" id="frontend-dev">
+          <div class="job-explain">
+            <img class="job-bg" src="assets/img/careers/creative2.jpg" alt="">
+            <div class="job-logos">
+              <i class="job-logo fa-duotone fa-paintbrush-pencil"></i>
+            </div>
+            <div class="job-explain-content">
+              <div class="job-title-wrapper">
+                <div class="job-card-title">Front-End Developer</div>
+             </div>
+             <div class="job-subtitle-wrapper">
+              <div class="company-name">Scarlet Creative Software Limited <span class="comp-location">Trinidad and Tobago</span></div>
+             </div>
+             <div class="explain-bar">
+              <div class="explain-contents">
+                <div class="explain-title">Experience</div>
+                <div class="explain-subtitle">Minimum 1 Year</div>
+               </div>
+              <div class="explain-contents">
+                <div class="explain-title">Work Level</div>
+                <div class="explain-subtitle">Junior level</div>
+               </div>
+              <div class="explain-contents">
+                <div class="explain-title">Employee Type</div>
+                <div class="explain-subtitle">Full Time Remote Job</div>
+               </div>
+              <div class="explain-contents">
+                <div class="explain-title">Offer Salary</div>
+                <div class="explain-subtitle">Starts at: $8000.0 / Month</div>
+               </div>
+             </div>
+             <div class="overview-text">
+              <div class="overview-text-header">Overview</div>
+
+              <div class="overview-text-subheader">
+                <p>
+                  We are looking for a qualified Front-End developer to join us at Scarlet Creative. You will be responsible for building the ‘client-side’ of our web applications. You should be able to translate our company and customer needs into functional and appealing interactive applications.
+                  <br><br>
+                  If you’re interested in creating a user-friendly environment by writing code and moving forward in your career, then this job is for you. We expect you to be a knowledgeable professional, who is curious about new digital technologies and aspires to combine usability with visual design. Ultimately, you should be able to create a functional and attractive digital environment for our company, ensuring great user experience. This is an opportunity to learn new skills and technologies. However, we do expect you to be able to hold your own with the following.
+                </p>
+              </div>
+             </div>
+             <div class="overview-text">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="overview-text-header">Main Responsibilities</div>
+                  <div class="overview-text-item">Regularly communicate with stakeholders, project managers, quality assurance teams, and other developers regarding progress on the long-term technology roadmap.</div>
+                  <div class="overview-text-item">Create and maintain workflows with teams to provide visibility and to ensure workload balance for consistent visual designs.</div>
+                  <div class="overview-text-item">Develop and oversee testing schedules in client server environment, addressing all browsers and devices to ensure various devices display the desired content.</div>
+                  <div class="overview-text-item">Use HTML5 to create responsive, interactive and user-friendly web pages.</div>
+                  <div class="overview-text-item">Develop Progressive Web Apps using Reactjs or Flutter.</div>
+                  <div class="overview-text-item">Maintaining and polishing legacy websites.</div>
+                  <div class="overview-text-item">Assisting in integration and UI testing</div>
+                  <div class="overview-text-item">Optimising applications for maximum speed</div>
+                  <div class="overview-text-item">Collaborating with back-end developers and web designers to improve usability, functionality and ease-of-integration</div>
+                  <div class="overview-text-item">Developing solutions and making changes based on stakeholder and user feedback</div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="overview-text-header">Qualifications</div>
+                  <div class="overview-text-item">High School Diploma or equivalent.</div>
+                  <div class="overview-text-item">BSc degree in Computer Science or relevant field. This is not a requirement, as experience speaks more.</div>
+
+                  
+                  <div class="overview-text-header mt-5">General Knowledge Required</div>
+                  <div class="overview-text-item">Familiarity with browser testing and debugging</div>
+                  <div class="overview-text-item">In-depth understanding of the entire web development process (design, development and deployment)</div>
+                  <div class="overview-text-item">Understanding of layout aesthetics</div>
+                  <div class="overview-text-item">Knowledge of SEO principles</div>
+                  <div class="overview-text-item">An ability to perform well in a fast-paced environment</div>
+                  <div class="overview-text-item">Excellent analytical, multitasking skills and attention to detail</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="overview-text-header mt-4">Required Languages, Frameworks and Libraries</div>
+                  <div class="overview-text-item">HTML5, CSS, jQuery, Javascript.</div>
+                  <div class="overview-text-item">WordPress (eCommerce and WooCommerce experience is nice but is not requirement).</div>
+                  <div class="overview-text-item">Foundation with Flutter and ReactJS.</div>
+                  <div class="overview-text-item">Foundation with React Native.</div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="overview-text-header mt-4">Knowledge in Agile and SCRUM methodologies</div>
+                  <div class="overview-text-item">Well-versed in best coding practices</div>
+                  <div class="overview-text-item">Practised in Git and Continuous Integration</div>
+                </div>
+              </div>
+
+            </div>
+           </div>
+
+           <div class="job-card-footer">
+            <div class="job-card-footer-wrapper">
+                <div class="job-card-footer-title">Interested?</div>
+                <div class="job-card-footer-text">Email us your CVs/Resumes at <a href="mailto:careers@scarletcreative.org?subject=Front-End Developer Application" class="text-red"><strong>careers@scarletcreative.org</strong></a> <br>
+                  Attaching your portfolios, personal sites and GitHub Links would definitely help us out!</div>
+            </div>
+          </div>
+
+          </div>
+          
+        </section>
+
+        <section class="bg-light-grey mission backend-dev careers" id="backend-dev">
+          <div class="center">
+            <button class="custom-btn btn-4"><span>Coming Soon!</span></button>
+          </div>
+        </section>
+
+        <!-- Our Mission -->
+        <section class="bg-light-grey mission">
+            <div class="container-fluid">
+              <div class="row align-items-center g-0">		
+                <div class="col-12 col-md-6 leftRightImageBlock order-1">
+                  <img src="assets/img/careers/team.png" alt="Supporting Growth">
+                </div>
+                <div class="col-12 col-md-6 order-2">
+                  <div class="leftRightTextBlock p-5 mr-md-auto text-start">
+                    <p class="strapline mb-0">Our Mission</p>
+                    <h2 class="heading">Supporting Growth Through Technology</h2>
+                    <p class="custom-para para-bottom">
+                        Scarlet Creative is a Software Development firm located in Trinidad and Tobago, with an ever-expanding repertoire of satisfied clients. We are best known for producing powerful and scalable solutions using emerging technologies, particularly blockchain. By really getting to know our customers, our talented team are able to offer unique and tailored solutions with functionality and design in-mind.
+                        <br><br>
+                        Our multi-ethnic team demonstrates expertise ranging from UX and UI development, Web and Mobile App development, Ecommerce development, Software Engineering, Blockchain & Cryptography, Consumer Psychology and Big Data Analytics. Our services are available on-demand or via subscription.
+                        <br><br>
+                        Our main goal is to help our clients grow and thrive. We believe in building long lasting client partnerships and putting a smile on our customer’s faces.
+                        </p>
+                  </div>
+                </div>
+          
+              </div>
+            </div>
+        </section>
+
+        <!-- Image breaker on Careers Page -->
+        <section class="careers-break">
+          <img src="assets/img/careers/community.jpg" alt="Careers">
+        </section>
+
+        <!-- Our Core Values -->
+        <section class="page-section bg-light-grey core-values">
+            <div class="container">
+                <div>
+                    <p class="strapline mb-0">Our Core Values</p>
+                    <h2 class="heading col-md-12">Unity, Trust, Well-Being</h2>
+                    <p class="col-md-12 custom-para para-bottom">We know the importance of a work life balance, and a happy and healthy mind and body. At Scarlet we strive for a sound mental and physical well-being, with flexibility and transparency in a continuous learning environment.</p>            
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-md-12 values-wrapper">
+                        <div class="items">
+                          <div class="hover-fx"><i class="fa fa-duotone fa-window-frame"></i></div>
+                          <h4 class="values-icon-text text-bold text-muted">Honesty & Transparency</h4>
+                        </div>
+                        <div class="items">
+                          <div class="hover-fx"><i class="fa fa-duotone fa-house-laptop"></i></div>
+                          <h4 class="values-icon-text text-bold text-muted">Work From Home</h4>
+                        </div>
+                        <div class="items">
+                          <div class="hover-fx"><i class="fa fa-duotone fa-people-group"></i></div>
+                          <h4 class="values-icon-text text-bold text-muted">Team Player</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-12 values-wrapper">
+                      <div class="items">
+                        <div class="hover-fx"><i class="fa fa-duotone fa-head-side-brain"></i></div>
+                        <h4 class="values-icon-text text-bold text-muted">Learning & Development</h4>
+                      </div>
+                      <div class="items">
+                        <div class="hover-fx"><i class="fa fa-duotone fa-face-smile-beam"></i></div>
+                        <h4 class="values-icon-text text-bold text-muted">Work Life Balance</h4>
+                      </div>
+                      <div class="items">
+                        <div class="hover-fx"><i class="fa fa-duotone fa-heart-pulse"></i></div>
+                        <h4 class="values-icon-text text-bold text-muted">Benefits</h4>
+                      </div>
+                  </div>
+                </div>
+
+            </div>
+        </section>
+
+      <!-- Footer-->
+      <footer class="footer bg-dark py-4">
+          <div class="container">
+                <div class="row align-items-center">
+                  <div class="col-lg-4 text-lg-start text-white">Copyright &copy; Scarlet Creative Software Limited | 2022</div>
+                  <div class="col-lg-4 my-3 my-lg-0">
+                      <a class="btn btn-secondary btn-social mx-2" href="https://www.facebook.com/ScarletCreativeSoftware/" target="_blank" data-toggle="tooltip" data-placement="top"><i class="fa-brands fa-facebook-f"></i></a>
+                      <a class="btn btn-secondary btn-social mx-2" href="https://www.linkedin.com/company/scarlet-creative" target="_blank" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa-brands fa-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn"></i></a>
+                  </div>
+                  <div class="col-lg-4 text-lg-end">
+                      <a class="link-dark text-decoration-none me-3 text-white" href="privacy.html" data-toggle="tooltip" data-placement="top">Privacy Policy</a>
+                      <a class="link-dark text-decoration-none text-white" href="terms.html" data-toggle="tooltip" data-placement="top">Terms of Use</a>
+                  </div>
+                </div>
+          </div>
+      </footer>
+
+      <div class="back-top" style="opacity: 1;">
+        <i class="fa-duotone fa-arrow-up"></i>
+      </div>
+
+      <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+      </body>
+      <script type="text/javascript">
+          window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
+      </script>
+      <script>
+        var roleLabel = document.getElementById("role-label");
+        var dropdownRole = document.getElementById("dropdown-role");
+
+        function toggleDropdownRole() {
+          dropdownRole.classList.toggle("is-open");
+        }
+        document.formRole.onclick = function () {
+          var selectedRole = document.querySelector(
+            "input[name = selected-role]:checked"
+          );
+          if (selectedRole != null) {
+            var span = selectedRole.parentNode.querySelector("span").innerHTML;
+            roleLabel.innerHTML = span;
+            dropdownRole.classList.remove("is-open");
+          }
+        };
+
+        var departmentLabel = document.getElementById("department-label");
+        var dropdownDepartment = document.getElementById("dropdown-department");
+
+        function toggleDropdownDepartment() {
+          dropdownDepartment.classList.toggle("is-open");
+        }
+        document.formDepartment.onclick = function () {
+          var selectedDepartment = document.querySelector(
+            "input[name = selected-department]:checked"
+          );
+          if (selectedDepartment != null) {
+            var span = selectedDepartment.parentNode.querySelector("span").innerHTML;
+            departmentLabel.innerHTML = span;
+            dropdownDepartment.classList.remove("is-open");
+          }
+        };
+      </script>
+      <!-- This dynamically changes the selected career details -->
+      <!-- TODO: When there is more than 1 department, the options under "Role" should dynamically change
+      based on the selected department -->
+      <script>
+        var hideAll = function() {
+          $('.careers').hide("slow");
+        }
+      
+        $('#job-roles-list').on('change', function() {
+          hideAll();
+          var category = $("input[name='selected-role']:checked").val();
+          $('.' + category).show("slow");
+          $('html, body').scrollTop($('#' + category).offset().top);
+        });
+
+      </script>
+</html>
