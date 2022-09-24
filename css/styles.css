@@ -4280,6 +4280,12 @@ textarea.form-control-lg {
   overflow-y: auto;
 }
 
+@media (max-width: 576px) {
+  .navbar-brand {
+    max-width: 8em;
+  }
+}
+
 @media (min-width: 576px) {
   .navbar-expand-sm {
     flex-wrap: nowrap;
@@ -13253,12 +13259,13 @@ select::-ms-expand {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 10px rgb(0 0 0 / 25%);
+  box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+  transition: 0.5s;
 }
 
-/* .back-top:hover {
-  background-color: var(--color-red);
-} */
+.back-top:hover {
+  background-color: rgba(224,5,0, 0.5);
+}
 
 @media only screen and (max-width: 767px) {
   .back-top {
