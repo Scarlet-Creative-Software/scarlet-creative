@@ -42,11 +42,6 @@
         src="https://www.facebook.com/tr?id=163625125698118&ev=PageView&noscript=1"
         /></noscript>
         <!-- End Meta Pixel Code --> 
-        <!-- For International Phone Numbers -->
-        <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body id="careers-top">
@@ -93,7 +88,7 @@
                         <!-- <h3>Join The Future </h3> -->
                         <div class="dropdown inline" id="dropdown-role">
                           <label class="label" for="dropdown-role">Role</label>
-                          <button class="careers-dropdown round_first" type="button" name="button" aria-haspopup="listbox" data-target=".careers" onclick="toggleDropdownRole()">
+                          <button class="careers-dropdown round_first" type="button" name="button" aria-haspopup="listbox" onclick="toggleDropdownRole()">
                             <span id="role-label" class="dropdown-label">Select A Role</span>
                             <span class="dropdown-arrow left-arrow"></span>
                           </button>
@@ -101,13 +96,13 @@
                             <ul class="dropdown-options" role="listbox" tabindex="-1" id="job-roles-list">
                               <li class="option">
                                 <label for="frontend-dev">
-                                  <input type="radio" value="frontend-dev" id="frontend-dev" name="selected-role" data-show=".front-end-dev-section">
+                                  <input type="radio" value="frontend-dev" id="frontend-dev" name="selected-role">
                                   <span>Front-End Developer <i class="icon-colour-hover fa-duotone fa-paintbrush-pencil filter-red"></i></span>
                                 </label>
                               </li>
                               <li class="option">
                                 <label for="backend-dev">
-                                  <input type="radio" value="backend-dev" id="backend-dev" name="selected-role" data-show=".back-end-dev-section">
+                                  <input type="radio" value="backend-dev" id="backend-dev" name="selected-role">
                                   <span>Back-End Developer <i class="fa-duotone fa-rectangle-terminal filter-red"></i></span>
                                 </label>
                               </li>
@@ -142,7 +137,7 @@
         </div>
         
         <!-- Careers -->
-        <section class="bg-light mission frontend-dev careers">
+        <section class="bg-light mission frontend-dev careers" id="frontend-dev">
           <div class="job-explain">
             <img class="job-bg" src="assets/img/careers/creative2.jpg" alt="">
             <div class="job-logos">
@@ -248,7 +243,7 @@
           
         </section>
 
-        <section class="bg-light-grey mission backend-dev careers">
+        <section class="bg-light-grey mission backend-dev careers" id="backend-dev">
           <div class="center">
             <button class="custom-btn btn-4"><span>Coming Soon!</span></button>
           </div>
@@ -346,37 +341,6 @@
 
       <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
       </body>
-      <script>
-          const phoneInputField = document.querySelector("#phone");
-          const phoneInput = window.intlTelInput(phoneInputField, {
-              preferredCountries: ["tt", "us", "uk"],
-              utilsScript:
-                  "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-          });
-
-          const info = document.querySelector(".validate-info");
-          const error = document.querySelector(".validate-error");
-          let buttonSend = document.getElementById('submitButton');
-
-          function process(event) {
-              event.preventDefault();
-            
-              const phoneNumber = phoneInput.getNumber();
-            
-              info.style.display = "none";
-              error.style.display = "none";
-            
-              if (phoneInput.isValidNumber()) {
-                info.style.display = "";
-                info.innerHTML = `Phone number entered: <strong>${phoneNumber}</strong>`;
-                buttonSend.disabled = false;
-              } else {
-                error.style.display = "";
-                error.innerHTML = `Invalid phone number. Proper format is e.g. 8687657621`;
-                buttonSend.disabled = true;
-              }
-          }
-      </script>
       <script type="text/javascript">
           window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
       </script>
@@ -415,14 +379,6 @@
           }
         };
       </script>
-      <!-- Toggle dark mode -->
-      <script>
-        const toggleButton = document.querySelector(".dark-light");
-
-        toggleButton.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        });
-      </script>
       <!-- This dynamically changes the selected career details -->
       <!-- TODO: When there is more than 1 department, the options under "Role" should dynamically change
       based on the selected department -->
@@ -435,6 +391,8 @@
           hideAll();
           var category = $("input[name='selected-role']:checked").val();
           $('.' + category).show("slow");
+          $('html, body').scrollTop($('#' + category).offset().top);
         });
+
       </script>
 </html>
