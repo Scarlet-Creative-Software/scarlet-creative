@@ -4072,7 +4072,13 @@ textarea.form-control-lg {
   border-color: #dc3545;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 400px) {
+  .request-quote-btn a {
+    padding: 0.375rem 0.04rem;
+  }
+}
+
+@media (min-width: 401px) {
   .request-quote-btn a {
     padding: 0.375rem 0.15rem;
   }
