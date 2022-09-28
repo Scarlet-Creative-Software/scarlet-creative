@@ -11284,7 +11284,7 @@ header.masthead .masthead-heading {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 12rem;
+    padding-top: 9.5rem;
     padding-bottom: 12.5rem;
   }
   header.masthead .masthead-subheading {
@@ -13249,7 +13249,7 @@ select::-ms-expand {
   padding-left: 16px;
 }
 .overview-text {
-  margin-top: 30px;
+  margin-top: 0;
 }
 .overview-text-header {
   font-weight: 600;
@@ -13282,6 +13282,11 @@ select::-ms-expand {
 .detail-page .job-cards, .detail-page .searched-bar {
   display: none;
 }
+@media screen and (min-width: 1300px) {
+  .overview-text-header {
+    margin-top: 30px;
+    }
+}
 @media screen and (max-width: 1300px) {
   .detail-page .search-type {
     display: none;
@@ -13289,6 +13294,9 @@ select::-ms-expand {
   .detail-page .searched-jobs {
     padding-left: 0;
  }
+ .overview-text-header {
+  margin-top: 30px;
+  }
 }
 @media screen and (max-width: 990px) {
   .explain-contents, .explain-bar {
@@ -13452,10 +13460,7 @@ select::-ms-expand {
 
 .banner-breadcrumbs li {
   display: inline;
-  /* border: 3px solid black; */
   margin: 2px;
-  /* padding: 5px;
-  background: #666; */
 }
 
 .banner-breadcrumbs a {
@@ -13464,11 +13469,11 @@ select::-ms-expand {
   font-weight: bold;
   color: #fff;
   font-variant: small-caps;
-  text-shadow: 2px 2px #e00500;
+  text-shadow: 1px 1px #e00500;
 }
 
 .breadcrumbs-home:hover {
-  text-shadow: 2px 2px #730909;
+  text-shadow: 1px 1px #730909;
   color: #eb4642;
 }
 
