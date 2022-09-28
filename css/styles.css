@@ -11284,7 +11284,7 @@ header.masthead .masthead-heading {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 12rem;
+    padding-top: 9.5rem;
     padding-bottom: 12.5rem;
   }
   header.masthead .masthead-subheading {
@@ -13452,10 +13452,7 @@ select::-ms-expand {
 
 .banner-breadcrumbs li {
   display: inline;
-  /* border: 3px solid black; */
   margin: 2px;
-  /* padding: 5px;
-  background: #666; */
 }
 
 .banner-breadcrumbs a {
@@ -13464,11 +13461,11 @@ select::-ms-expand {
   font-weight: bold;
   color: #fff;
   font-variant: small-caps;
-  text-shadow: 2px 2px #e00500;
+  text-shadow: 1px 1px #e00500;
 }
 
 .breadcrumbs-home:hover {
-  text-shadow: 2px 2px #730909;
+  text-shadow: 1px 1px #730909;
   color: #eb4642;
 }
 
