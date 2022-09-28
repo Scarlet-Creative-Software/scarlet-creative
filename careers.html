@@ -117,7 +117,7 @@
                         <div class="dropdown inline" id="dropdown-department">
                           <label class="label" for="dropdown-department">Department</label>
                           <button class ="round_second" type="button" name="button" aria-haspopup="listbox" onclick="toggleDropdownDepartment()">
-                            <span id="department-label" class="dropdown-label">Select A Department</span>
+                            <span id="department-label" class="dropdown-label">Filter By Department</span>
                             <span class="dropdown-arrow right-arrow"></span>
                           </button>
                           <form id="form-department" name="formDepartment" class="dropdown-form">
@@ -139,7 +139,7 @@
         </div>
         
         <!-- Careers -->
-        <section class="bg-light mission frontend-dev careers" id="frontend-dev">
+        <section class="bg-grey frontend-dev careers" id="frontend-dev">
           <div class="job-explain">
             <img class="job-bg" src="assets/img/careers/creative2.jpg" alt="">
             <div class="job-logos">
@@ -236,8 +236,12 @@
            <div class="job-card-footer">
             <div class="job-card-footer-wrapper">
                 <div class="job-card-footer-title">Interested?</div>
-                <div class="job-card-footer-text">Email us your CVs/Resumes at <a href="mailto:careers@scarletcreative.org?subject=Front-End Developer Application" class="text-red"><strong>careers@scarletcreative.org</strong></a> <br>
-                  Attaching your portfolios, personal sites and GitHub Links would definitely help us out!</div>
+                <div class="job-card-footer-text">Email us your CVs/Resumes at <a href="mailto:careers@scarletcreative.org?subject=Front-End Developer Application" class="text-red"><strong>careers@scarletcreative.org</strong></a>
+                  or hit <button class="custom-btn careers-apply-btn btn-sm"><a class="careers-apply-link" href="mailto:careers@scarletcreative.org?subject=Front-End Developer Application">Apply</a></button>
+                </div>
+                <div class="job-card-footer-text">
+                  Attaching your portfolios, personal sites and GitHub Links would definitely help us out!
+                </div>
             </div>
           </div>
 
@@ -245,21 +249,21 @@
           
         </section>
 
-        <section class="bg-light-grey mission backend-dev careers" id="backend-dev">
+        <section class="bg-white backend-dev careers" id="backend-dev">
           <div class="center">
-            <button class="custom-btn btn-4"><span>Coming Soon!</span></button>
+            <button class="custom-btn btn-4 mt-5"><span>Coming Soon!</span></button>
           </div>
         </section>
 
         <!-- Our Mission -->
-        <section class="bg-light-grey mission">
+        <section class="bg-white mission">
             <div class="container-fluid">
               <div class="row align-items-center g-0">		
-                <div class="col-12 col-md-6 leftRightImageBlock order-1">
+                <div class="col-lg-6 col-md-12 leftRightImageBlock order-1">
                   <img src="assets/img/careers/team.png" alt="Supporting Growth">
                 </div>
-                <div class="col-12 col-md-6 order-2">
-                  <div class="leftRightTextBlock p-5 mr-md-auto text-start">
+                <div class="col-lg-6 col-md-12 order-2">
+                  <div class="leftRightTextBlock mr-md-auto text-start">
                     <p class="strapline mb-0">Our Mission</p>
                     <h2 class="heading">Supporting Growth Through Technology</h2>
                     <p class="custom-para para-bottom">
@@ -282,7 +286,7 @@
         </section>
 
         <!-- Our Core Values -->
-        <section class="page-section bg-light-grey core-values">
+        <section class="page-section bg-white core-values">
             <div class="container">
                 <div>
                     <p class="strapline mb-0">Our Core Values</p>
@@ -342,7 +346,7 @@
       </footer>
 
       <div class="back-top" style="opacity: 1;">
-        <i class="fa-duotone fa-arrow-up"></i>
+        <i class="fa fa-arrow-up"></i>
       </div>
 
       <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
@@ -396,9 +400,12 @@
         $('#job-roles-list').on('change', function() {
           hideAll();
           var category = $("input[name='selected-role']:checked").val();
-          $('.' + category).show("slide", {direction: 'left'}, 700);
+          $('.' + category).show("slide", {direction: 'left'}, 1000);
+          // e.stopPropagation();
           // show("slow");
-          // $('html, body').scrollTop($('#' + category).offset().top);
+          // $('html, body').animate({
+          //  scrollTop: $('#' + category).offset().top
+          // }, 900);
         });
 
       </script>
