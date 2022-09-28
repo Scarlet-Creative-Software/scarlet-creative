@@ -13249,7 +13249,7 @@ select::-ms-expand {
   padding-left: 16px;
 }
 .overview-text {
-  margin-top: 30px;
+  margin-top: 0;
 }
 .overview-text-header {
   font-weight: 600;
@@ -13282,6 +13282,11 @@ select::-ms-expand {
 .detail-page .job-cards, .detail-page .searched-bar {
   display: none;
 }
+@media screen and (min-width: 1300px) {
+  .overview-text-header {
+    margin-top: 30px;
+    }
+}
 @media screen and (max-width: 1300px) {
   .detail-page .search-type {
     display: none;
@@ -13289,6 +13294,9 @@ select::-ms-expand {
   .detail-page .searched-jobs {
     padding-left: 0;
  }
+ .overview-text-header {
+  margin-top: 30px;
+  }
 }
 @media screen and (max-width: 990px) {
   .explain-contents, .explain-bar {
