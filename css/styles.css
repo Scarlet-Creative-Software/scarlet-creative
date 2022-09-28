@@ -11172,6 +11172,10 @@ p {
   border-radius: 100%;
 }
 
+.btn-social:hover {
+  
+}
+
 .mainNav {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -11197,6 +11201,7 @@ p {
 .mainNav .navbar-nav .nav-item .nav-link {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.95rem;
+  font-weight: 600;
   color: #fff;
   letter-spacing: 0.0625em;
 }
@@ -11533,6 +11538,20 @@ header.masthead .masthead-heading {
   margin-bottom: 0;
 }
 
+/* EFFECTS */
+.timeline li div {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.timeline li.in-view div {
+  transform: none;
+  visibility: visible;
+  opacity: 1;
+}
+
+
 @media (min-width: 768px) {
   .timeline:before {
     left: 50%;
@@ -11620,6 +11639,15 @@ header.masthead .masthead-heading {
 
 .img-brand {
   height: 2.75rem;
+  transition: transform .3s;
+  filter: invert(100%) sepia(93%) saturate(0%) hue-rotate(234deg) brightness(96%) contrast(107%);
+  opacity: 0.5;
+}
+
+.img-brand:hover {
+  /* filter: invert(100%) sepia(93%) saturate(0%) hue-rotate(234deg) brightness(96%) contrast(107%); */
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 /* section#contact {
@@ -13261,10 +13289,12 @@ select::-ms-expand {
   justify-content: center;
   box-shadow: 0 0 10px rgb(0 0 0 / 30%);
   transition: 0.5s;
+  color: #e00500;
 }
 
 .back-top:hover {
-  background-color: rgba(224,5,0, 0.5);
+  background-color: rgba(224,5,0, 0.9);
+  color: white;
 }
 
 @media only screen and (max-width: 767px) {
