@@ -69,7 +69,7 @@
     .not-found-mobile-text {
         display: block !important;
         color: #f7dbc5;
-        text-shadow: 2px 2px #e00500;
+        text-shadow: 1px 1px #e00500;
         font-size: 1.4em;
         font-weight: 600;
     }
