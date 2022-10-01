@@ -9,8 +9,6 @@
         <title>Scarlet Creative Software Limited: Creativity Engineered</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
-        <!-- Font Awesome icons (free version)-->
-        <!-- <script src="https://use.fontawesome.com/5a18be030b.js" crossorigin="anonymous"></script> -->
         <script defer src="assets/fontawesome/js/solid.js"></script>
         <script defer src="assets/fontawesome/js/brands.js"></script>
         <script defer src="assets/fontawesome/js/duotone.js"></script>
@@ -27,17 +25,19 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/404.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
     <body>
+        <div id="particles-js"></div>
         <div class="not-found-section">
             <span><h2 class="inline">4</h2></span>
             <div class="globe">
                 <div class="bird">
                     <div class="body">
-                      <div class="eye left"></div>
-                      <div class="eye right"></div>
-                      <div class="beak"><div></div></div>
-                      <div class="feet"></div>
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                    <div class="beak"><div></div></div>
+                    <div class="feet"></div>
                     <div class="wire"></div>
                     </div>
                     <div class="hills"></div>
@@ -48,11 +48,124 @@
             <span><h2 class="inline">4</h2></span>
             <div class="not-found-text">
                 <h3>Oops</h3>
-                <p>You've found Scarlet at nap time! The page requested isn't here, go without waking Scarlet!</p>
-                <a class="not-found-btn home-btn mt-3 btn-xl text-uppercase" href="index.html">Go Back Home</a>
+                <p>You've found Scarlet at nap time! <br> The page requested isn't here, go without waking Scarlet.</p>
+                <a class="not-found-btn home-btn mt-2 btn-xl text-uppercase" href="index.html">Go Back Home</a>
             </div>
         </div>
     
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     </body>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+              "number": {
+                "value": 355,
+                "density": {
+                  "enable": true,
+                  "value_area": 789.1476416322727
+                }
+              },
+              "color": {
+                "value": "#ffffff"
+              },
+              "shape": {
+                "type": "circle",
+                "stroke": {
+                  "width": 0,
+                  "color": "#000000"
+                },
+                "polygon": {
+                  "nb_sides": 5
+                },
+                "image": {
+                  "src": "img/github.svg",
+                  "width": 100,
+                  "height": 100
+                }
+              },
+              "opacity": {
+                "value": 0.48927153781200905,
+                "random": false,
+                "anim": {
+                  "enable": true,
+                  "speed": 0.2,
+                  "opacity_min": 0,
+                  "sync": false
+                }
+              },
+              "size": {
+                "value": 2,
+                "random": true,
+                "anim": {
+                  "enable": true,
+                  "speed": 2,
+                  "size_min": 0,
+                  "sync": false
+                }
+              },
+              "line_linked": {
+                "enable": false,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.4,
+                "width": 1
+              },
+              "move": {
+                "enable": true,
+                "speed": 0.2,
+                "direction": "none",
+                "random": true,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                  "enable": false,
+                  "rotateX": 600,
+                  "rotateY": 1200
+                }
+              }
+            },
+            "interactivity": {
+              "detect_on": "canvas",
+              "events": {
+                "onhover": {
+                  "enable": true,
+                  "mode": "bubble"
+                },
+                "onclick": {
+                  "enable": true,
+                  "mode": "push"
+                },
+                "resize": true
+              },
+              "modes": {
+                "grab": {
+                  "distance": 400,
+                  "line_linked": {
+                    "opacity": 1
+                  }
+                },
+                "bubble": {
+                  "distance": 83.91608391608392,
+                  "size": 1,
+                  "duration": 3,
+                  "opacity": 1,
+                  "speed": 3
+                },
+                "repulse": {
+                  "distance": 200,
+                  "duration": 0.4
+                },
+                "push": {
+                  "particles_nb": 4
+                },
+                "remove": {
+                  "particles_nb": 2
+                }
+              }
+            },
+            "retina_detect": true
+          });
+    </script>
 </html>
     
