@@ -513,6 +513,10 @@ progress {
   display: none !important;
 }
 
+.text-bold {
+  font-weight: 600;
+}
+
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
@@ -11122,7 +11126,7 @@ p {
   padding: 6rem 0;
 }
 .page-section h2.section-heading, .page-section .section-heading.h2 {
-  font-size: 2.5rem;
+  font-size: 3.0rem;
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -11172,9 +11176,10 @@ p {
   border-radius: 100%;
 }
 
-/* .btn-social:hover {
-  
-} */
+.btn-dark.btn-social:hover {
+  background: #5c636a;
+  border: #5c636a;
+}
 
 .mainNav {
   padding-top: 1rem;
@@ -11252,8 +11257,33 @@ p {
     margin-right: 0;
   }
 }
+
+/* .header-bg {
+  z-index: 1;
+} */
+
+@media (min-width: 1400px) {
+  .main-title {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    top: 56%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,-50%,0);
+    transform: translate3d(-50%,-50%,0);
+  }
+  /* header.masthead {
+    position: absolute;
+  } */
+}
+@media (max-width: 1399px) {
+  header.masthead {
+    position: relative;
+  }
+}
 header.masthead {
-  position: relative;
+  /* position: relative; */
   padding-top: 10.5rem;
   padding-bottom: 6rem;
   text-align: center;
@@ -11808,7 +11838,7 @@ video {
     left: 0px;
     z-index: 2;
     background: black;
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
 .text-red {
@@ -12496,7 +12526,7 @@ select.round_first, select.round_second {
  .custom-para {
  font-size: 16px;
  font-weight: 500;
- line-height: 1.2;
+ line-height: 1.75;
  color: #000;
  margin-top: 30px;
  }
@@ -12524,6 +12554,17 @@ select.round_first, select.round_second {
   display:block;
   margin:auto; */
  }
+
+ /* Blinking JS Effect for Careers */
+ .blinking-cursor {
+  user-select: none;
+  animation: blink 1s steps(2, start) infinite; }
+
+@keyframes blink {
+  to {
+    visibility: hidden; } 
+  }
+
  
  @media (max-width: 768px){
  .leftRightImageBlock {
@@ -13479,4 +13520,29 @@ select::-ms-expand {
 
 .breadcrumbs-current {
   opacity: 0.8;
+}
+
+/* Interactive letter hover effect */
+.interactive-phrase {
+  display:inline-block;
+  letter-spacing: 0px;
+  padding:0;
+  user-select: none !important;
+  transition: 3s;
+}
+
+.interactive-space {
+  padding: 0 10px !important;
+  margin:0 1px;
+}
+
+.interactive-letter {
+  transition: color 0.7s ease-in-out, text-shadow 0.7s ease-in-out;
+}
+
+.interactive-letter:hover {
+  filter: blur(10px);
+  /* transform: rotate(90deg); */
+  text-shadow: 2px 2px #4a0505 !important;
+  color:#e00500 !important;
 }

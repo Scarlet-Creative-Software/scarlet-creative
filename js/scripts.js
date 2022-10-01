@@ -56,6 +56,41 @@ window.addEventListener('DOMContentLoaded', event => {
         window.scrollTo(0, 0);
     });
 
+    // Header Background Animation
+    // (function() {
+
+    // Set height on screens > 1400px
+    if ($(window).width() > 1400) {
+        console.log("width", $(window).width());
+        console.log("height", $(window).height());
+        var height, largeHeader;
+
+        // Main
+        initHeader();
+        addListeners();
+    
+        function initHeader() {
+            height = window.innerHeight;
+    
+            largeHeader = document.getElementsByClassName('header-bg');
+            for (var i = 0; i < largeHeader.length; i++)
+                largeHeader[i].style.height = height+'px';
+        }
+    
+        function resize() {
+            height = window.innerHeight;
+            for (var i = 0; i < largeHeader.length; i++)
+                largeHeader[i].style.height = height+'px';
+        }
+    
+        // Event handling
+        function addListeners() {
+            window.addEventListener('resize', resize);
+        }
+    };
+    // });
+
+
 });
 
 
