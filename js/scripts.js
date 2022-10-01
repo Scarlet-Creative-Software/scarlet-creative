@@ -9,6 +9,21 @@
 
 window.addEventListener('DOMContentLoaded', event => {
 
+    // Loading icon
+    document.onreadystatechange = function() {
+        if (document.readyState !== "complete") {
+            document.querySelector(
+              "body").style.visibility = "hidden";
+            document.querySelector(
+              ".spinner").style.visibility = "visible";
+        } else {
+            document.querySelector(
+              ".spinner").style.display = "none";
+            document.querySelector(
+              "body").style.visibility = "visible";
+        }
+    };
+
     // Navbar shrink function
     var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('.mainNav');
@@ -55,40 +70,6 @@ window.addEventListener('DOMContentLoaded', event => {
     $('.back-top').on('click', function() {
         window.scrollTo(0, 0);
     });
-
-    // Header Background Animation
-    // (function() {
-
-    // Set height on screens > 1400px
-    if ($(window).width() > 1400) {
-        console.log("width", $(window).width());
-        console.log("height", $(window).height());
-        var height, largeHeader;
-
-        // Main
-        initHeader();
-        addListeners();
-    
-        function initHeader() {
-            height = window.innerHeight;
-    
-            largeHeader = document.getElementsByClassName('header-bg');
-            for (var i = 0; i < largeHeader.length; i++)
-                largeHeader[i].style.height = height+'px';
-        }
-    
-        function resize() {
-            height = window.innerHeight;
-            for (var i = 0; i < largeHeader.length; i++)
-                largeHeader[i].style.height = height+'px';
-        }
-    
-        // Event handling
-        function addListeners() {
-            window.addEventListener('resize', resize);
-        }
-    };
-    // });
 
 
 });
