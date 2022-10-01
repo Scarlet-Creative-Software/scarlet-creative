@@ -128,19 +128,19 @@ canvas
 .not-found-text h3 {
     padding-top: 1.3em;
     color: #f7dbc5;
-    text-shadow: 2px 2px #e00500;
+    text-shadow: 1px 1px #e00500;
 }
 .not-found-text p {
     padding-top: 0.3em;
     color: #f7dbc5;
-    text-shadow: 2px 2px #e00500;
+    text-shadow: 1px 1px #e00500;
     font-weight: 600;
     font-size: 1.4em;
 }
  .inline {
 	 display: inline-block;
 	 color: #f7dbc5;
-	 text-shadow: 4px 4px #e00500;
+	 text-shadow: 3px 3px #e00500;
 }
  .globe {
 	 margin: 1em 0 0 0;
