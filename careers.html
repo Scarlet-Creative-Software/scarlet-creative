@@ -77,13 +77,17 @@
         <!-- Masthead-->
         <div class="video-wrapper">
             <div class="overlay"></div>
-            <video playsinline autoplay muted loop poster="assets/img/black.jpg">
+            <video playsinline autoplay muted loop>
               <source src="assets/img/header-bg-video-updated.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <header class="masthead">
-                <div class="container">
-                    <div class="masthead-heading text-uppercase my-header">Explore, <span style="text-shadow: 2px 2px #730909;color:#eb4642">Design</span>, Create</div>
+            <header class="masthead header-bg">
+                <div class="container main-title">
+                    <div class="masthead-heading text-uppercase my-header">
+                      <span is="type-async" id="type-text">...</span>
+                      <span class="blinking-cursor">_</span>
+                      <!-- Explore, <span style="text-shadow: 2px 2px #730909;color:#eb4642">Design</span>, Create -->
+                    </div>
                     <div class="masthead-subheading">Join our team at <span style="text-shadow:  2px 2px #730909;color:#eb4642">Scarlet Creative</span></div>
                     <br>
                     <div class="content form-inline">
@@ -155,7 +159,7 @@
              <div class="explain-bar">
               <div class="explain-contents">
                 <div class="explain-title">Experience</div>
-                <div class="explain-subtitle">Minimum 1 Year</div>
+                <div class="explain-subtitle">Industry experience is not necessary</div>
                </div>
               <div class="explain-contents">
                 <div class="explain-title">Work Level</div>
@@ -349,6 +353,9 @@
         <i class="fa fa-arrow-up"></i>
       </div>
 
+      <!-- Loader -->
+      <!-- <p class="spinner"><i class="fa fa-spinner fa-5x"></i></p> -->
+
       <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
       </body>
       <script type="text/javascript">
@@ -408,5 +415,57 @@
           // }, 900);
         });
 
+      </script>
+      <!-- JS typing text effect -->
+      <script>
+        async function init () {
+          const node = document.querySelector("#type-text")
+          
+          await sleep(1000)
+          node.innerText = ""
+          // await node.type('Hello, ')
+          
+          while (true) {
+            await node.type('Explore')
+            await sleep(2000)
+            await node.delete('Explore')
+            await node.type('Design')
+            await sleep(2000)
+            await node.delete('Design')
+            await node.type('Create')
+            await sleep(2000)
+            await node.delete('Create')
+          }
+        }
+        
+        // Source code 🚩
+        
+        const sleep = time => new Promise(resolve => setTimeout(resolve, time))
+        
+        class TypeAsync extends HTMLSpanElement {
+          get typeInterval () {
+            const randomMs = 100 * Math.random()
+            return randomMs < 50 ? 10 : randomMs
+          }
+          
+          async type (text) {
+            for (let character of text) {
+              this.innerText += character
+              await sleep(this.typeInterval)
+            }
+          }
+          
+          async delete (text) {
+            for (let character of text) {
+              this.innerText = this.innerText.slice(0, this.innerText.length -1)
+              await sleep(this.typeInterval)
+            }
+          }
+        }
+        
+        customElements.define('type-async', TypeAsync, { extends: 'span' })
+        
+        
+        init()
       </script>
 </html>

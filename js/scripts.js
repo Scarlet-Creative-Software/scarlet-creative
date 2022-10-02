@@ -9,6 +9,21 @@
 
 window.addEventListener('DOMContentLoaded', event => {
 
+    // // Loading icon
+    // document.onreadystatechange = function() {
+    //     if (document.readyState !== "complete") {
+    //         document.querySelector(
+    //           "body").style.visibility = "hidden";
+    //         document.querySelector(
+    //           ".spinner").style.visibility = "visible";
+    //     } else {
+    //         document.querySelector(
+    //           ".spinner").style.display = "none";
+    //         document.querySelector(
+    //           "body").style.visibility = "visible";
+    //     }
+    // };
+
     // Navbar shrink function
     var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('.mainNav');
@@ -52,9 +67,12 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
     // Scroll to the top of the page
-    $('.back-top').on('click', function() {
-        window.scrollTo(0, 0);
-    });
+    if ($('.back-top')[0]) {
+        $('.back-top').on('click', function() {
+            window.scrollTo(0, 0);
+        });
+    }
+
 
 });
 
