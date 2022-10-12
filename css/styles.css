@@ -15174,7 +15174,7 @@ select::-ms-expand {
 
 #call-us-cta a {
   text-decoration: none;
-  padding: 0.725em 1.6625em;
+  padding: 1.15em 3.75em;
   /* padding: 3rem; */
 }
 
@@ -15270,10 +15270,6 @@ select::-ms-expand {
   transform:translate(-32px,.25em);  
   display:inline-block;
  } */
-
-#call-us-cta .btn:hover {
-  background:#e00500;
-}
 
 @media screen and (max-width: 1200px) {
   #call-us-cta {
