@@ -51,6 +51,11 @@
         <script>
              fbq('track', 'ViewContent');
         </script>
+
+        <!-- PRELOADER -->
+        <!-- <div class="boxLoading"></div> -->
+        <!-- PRELOADER -->
+        
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg shadow-5-strong navbar-dark fixed-top mainNav">
             <div class="container">
@@ -151,7 +156,9 @@
             </div>
             <div class="job-explain-content">
               <div class="job-title-wrapper">
-                <div class="job-card-title">Front-End Developer</div>
+                <div class="job-card-title">Front-End Developer -
+                  <span class="filter-red text-uppercase">Position Filled!</span>
+                </div>
              </div>
              <div class="job-subtitle-wrapper">
               <div class="company-name">Scarlet Creative Software Limited <span class="comp-location">Trinidad and Tobago</span></div>
@@ -237,7 +244,7 @@
             </div>
            </div>
 
-           <div class="job-card-footer">
+           <!-- <div class="job-card-footer">
             <div class="job-card-footer-wrapper">
                 <div class="job-card-footer-title">Interested?</div>
                 <div class="job-card-footer-text">Email us your CVs/Resumes at <a href="mailto:careers@scarletcreative.org?subject=Front-End Developer Application" class="text-red"><strong>careers@scarletcreative.org</strong></a>
@@ -247,7 +254,7 @@
                   Attaching your portfolios, personal sites and GitHub Links would definitely help us out!
                 </div>
             </div>
-          </div>
+          </div> -->
 
           </div>
           
@@ -332,18 +339,104 @@
             </div>
         </section>
 
-        <!-- Footer-->
-        <footer class="footer bg-dark py-4">
+        <footer class="footer-section">
           <div class="container">
-              <div class="row align-items-center">
-                  <div class="col-lg-4 text-lg-start text-white">Copyright &copy; <br>Scarlet Ventures LLC, Scarlet Creative Software Limited  2022</div>
-                  <div class="col-lg-4 my-3 my-lg-0">
-                      <a class="btn btn-secondary btn-social mx-2" href="https://www.facebook.com/ScarletCreativeSoftware/" target="_blank" data-toggle="tooltip" data-placement="top"><i class="fa-brands fa-facebook-f"></i></a>
-                      <a class="btn btn-secondary btn-social mx-2" href="https://www.linkedin.com/company/scarlet-creative" target="_blank" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa-brands fa-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn"></i></a>
+              <div class="footer-cta">
+                  <div class="row">
+                      <div class="col-xl-4 col-md-4 col-sm-6">
+                          <div class="single-cta">
+                              <i class="fa-solid fa-clock-nine"></i>
+                              <div class="cta-text">
+                                  <h4>Opening Hours</h4>
+                                  <span>Mon - Fri @ 9 <sup>00 am</sup> - 6 <sup>00 pm</sup> </span> <br>
+                                  <span>Sat @ 9 <sup>00 am</sup> - 2 <sup>00 pm</sup> </span> <br>
+                                  <!-- <span>Sat @ 9:00am - 2:00pm </span> -->
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-xl-4 col-md-4 col-sm-6">
+                          <div class="single-cta">
+                              <i class="fa-duotone fa-phone"></i>
+                              <div class="cta-text">
+                                  <h4>Call us</h4>
+                                  <a href="tel:+18683425377">+1 (868) 342-5377</a>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-xl-4 col-md-4 col-sm-6">
+                          <div class="single-cta">
+                              <i class="fa fa-envelopes-bulk"></i>
+                              <div class="cta-text">
+                                  <h4>Mail us</h4>
+                                  <a href="mailto:contact@scarletcreative.org?subject=Request Quote" onclick="fbq('track', 'Contact')">contact@scarletcreative.org</a>
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                  <div class="col-lg-4 text-lg-end">
-                      <a class="link-dark text-decoration-none me-3 text-white" href="privacy.html" data-toggle="tooltip" data-placement="top">Privacy Policy</a>
-                      <a class="link-dark text-decoration-none text-white" href="terms.html" data-toggle="tooltip" data-placement="top">Terms of Use</a>
+              </div>
+              <div class="footer-content">
+                  <div class="row">
+                      <div class="footer-about col-xl-4 col-lg-4 col-md-4">
+                          <div class="footer-widget">
+                              <div class="footer-logo">
+                                <a class="navbar-brand" href="index.html"><img src="assets/img/logo-white-orig.png" alt="logo" /></a>
+                                <!-- <a class="navbar-brand" href="index.html"><img src="assets/img/logo-white.png" style="width:20%;height:15%" alt="logo" /><strong>Scarlet</strong></a> -->
+                                  <!-- <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a> -->
+                              </div>
+                              <div class="footer-text">
+                                  <p>We Are Always Open For Cooperation and Suggestions!
+                                    Contact Us In One Of The Ways Above.</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="footer-links col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                          <div class="footer-widget">
+                              <div class="footer-widget-heading">
+                                  <h3>Useful Links</h3>
+                              </div>
+                              <ul>
+                                  <li><a href="index.html">Home</a></li>
+                                  <li><a href="index.html#about">About</a></li>
+                                  <li><a href="index.html#services">Services</a></li>
+                                  <li><a href="index.html#portfolio">Portfolio</a></li>
+                                  <li><a href="contact.html">Request Quote</a></li>
+                                  <li><a href="privacy.html">Privacy Policy</a></li>
+                                  <li><a href="terms.html">Terms of Use</a></li>
+                              </ul>
+                          </div>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mb-50">
+                          <div class="footer-widget">
+                            <div class="footer-social-icon">
+                              <div class="footer-widget-heading">
+                                <h3>Follow us</h3>
+                              </div>
+                              <a class="btn facebook-bg btn-social" href="https://www.facebook.com/ScarletCreativeSoftware/" target="_blank" data-toggle="tooltip" data-placement="top"><i class="fa-brands fa-facebook-f"></i></a>
+                              <a class="btn linkedin-bg btn-social" href="https://www.linkedin.com/company/scarlet-creative" target="_blank" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa-brands fa-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn"></i></a>
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="copyright-area">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-xl-6 col-lg-6 text-lg-left">
+                          <div class="copyright-text">
+                              <p>Copyright &copy; 2022 All Right Reserved, <br><a href="index.html">Scarlet Fintech Ventures UAB, Scarlet Creative Software Limited</a></p>
+                          </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 d-none d-lg-block text-end">
+                          <div class="footer-menu">
+                              <ul>
+                                  <li><a href="index.html">Home</a></li>
+                                  <li><a href="terms.html">Terms of Use</a></li>
+                                  <li><a href="privacy.html">Privacy Policy</a></li>
+                                  <li><a href="contact.html">Request Quote</a></li>
+                              </ul>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
@@ -358,9 +451,6 @@
 
       <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
       </body>
-      <script type="text/javascript">
-          window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
-      </script>
       <script>
         var roleLabel = document.getElementById("role-label");
         var dropdownRole = document.getElementById("dropdown-role");

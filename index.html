@@ -25,6 +25,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
         <!-- Meta Pixel Code -->
         <script>
             !function(f,b,e,v,n,t,s)
@@ -55,6 +56,12 @@
         <script>
              fbq('track', 'ViewContent');
         </script>
+
+        <!-- PRELOADER -->
+        <!-- <div class="boxLoading"></div> -->
+        <!-- /PRELOADER -->  
+
+        <div>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg shadow-5-strong navbar-dark fixed-top mainNav">
             <div class="container">
@@ -70,7 +77,7 @@
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
                         <li class="nav-item"><a class="nav-link" href="careers.html">Careers</a></li>
-                        <li class="nav-item"><button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="#contact-index">Request a Quote</a></button></li>
+                        <li class="nav-item"><button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="contact.html">Request a Quote</a></button></li>
                     </ul>
                 </div>
             </div>
@@ -522,212 +529,128 @@
             </div>
         </section>
 
-        <!-- Contact-->
-        <section class="page-section bg-dark" class="contact" id="contact-index">
-            <div class="container">
-              <div class="row">
-                <div class="col-12">
-                  <div class="_form-05-box">
-                    <div class="row">
-                      <div class="col-sm-5 _lk_nb">
-                        <div class="form-05-box-a">
-                          <div class="_form_05_logo">
-                            <h2>Opening Hours</h2>
-                            <p class="mb-5">Reach out to us during the times below!</p>
-                            <h5 style="text-shadow: 2px 2px #730909;color:#e00500;">Monday - Friday</h5>
-                            <hr>
-                            <h3 class="mb-4" style="color:#ffffff; text-shadow: 2px 2px #e00500!important;">
-                              9
-                              <sup>00 am</sup>
-                               - 6
-                              <sup>00 pm</sup>
-                            </h3>
-                            <h5 style="text-shadow: 2px 2px #730909;color:#e00500;">Saturday</h5>
-                            <hr>
-                            <h3 style="color:#ffffff; text-shadow: 2px 2px #e00500!important;">
-                              9
-                              <sup>00 am</sup>
-                               - 2
-                              <sup>00 pm</sup>
-                            </h3>
-                            <h5 style="text-shadow: 2px 2px #730909;color:#e00500;padding-bottom: 20px;" class="pt-3 mt-5 masthead-subheading">We're happy to help!</h5>
-                            <h6 style="font-size: 1.1rem;text-shadow: 2px 2px #e00500;color:#ffffff;" class="masthead-subheading">
-                                <i class="fa fa-phone fa-inverse fa-1x"></i> &nbsp;
-                                <a href="tel:+18687657621">+1 (868) 765-7621</a>
-                            </h6>   
-        
-                            <h6 style="font-size: 1.1rem;text-shadow: 2px 2px #e00500;" class="mb-5 masthead-subheading">
-                                <i class="fa fa-envelope fa-inverse fa-1x"></i> &nbsp;
-                                <a href="mailto:contact@scarletcreative.org?subject=Request Quote" onclick="fbq('track', 'Contact')">contact@scarletcreative.org</a>
-                            </h6>   
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-7 _nb-pl">
-                        <form class="contactForm" data-sb-form-api-token="33add458-1c0b-4f06-80c8-98ccc4868a73">
-                        <div class="_mn_df">
-                          <div class="col-md-12">
-  
-                            <div class="row">
-                              <div class="col-lg-6 col-sm-12">
-                                <div class="form-group">
-                                  <!-- Name input-->
-                                  <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
-                                  <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                                </div>
-                              </div>
-  
-                              <div class="col-lg-6 col-sm-12">
-                                <div class="form-group">
-                                  <!-- Company Name input-->
-                                  <input class="form-control" id="companyName" type="text" placeholder="Company Name *" data-sb-validations="required" />
-                                  <div class="invalid-feedback" data-sb-feedback="companyName:required">A company name is required.</div>
-                                </div>
-                              </div>
-                            </div>
-  
-                            <div class="row">
-                              <div class="col-lg-6 col-sm-12">
-                                <div class="form-group">
-                                  <!-- Email address input-->
-                                  <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                                  <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                  <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                                </div>
-                              </div>
-  
-                              <div class="col-lg-6 col-sm-12">
-                                <div class="form-group">
-                                  <!-- Phone number input-->
-                                  <input class="form-control phone-form" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                                  <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                                  <div class="mt-2 validate-info" style="display: none"></div>
-                                  <div class="mt-2 validate-error" style="display: none"></div>
-                                </div>
-                              </div>
-                            </div>
-  
-                            <div class="row">
-                              <div class="col-lg-6 col-sm-12">
-                                <div class="form-group">
-                                  <!-- Team Size -->
-                                  <select class="form-group-select form-control" name="teamSize" id="teamSize" data-sb-validations="required">
-                                    <span class="dropdown-arrow right-arrow"></span>
-                                    <option value="" disabled selected>Size of your Team *</option>
-                                    <option value="1-3">1-3</option>
-                                    <option value="4-8">4-8</option>
-                                    <option value="9-18">9-18</option>
-                                    <option value="19-30">19-30</option>
-                                    <option value="over-30">31+</option>
-                                  </select>
-                                  <div class="invalid-feedback" data-sb-feedback="teamSize:required">The size of your team is required.</div>
-                                </div>
-                              </div>
-  
-                              <div class="col-lg-6 col-sm-12">
-                                <div class="form-group">
-                                  <!-- Organisation Size -->
-                                  <select class="form-group-select form-control" name="organisationSize" id="organisationSize">
-                                    <option value="" disabled selected>Organisation Size</option>
-                                    <option value="Small">Small</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Large">Large</option>
-                                    <option value="Enterprise">Enterprise</option>
-                                  </select>
-                                </div>
-                              </div>
-                          </div>
-  
-                            <div class="row">
-                              <div class="col-lg-6 col-sm-12">
-                                <div class="form-group">
-                                  <!-- Project Type -->
-                                  <select class="form-group-select form-control" name="projectType" id="projectType" data-sb-validations="required">
-                                    <option value="" disabled selected>Project Type *</option>
-                                    <option value="Simple Website">Simple Website</option>
-                                    <option value="Interactive Website/Web App">Interactive Website/Web App</option>
-                                    <option value="eCommerce">eCommerce</option>
-                                    <option value="Mobile App">Mobile App</option>
-                                    <option value="Graphics/Logo Design">Graphics/Logo Design</option>
-                                    <option value="Consultation">Consultation</option>
-                                    <option value="Data Science/Analytics">Data Science/Analytics</option>
-                                    <option value="Blockchain/Web3 Solution">Blockchain/Web3 Solution</option>
-                                  </select>
-                                  <div class="invalid-feedback" data-sb-feedback="projectType:required">The project type is required.</div>
-                                </div>
-                              </div>
-  
-                              <div class="col-lg-6 col-sm-12">
-                                <div class="form-group">
-                                  <!-- Budget -->
-                                  <select class="form-group-select form-control" name="budget" id="budget" data-sb-validations="required">
-                                    <option value="" disabled selected>Budget *</option>
-                                    <option value="$1000 TTD - $3000 TTD">$1000 TTD - $3000 TTD</option>
-                                    <option value="$3000 TTD - $7000 TTD">$3000 TTD - $7000 TTD</option>
-                                    <option value="$7000 TTD - $15000 TTD">$7000 TTD - $15000 TTD</option>
-                                    <option value="Over $15000 TTD">$15000+ TTD</option>
-                                  </select>
-                                  <div class="invalid-feedback" data-sb-feedback="budget:required">The budget is required.</div>
-                                </div>
-                              </div>
-                          </div>
-      
-                            <div class="col-md-12">
-                              <div class="form-group form-group-textarea">
-                                  <!-- Message input-->
-                                  <textarea class="form-control" id="message" placeholder="Please add any details here *" data-sb-validations="required"></textarea>
-                                  <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-                              </div>
-                            </div>
-                          </div>
-      
-                          <!-- Submit success message-->
-                          <!---->
-                          <!-- This is what your users will see when the form-->
-                          <!-- has successfully submitted-->
-                          <div class="d-none" id="submitSuccessMessage">
-                            <div class="text-center text-white mb-3">
-                                <div class="fw-bolder">Form submission successful!</div>
-                                We'll be in touch shortly!
-                            </div>
-                          </div>
-                          <!-- Submit error message-->
-                          <!---->
-                          <!-- This is what your users will see when there is-->
-                          <!-- an error submitting the form-->
-                          <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                          <!-- Submit Button-->
-                          <div class="text-center"><button class="custom-btn request-quote-btn _btn_04 btn-xl text-uppercase disabled" id="submitButton" type="submit" onclick="fbq('track', 'Lead')">Get a Quote</button>
-                          </div>
-                        </div>
-                      </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </section>
-
         <!-- Footer-->
-        <footer class="footer bg-dark py-4">
+        <footer class="footer-section">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start text-white">Copyright &copy; <br>Scarlet Ventures LLC, Scarlet Creative Software Limited  2022</div>
-                    <div class="col-lg-4 my-3 my-lg-0">
-                        <a class="btn btn-secondary btn-social mx-2" href="https://www.facebook.com/ScarletCreativeSoftware/" target="_blank" data-toggle="tooltip" data-placement="top"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a class="btn btn-secondary btn-social mx-2" href="https://www.linkedin.com/company/scarlet-creative" target="_blank" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa-brands fa-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn"></i></a>
+                <div class="footer-cta">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 col-sm-6">
+                            <div class="single-cta">
+                                <i class="fa-solid fa-clock-nine"></i>
+                                <div class="cta-text">
+                                    <h4>Opening Hours</h4>
+                                    <span>Mon - Fri @ 9 <sup>00 am</sup> - 6 <sup>00 pm</sup> </span> <br>
+                                    <span>Sat @ 9 <sup>00 am</sup> - 2 <sup>00 pm</sup> </span> <br>
+                                    <!-- <span>Sat @ 9:00am - 2:00pm </span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 col-sm-6">
+                            <div class="single-cta">
+                                <i class="fa-duotone fa-phone"></i>
+                                <div class="cta-text">
+                                    <h4>Call us</h4>
+                                    <a href="tel:+18683425377">+1 (868) 342-5377</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 col-sm-6">
+                            <div class="single-cta">
+                                <i class="fa fa-envelopes-bulk"></i>
+                                <div class="cta-text">
+                                    <h4>Mail us</h4>
+                                    <a href="mailto:contact@scarletcreative.org?subject=Request Quote" onclick="fbq('track', 'Contact')">contact@scarletcreative.org</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3 text-white" href="privacy.html" data-toggle="tooltip" data-placement="top">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none text-white" href="terms.html" data-toggle="tooltip" data-placement="top">Terms of Use</a>
+                </div>
+                <div class="footer-content">
+                    <div class="row">
+                        <div class="footer-about col-xl-4 col-lg-4 col-md-4">
+                            <div class="footer-widget">
+                                <div class="footer-logo">
+                                  <a class="navbar-brand" href="index.html"><img src="assets/img/logo-white-orig.png" alt="logo" /></a>
+                                  <!-- <a class="navbar-brand" href="index.html"><img src="assets/img/logo-white.png" style="width:20%;height:15%" alt="logo" /><strong>Scarlet</strong></a> -->
+                                    <!-- <a href="index.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a> -->
+                                </div>
+                                <div class="footer-text">
+                                    <p>We Are Always Open For Cooperation and Suggestions!
+                                      Contact Us In One Of The Ways Above.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-links col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Useful Links</h3>
+                                </div>
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="index.html#about">About</a></li>
+                                    <li><a href="index.html#services">Services</a></li>
+                                    <li><a href="index.html#portfolio">Portfolio</a></li>
+                                    <li><a href="contact.html">Request Quote</a></li>
+                                    <li><a href="privacy.html">Privacy Policy</a></li>
+                                    <li><a href="terms.html">Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mb-50">
+                            <div class="footer-widget">
+                              <div class="footer-social-icon">
+                                <div class="footer-widget-heading">
+                                  <h3>Follow us</h3>
+                                </div>
+                                <a class="btn facebook-bg btn-social" href="https://www.facebook.com/ScarletCreativeSoftware/" target="_blank" data-toggle="tooltip" data-placement="top"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a class="btn linkedin-bg btn-social" href="https://www.linkedin.com/company/scarlet-creative" target="_blank" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa-brands fa-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 text-lg-left">
+                            <div class="copyright-text">
+                                <p>Copyright &copy; 2022 All Right Reserved, <br><a href="#">Scarlet Fintech Ventures UAB, Scarlet Creative Software Limited</a></p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 d-none d-lg-block text-end">
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="terms.html">Terms of Use</a></li>
+                                    <li><a href="privacy.html">Privacy Policy</a></li>
+                                    <li><a href="contact.html">Request Quote</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </footer>
 
-        <div class="back-top" style="opacity: 1;">
+        <div id="call-us-cta" class="animate__animated animate__fadeInBottomRight">
+            <!-- <div class="peeps">
+              <img src="https://www.dropbox.com/s/ior585xmp90c81b/peep1.png?raw=1">
+              <img src="https://www.dropbox.com/s/yattpxlhcv3zsko/peep2.png?raw=1">
+              <img src="https://www.dropbox.com/s/hu21ewbi8w6jma2/peep3.png?raw=1">  
+            </div> -->
+            <div class="title">Get a Quote</div>
+              <p>Ready to turn your idea into a reality?</p>
+            <div class="popup-btn"><div class="form"><a href="contact.html">REQUEST QUOTE ONLINE</a></div></div>
+            <div class="popup-btn"><div class="call"><a href="tel:+18683425377">CALL +1 (868) 342-5377</a></div> </div>
+            <div class="popup-btn"><div class="mail"><a href="mailto:contact@scarletcreative.org?subject=Request Quote">MAIL US</a></div> </div>
+          </div>
+
+        <!-- <div class="back-top" style="opacity: 1;">
             <i class="fa fa-arrow-up"></i>
+        </div> -->
+        <div id="open-popup" style="opacity: 1;" onclick="changeIcon(this)">
+            <i class="fa-solid fa-xmark fa-xl"></i>
         </div>
 
         <!-- Portfolio Modals-->
@@ -978,44 +901,15 @@
             </div>
         </div>
 
+    </div>
+
         <!-- Loader -->
         <!-- <p class="spinner"><i class="fa fa-spinner fa-5x"></i></p> -->
 
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
-    
-    <script type="text/javascript">
-        window.addEventListener('keydown',function(e){if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){if(e.target.nodeName=='INPUT'&&e.target.type=='text'){e.preventDefault();return false;}}},true);
-    </script>
-    <script>
-        // Script for phone number field
-        const phoneInputField = document.querySelector("#phone");
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            preferredCountries: ["tt", "us", "uk"],
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
 
-        const info = document.querySelector(".validate-info");
-        const error = document.querySelector(".validate-error");
 
-        $('#phone').on('input', function(event) {
-            event.preventDefault();
-        
-            const phoneNumber = phoneInput.getNumber();
-        
-            info.style.display = "none";
-            error.style.display = "none";
-        
-            if (phoneInput.isValidNumber()) {
-            info.style.display = "";
-            info.innerHTML = `Phone number entered: <strong>${phoneNumber}</strong>`;
-            } else {
-            error.style.display = "";
-            error.innerHTML = `Invalid phone number.`;
-            }
-        });
-    </script>
     <script>
         //console.log("Creating module");
         angular.module('app', [])
@@ -1138,7 +1032,6 @@
             
             // define variables
             var items = document.querySelectorAll(".timeline li");
-            console.log(items);
             
             // check if an element is in viewport
             // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
@@ -1167,4 +1060,43 @@
             window.addEventListener("scroll", callbackFunc);
             })();          
     </script>
+    <!-- Change icon when clicked -->
+    <script>
+        function changeIcon(x) {
+            var icon = x.querySelector("svg");
+            var contactPopup = document.getElementById("call-us-cta");
+            var delayInMilliseconds = 500; //0.5 second
+
+            if (contactPopup.style.display === "none") {
+                contactPopup.className = "animate__animated animate__fadeInBottomRight";
+                contactPopup.style.display = "block";
+                icon.classList.toggle("fa-xmark");
+            } else {
+                contactPopup.className = "animate__animated animate__fadeOutBottomRight";
+
+                setTimeout(function() {
+                    contactPopup.style.display = "none";
+                    icon.classList.toggle("fa-message-code");
+                }, delayInMilliseconds);
+            }
+        }
+    </script>
+    <!-- <script>
+        $(window).load(function() {
+	
+            setTimeout(function() {
+              $('.spinner').fadeOut("slow");
+                  
+                setTimeout(function() {
+                $('#preloader').fadeOut("slow"); 
+                
+                    setTimeout(function() {
+                        $('.content-block').addClass('animated fadeInDown').fadeIn("slow");
+                         $('#footer').fadeIn('slow');
+                         
+                    }, 900);
+                }, 700);	  
+            }, 700);	
+      });
+    </script> -->
 </html>
