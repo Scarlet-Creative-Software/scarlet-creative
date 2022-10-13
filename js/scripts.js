@@ -59,6 +59,25 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     });
 
+    // The phone number should not be clickable for screens larger than 768px
+    var links = document.getElementsByClassName('phone-call');
+
+    function setLink() {
+        if (links[0]) {
+            for (var i = 0; i < links.length; i++) {
+                if (window.innerWidth < 768) {
+                    links[i].setAttribute('href', "tel:+18683425377");
+                }
+                else {
+                    links[i].setAttribute('href', "javascript:void(0)");
+                }
+            }
+        }
+    }
+    setLink();
+
+    window.addEventListener('resize', setLink);
+
     // Scroll to the top of the page
     if ($('.back-top')[0]) {
         $('.back-top').on('click', function() {

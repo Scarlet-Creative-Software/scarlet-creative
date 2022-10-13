@@ -15235,6 +15235,17 @@ select::-ms-expand {
 }
 
 /* CONTACT US POPUP ON HOME PAGE */
+@media screen and (max-width: 767.9px) {
+  .phone-call {
+    cursor: pointer !important;
+  }
+}
+@media screen and (min-width: 768px) {
+  .phone-call {
+    cursor: text !important;
+  }
+}
+
 #call-us-cta .title {
   /* font-size: 1.8em; */
   font-weight: 900;
