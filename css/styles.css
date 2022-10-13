@@ -14678,6 +14678,75 @@ select::-ms-expand {
   margin-left: 50px;
 }
 
+/* Box Loading Spinner */
+.boxLoading {
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index:999;
+}
+.boxLoading:before {
+  content: '';
+  width: 50px;
+  height: 5px;
+  background: #000;
+  opacity: 0.1;
+  position: absolute;
+  top: 59px;
+  left: 0;
+  border-radius: 50%;
+  animation: shadow .5s linear infinite;
+}
+.boxLoading:after {
+  content: '';
+  width: 50px;
+  height: 50px;
+  background: #e00500;
+  animation: animate .5s linear infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 3px;
+}
+@keyframes animate {
+  17% {
+    border-bottom-right-radius: 3px;
+ }
+  25% {
+    transform: translateY(9px) rotate(22.5deg);
+ }
+  50% {
+    transform: translateY(18px) scale(1,.9) rotate(45deg);
+    border-bottom-right-radius: 40px;
+ }
+  75% {
+    transform: translateY(9px) rotate(67.5deg);
+ }
+  100% {
+    transform: translateY(0) rotate(90deg);
+ }
+}
+@keyframes shadow {
+  0%, 100% {
+    transform: scale(1,1);
+ }
+  50% {
+    transform: scale(1.2,1);
+ }
+}
+
+/* TODO: PRE-LOADER */
+/* JUST add this class to the top div after boxLoading */
+.content-after-load {
+  transition: 0.5s;
+  opacity:0;
+}
+
 /* FOOTER */
 .footer-section {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -15167,16 +15236,28 @@ select::-ms-expand {
 
 /* CONTACT US POPUP ON HOME PAGE */
 #call-us-cta .title {
-  font-size: 2em;
+  /* font-size: 1.8em; */
   font-weight: 900;
   margin-bottom: 0.5em;
+  text-shadow: 1px 1px #e00500;
 }
 
 #call-us-cta a {
   text-decoration: none;
-  padding: 1.15em 3.75em;
-  /* padding: 3rem; */
+  /* font-size:0.95em; */
+  font-weight: 600;
 }
+
+/* #call-us-cta .form a{
+  padding: 1.15em 4.6em;
+}
+#call-us-cta .call a {
+  padding: 1.15em 5.4em;
+}
+#call-us-cta .mail a {
+  padding: 1.15em 9.6em;
+} */
+
 
 #call-us-cta {
   font-family: 'Montserrat';
@@ -15187,12 +15268,9 @@ select::-ms-expand {
   /* background: #212529; */
   background: rgba(41, 44, 54, 1);
   display: block;
-  width: 420px;
   height: auto;
-  padding: 3em;
   border-radius: 10px;
   text-align: center;
-  padding:3em 2em 1em 2em;
   box-shadow: 0px 11px 21px 0px rgba(0,0,0,0.32);
   z-index: 2;
 }
@@ -15203,7 +15281,6 @@ select::-ms-expand {
 
 #call-us-cta p{
   font-weight: 300;
-  font-size: 18px;
   margin-bottom:1em;
 }
 
@@ -15213,7 +15290,7 @@ select::-ms-expand {
   background:#111;
   /* background: rgba(34, 37, 46, 1); */
   display:block;
-  margin:0.5em 0;
+  margin:0.5em auto;
   line-height:50px;
   border-radius:3px;
   font-family: 'Montserrat', sans-serif;
@@ -15240,7 +15317,6 @@ select::-ms-expand {
 }
 #call-us-cta .popup-btn:hover {
   color: #fff !important;
-  /* background:#e00500; */
 }
 #call-us-cta .popup-btn:hover:after {
   left: 0;
@@ -15248,10 +15324,6 @@ select::-ms-expand {
 }
 #call-us-cta .popup-btn:active {
   top: 2px;
-}
-
-#call-us-cta .popup-btn .chat, #call-us-cta .popup-btn .form {
-  font-size:0.75em
 }
 
 /* #call-us-cta .popup-btn .chat:before {
@@ -15273,11 +15345,218 @@ select::-ms-expand {
   display:inline-block;
  } */
 
-@media screen and (max-width: 1200px) {
+ @media screen and (max-width: 319.9px) {
+  #call-us-cta {
+    padding: 1.5em 0em 1em 0em;
+    width: 250px;
+  }
+  #call-us-cta .title {
+    font-size: 1.2em;
+  }
+  #call-us-cta .popup-btn {
+    width: 80%;
+    font-size: 0.53em;
+  }
+  #call-us-cta p {
+    font-size: 10px;
+  }
+  #call-us-cta .form a{
+    padding: 2.3em 3.6em;
+  }
+  #call-us-cta .call a {
+    padding: 2.3em 4.2em;
+  }
+  #call-us-cta .mail a {
+    padding: 2.3em 8.7em;
+  }
+ }
+
+ @media screen and (min-width:320px) and (max-width: 480.9px) {
+  #call-us-cta {
+    padding: 1.5em 0em 1em 0em;
+    width: 265px;
+  }
+  #call-us-cta .title {
+    font-size: 1.3em;
+  }
+  #call-us-cta .popup-btn {
+    width: 80%;
+    font-size: 0.55em;
+  }
+  #call-us-cta p {
+    font-size: 11px;
+  }
+  #call-us-cta .form a{
+    padding: 2.3em 3.9em;
+  }
+  #call-us-cta .call a {
+    padding: 2.3em 4.5em;
+  }
+  #call-us-cta .mail a {
+    padding: 2.3em 9em;
+  }
+}
+
+ @media screen and (min-width:481px) and (max-width: 599.9px) {
+  #call-us-cta {
+    padding: 1.5em 0em 1em 0em;
+    width: 310px;
+  }
+  #call-us-cta .title {
+    font-size: 1.4em;
+  }
+  #call-us-cta .popup-btn {
+    width: 80%;
+    font-size: 0.65em;
+  }
+  #call-us-cta p {
+    font-size: 12px;
+  }
+  #call-us-cta .form a{
+    padding: 1.85em 4em;
+  }
+  #call-us-cta .call a {
+    padding: 1.85em 4.6em;
+  }
+  #call-us-cta .mail a {
+    padding: 1.85em 9.1em;
+  }
+}
+
+ @media screen and (min-width:600px) and (max-width: 767.9px) {
+  #call-us-cta {
+    padding: 1.5em 0em 1em 0em;
+    width: 333px;
+  }
+  #call-us-cta .title {
+    font-size: 1.5em;
+  }
+  #call-us-cta .popup-btn {
+    width: 80%;
+    font-size: 0.75em;
+  }
+  #call-us-cta p {
+    font-size: 13px;
+  }
+  #call-us-cta .form a{
+    padding: 1.15em 3.2em;
+  }
+  #call-us-cta .call a {
+    padding: 1.15em 3.9em;
+  }
+  #call-us-cta .mail a {
+    padding: 1.15em 8.2em;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 899.9px) {
+  #call-us-cta {
+    padding: 1.5em 0.5em 1em 0.5em;
+    width: 355px;
+  }
+  #call-us-cta .title {
+    font-size: 1.6em;
+  }
+  #call-us-cta .popup-btn {
+    width: 80%;
+    font-size: 0.77em;
+  }
+  #call-us-cta p {
+    font-size: 13px;
+  }
+  #call-us-cta .form a{
+    padding: 1.15em 3.2em;
+  }
+  #call-us-cta .call a {
+    padding: 1.15em 3.9em;
+  }
+  #call-us-cta .mail a {
+    padding: 1.15em 8.2em;
+  }
+}
+
+ @media screen and (min-width: 900px) and (max-width: 991.9px) {
+  #call-us-cta {
+    padding: 1.5em 0.5em 1em 0.5em;
+    width: 365px;
+  }
+  #call-us-cta .title {
+    font-size: 1.6em;
+  }
+  #call-us-cta .popup-btn {
+    width: 80%;
+    font-size: 0.79em;
+  }
+  #call-us-cta p {
+    font-size: 13.5px;
+  }
+  #call-us-cta .form a{
+    padding: 1.15em 3.3em;
+  }
+  #call-us-cta .call a {
+    padding: 1.15em 4em;
+  }
+  #call-us-cta .mail a {
+    padding: 1.15em 8.3em;
+  }
+}
+
+ @media screen and (min-width: 992px) and (max-width: 1199.9px) {
+  #call-us-cta {
+    padding: 2em 1em 1em 1em;
+    width: 395px;
+  }
+  #call-us-cta .title {
+    font-size: 1.7em;
+  }
+  #call-us-cta .popup-btn {
+    width: 90%;
+    font-size: 0.85em;
+  }
+  #call-us-cta p {
+    font-size: 16px;
+  }
+  #call-us-cta .form a{
+    padding: 1.15em 4.1em;
+  }
+  #call-us-cta .call a {
+    padding: 1.15em 4.8em;
+  }
+  #call-us-cta .mail a {
+    padding: 1.15em 9.1em;
+  }
+ }
+
+ @media screen and (min-width: 1200px) {
+   #call-us-cta {
+    padding:3em 2em 1em 2em;
+    width: 420px;
+  }
+  #call-us-cta .title {
+    font-size: 1.8em;
+  }
+  #call-us-cta .popup-btn {
+    width: 100%;
+    font-size: 0.95em;
+  }
+  #call-us-cta p {
+    font-size: 18px;
+  }
+  #call-us-cta .form a{
+    padding: 1.15em 4.1em;
+  }
+  #call-us-cta .call a {
+    padding: 1.15em 4.8em;
+  }
+  #call-us-cta .mail a {
+    padding: 1.15em 9.1em;
+  }
+}
+/* @media screen and (max-width: 1200px) {
   #call-us-cta {
     display: none;
   }
   #open-popup {
     display: none;
   }
-}
+} */
