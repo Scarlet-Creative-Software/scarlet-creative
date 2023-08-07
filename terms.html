@@ -42,7 +42,17 @@
         <nav class="navbar navbar-expand-lg shadow-5-strong navbar-dark fixed-top mainNav">
             <div class="container">
                 <a class="navbar-brand" href="index.html"><img src="assets/img/logo-white.png" style="width:20%;height:20%" alt="logo" />Scarlet</a>
-                <button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="contact.html">Request a Quote</a></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fa fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item"><button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/d/4pf-37t-3tv/initial-consultation-call'});return false;">Schedule a Call</a></button></li>
+                    </ul>
+                </div>
                 <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fa fa-bars ms-1"></i>

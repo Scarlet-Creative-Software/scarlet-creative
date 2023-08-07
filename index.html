@@ -27,6 +27,8 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
         <!-- Meta Pixel Code -->
         <script>
             !function(f,b,e,v,n,t,s)
@@ -78,7 +80,8 @@
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" href="#team">Team</a></li> -->
                         <li class="nav-item"><a class="nav-link" href="careers.html">Careers</a></li>
-                        <li class="nav-item"><button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="contact.html">Request a Quote</a></button></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item"><button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/d/4pf-37t-3tv/initial-consultation-call'});return false;">Schedule a Call</a></button></li>
                     </ul>
                 </div>
             </div>
@@ -687,7 +690,8 @@
         <div id="call-us-cta" class="animate__animated animate__fadeInBottomRight animate__delay-3s">
             <div class="title">Get a Quote</div>
               <p>Ready to turn your idea into a reality?</p>
-            <div class="popup-btn"><div class="form"><a href="contact.html">REQUEST QUOTE ONLINE</a></div></div>
+              <div class="popup-btn"><div class="calendly"><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/d/4pf-37t-3tv/initial-consultation-call'});return false;">Schedule a Meeting</a></div></div>
+            <div class="popup-btn"><div class="form"><a href="contact.html">Request Quote Online</a></div></div>
             <div class="popup-btn"><div class="call"><a class="phone-call">CALL +1 (868) 233-6481</a></div> </div>
             <div class="popup-btn"><div class="mail"><a href="mailto:contact@scarletcreativesoftware.com?subject=Request Quote">MAIL US</a></div> </div>
           </div>
