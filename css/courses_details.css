@@ -1,0 +1,322 @@
+button,
+input {
+    font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+}
+
+a {
+    color: #e00500;
+}
+
+a:hover,
+a:focus {
+    color: #e00500;
+}
+
+.courses-header {
+    font-size: 4.5em;
+}
+
+.courses-top-subtitle {
+    font-size: 3.5em;
+}
+
+p {
+    line-height: 1.61em;
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+.category {
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #9A9A9A;
+}
+
+.courses-subtitle {
+    font-size: 1em;
+}
+
+.nav-item-courses .nav-link,
+.nav-tabs .nav-link {
+    -webkit-transition: all 300ms ease 0s;
+    -moz-transition: all 300ms ease 0s;
+    -o-transition: all 300ms ease 0s;
+    -ms-transition: all 300ms ease 0s;
+    transition: all 300ms ease 0s;
+}
+
+.card a {
+    -webkit-transition: all 150ms ease 0s;
+    -moz-transition: all 150ms ease 0s;
+    -o-transition: all 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: all 150ms ease 0s;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"] i {
+    -webkit-transition: transform 150ms ease 0s;
+    -moz-transition: transform 150ms ease 0s;
+    -o-transition: transform 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: transform 150ms ease 0s;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+
+@-webkit-keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes nc-icon-spin {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.explain-bar-courses {
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    height: 66px;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .explain-title-courses {
+    color: var(--subtitle-color);
+    font-size: 16px;
+    line-height: 40px;
+    white-space: nowrap;
+  }
+  .explain-contents-courses:hover {
+    color: #e00500;
+  }
+  .explain-subtitle-courses {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: -2px;
+    white-space: nowrap;
+    
+  }
+  .explain-contents-courses {
+    height: 66px;
+  }
+  .explain-contents-courses + .explain-contents-courses {
+    border-left: 1px solid var(--border-color);
+    padding-left: 16px;
+  }
+
+  @media screen and (max-width: 990px) {
+    .explain-contents-courses, .explain-bar-courses {
+      height: auto;
+   }
+    .explain-bar-courses {
+      flex-wrap: wrap;
+      padding-bottom: 14px;
+   }
+    .explain-contents-courses {
+      width: 50%;
+   }
+    .explain-contents-courses + .explain-contents-courses {
+      padding: 0;
+      border: 0;
+   }
+    .explain-contents-courses:nth-child(2) ~ .explain-contents-courses {
+      margin-top: 16px;
+      border-top: 1px solid var(--border-color);
+   }
+  }
+
+  @media screen and (max-width: 380px) {
+    .explain-contents-courses {
+      width: 100%;
+      margin: 0;
+   }
+    .explain-contents-courses:nth-child(2) ~ .explain-contents-courses {
+      margin: 0;
+      border: 0;
+   }
+  }
+
+.nav-tabs {
+    border: 0;
+    padding: 15px 0.7rem;
+}
+
+.nav-item-courses {
+    width: 25%;
+    text-align: center;
+    font-weight: 600;
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.courses-img {
+    border-radius: 5%;
+}
+
+
+.nav-tabs:not(.nav-tabs-neutral)>.nav-item-courses>.nav-link.active {
+    box-shadow: 0px 5px 35px 0px rgba(0, 0, 0, 0.3);
+}
+
+.card .nav-tabs {
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+
+.nav-tabs>.nav-item-courses>.nav-link {
+    color: #888888;
+    margin: 0;
+    margin-right: 5px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    font-size: 14px;
+    padding: 11px 23px;
+    line-height: 1.5;
+}
+
+.nav-tabs>.nav-item-courses>.nav-link:hover {
+    background-color: transparent;
+}
+
+.nav-tabs>.nav-item-courses>.nav-link.active {
+    background-color: #444;
+    border-radius: 30px;
+    color: #FFFFFF;
+}
+
+.nav-tabs>.nav-item-courses>.nav-link {
+    font-size: 18px;
+    position: relative;
+    top: 1px;
+    margin-right: 3px;
+    padding: 15px 0.7rem;
+}
+
+.nav-tabs.nav-tabs-neutral>.nav-item-courses>.nav-link {
+    color: #FFFFFF;
+}
+
+.nav-tabs.nav-tabs-neutral>.nav-item-courses>.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+}
+
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius:5%;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 45px;
+    /* box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2); */
+}
+
+.card .card-header {
+    background-color: transparent;
+    border-bottom: 0;
+    background-color: transparent;
+    border-radius: 1rem;
+    padding: 0;
+}
+
+.card[data-background-color="scarlet-red"] {
+    background-color: #e00500;
+}
+
+.card[data-background-color="red"] {
+    background-color: #FF3636;
+}
+
+.card[data-background-color="yellow"] {
+    background-color: #FFB236;
+}
+
+.card[data-background-color="blue"] {
+    background-color: #2CA8FF;
+}
+
+.card[data-background-color="green"] {
+    background-color: #15b60d;
+}
+
+[data-background-color="scarlet-red"] {
+    background-color: #e00500;
+}
+
+[data-background-color="black"] {
+    background-color: #2c2c2c;
+}
+
+[data-background-color]:not([data-background-color="gray"]) {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) p {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) a:not(.btn):not(.dropdown-item) {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) .nav-tabs>.nav-item-courses>.nav-link {
+    color: #FFFFFF;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .nav-tabs {
+        display: inline-block;
+        width: 100%;
+        padding-left: 100px;
+        padding-right: 100px;
+        text-align: center;
+    }
+
+    .nav-item-courses {
+        width: 100%;
+    }
+
+    .nav-tabs .nav-item-courses>.nav-link {
+        margin-bottom: 5px;
+    }
+}
+

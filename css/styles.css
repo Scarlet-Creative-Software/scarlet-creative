@@ -449,6 +449,12 @@ legend + * {
   display: none;
 }
 
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
 ::-webkit-datetime-edit-fields-wrapper,
 ::-webkit-datetime-edit-text,
 ::-webkit-datetime-edit-minute,
@@ -4058,8 +4064,16 @@ textarea.form-control-lg {
   /* background: #e00500; */
   transition: all 0.3s ease;
 }
+/* Enroll button overriding hover and after */
+.enroll-btn:after {
+  background: #fff !important;
+}
+.enroll-btn:hover {
+  color: #e00500 !important;
+}
+
 .request-quote-btn:hover {
-  color: #fff !important;
+  color: #fff;
 }
 .request-quote-btn:hover:after {
   left: 0;
@@ -13066,7 +13080,7 @@ hr {
 }
 
 .contactForm input, .contactForm select {
-  /* color: #ffffff; */
+  color: #ffffff;
   background-color: rgba(34,37,46,1);
   border-color: #363a45;
 }
@@ -15580,3 +15594,111 @@ select::-ms-expand {
     display: none;
   }
 } */
+
+/* COURSE CARDS ON HOME PAGE */
+.courses-img {
+  overflow: hidden;
+}
+
+/* [2] Transition property for smooth transformation of images */
+.courses-img img {
+  transition: transform .5s ease;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+.courses-img:hover img {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.course-title:hover {
+  color: var(--color-red);
+}
+
+.course-line {
+  width: 100%;
+  border-top: 1px solid var(--body-color);
+}
+
+.course-container {
+  background-image: url("../assets/img/courses/course-top-shape.png") !important;
+  background-repeat: no-repeat;
+}
+
+/* Dropdown */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* List with Checked Icon */
+
+.facility-list li {
+  list-style-type: none;
+  padding-bottom: 30px;
+}
+
+.facility-list__item {
+  display: flex;
+  align-items: center;
+}
+
+.facility-list__item p {
+  font-weight: 500;
+  letter-spacing: .5px;
+}
+
+.icon-circle {
+  height: 50px;
+  width: 50px;
+  background-color: #e00500;
+  border-radius: 50%;
+
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-circle i {
+  font-size: 25px;
+  color: #fff !important;
+}
