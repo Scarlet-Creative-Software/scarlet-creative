@@ -1,0 +1,94 @@
+/*======================================================================
+Theme Color All Codes Variable
+======================================================================*/
+
+:root {
+    --theme-general-color: #67686a;
+    /* theme gray color */
+}
+
+:root {
+    --theme-primary-color: #e00500;
+    /* theme primary color */
+}
+
+:root {
+    --theme-secondary-color: #0c193e;
+    /* theme secondary color */
+}
+
+:root {
+    --theme-white-color: #fff;
+    /* theme white font color */
+}
+
+:root {
+    --theme-light-color: #f6eeee;
+    /* theme light gray color */
+}
+
+:root {
+    --theme-light-red-color: #eb4642;
+    /* theme light gray color */
+}
+
+:root {
+    --theme-gray-color: #f8f8f8;
+    /* theme gray color */
+}
+
+:root {
+    --theme-text-gray: #c3c3c3;
+    /* theme text gray color */
+}
+
+:root {
+    --theme-dark-color: #181a1d;
+    /* theme dark color */
+}
+
+:root {
+    --theme-footer-color: #1e2124;
+    /* theme dark color */
+}
+
+:root {
+    --theme-primary-opacity-color: rgba(224, 5, 0, .8);
+    /* theme secondary color */
+}
+
+:root {
+    --theme-secondary-opacity-color: rgba(12, 25, 62, .8);
+    /* theme secondary color */
+}
+
+:root {
+    --theme-white-opacity-color: rgba(255, 255, 255, 0.5);
+    /* theme light color */
+}
+
+:root {
+    --text-light-color: #a5a5a5;
+    /* text light color */
+}
+
+
+/*======================================================================
+Font Variables
+======================================================================*/
+
+:root {
+    --theme-general-font: 'Roboto Slab', sans-serif;
+    /* Font use for normal text and general text */
+}
+
+:root {
+    --theme-hiperlink-font: 'Roboto Slab', sans-serif;
+    /* Font use for normal text and general text */
+}
+
+:root {
+    --theme-highlight-font: 'Roboto Slab', sans-serif;
+    /* Font used in title or special area */
+}
+

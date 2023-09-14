@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded', event => {
         if (links[0]) {
             for (var i = 0; i < links.length; i++) {
                 if (window.innerWidth < 768) {
-                    links[i].setAttribute('href', "tel:+18682336481");
+                    links[i].setAttribute('href', "tel:+18682339557");
                 }
                 else {
                     links[i].setAttribute('href', "javascript:void(0)");
