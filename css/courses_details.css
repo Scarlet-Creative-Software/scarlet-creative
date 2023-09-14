@@ -17,7 +17,7 @@ a:focus {
 }
 
 .courses-top-subtitle {
-    font-size: 3.5em;
+    font-size: 1.3em !important;
 }
 
 p {
@@ -119,7 +119,7 @@ p {
   }
   .explain-title-courses {
     color: var(--subtitle-color);
-    font-size: 16px;
+    font-size: 18px;
     line-height: 40px;
     white-space: nowrap;
   }
@@ -127,7 +127,7 @@ p {
     color: #e00500;
   }
   .explain-subtitle-courses {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     margin-top: -2px;
     white-space: nowrap;
