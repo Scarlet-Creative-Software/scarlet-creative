@@ -81,12 +81,20 @@
                         <!-- <li class="nav-item"><a class="nav-link" href="#team">Team</a></li> -->
                         <li class="nav-item"><a class="nav-link" href="careers.html">Careers</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#programming-courses">Courses</a>
-                            <div class="dropdown-content">
-                                <ul><a href="#">Link 1</a></ul>
-                                <ul><a href="#">Link 2</a></ul>
-                                <ul><a href="#">Link 3</a></ul>
-                            </div>
+                        <li class="nav-item"><a class="nav-link" href="#programming-courses">Courses</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link">Courses</a>
+                            <ul class="nav-dropdown">
+                              <li>
+                                <a href="programming_courses/intro_to_programming.html">Introduction to Programming with Python</a>
+                              </li>
+                              <li>
+                                <a href="programming_courses/python_for_business_professionals.html">Python for Business Professionals</a>
+                              </li>
+                              <li>
+                                <a href="programming_courses/web_and_app_dev_bootcamp.html">Web & App Development Bootcamp</a>
+                              </li>
+                            </ul>
                         </li>
                         <li class="nav-item"><button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/michaelali-scarlet/30min'});return false;">Schedule a Call</a></button></li>
                     </ul>
@@ -1238,6 +1246,32 @@
 
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
+
+    <script>
+        (function($) { // Begin jQuery
+            $(function() { // DOM ready
+              // If a link has a dropdown, add sub menu toggle.
+              $('nav ul li a:not(:only-child)').click(function(e) {
+                $(this).siblings('.nav-dropdown').toggle();
+                // Close one dropdown when selecting another
+                $('.nav-dropdown').not($(this).siblings()).hide();
+                e.stopPropagation();
+              });
+              // Clicking away from dropdown will remove the dropdown class
+              $('html').click(function() {
+                $('.nav-dropdown').hide();
+              });
+              // Toggle open and close nav styles on click
+              $('#nav-toggle').click(function() {
+                $('nav ul').slideToggle();
+              });
+              // Hamburger to X toggle
+              $('#nav-toggle').on('click', function() {
+                this.classList.toggle('active');
+              });
+            }); // end DOM ready
+          })(jQuery); // end jQuery
+    </script>
 
 
     <script>
