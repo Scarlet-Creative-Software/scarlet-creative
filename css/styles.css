@@ -15693,6 +15693,8 @@ ul.facility-list {
   background: var(--bs-dark);
   color: #fff;
   text-decoration: none;
+  text-transform: none;
+  font-weight: 600;
 }
 
 .nav-dropdown li a:hover, .nav-dropdown li a:visited:hover {
