@@ -15671,6 +15671,10 @@ select::-ms-expand {
 
 /* List with Checked Icon */
 
+ul.facility-list {
+  padding-left: 0rem;
+}
+
 .facility-list li {
   list-style-type: none;
   padding-bottom: 30px;
