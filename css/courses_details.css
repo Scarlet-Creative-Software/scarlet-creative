@@ -331,5 +331,9 @@ p {
     .courses-header {
         font-size: 3.5em;
     }
+
+    .course-details-modal {
+        padding: 0.5em !important;
+    }
 }
 
