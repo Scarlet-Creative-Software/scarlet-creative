@@ -15705,3 +15705,56 @@ ul.facility-list {
   padding-left: 4px;
   content: ' ▾';
 }
+
+/* Nested List */
+
+/* .list-wrapper
+{
+  width: 300px;
+  margin: 10% auto;
+  padding: 50px;
+  border-radius: 10px;
+  background: #fff
+} */
+
+ul.nested
+{
+  list-style:none;
+  margin: 0;
+  padding: 0 0;
+  width: 100%;
+}
+
+ul.nested li
+{
+  padding: 5px;
+}
+
+ul.nested li ul
+{
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  font-size: 1.2em;
+
+}
+
+.nested-label
+{
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.nested-label:hover
+{
+  color: #e00500;
+  cursor: pointer;
+}
+
+ul.nested li ul li:hover
+{
+  color: var(--body-color);
+  cursor: pointer;
+  background: #f6eeee;
+  border-radius: 5px;
+}
