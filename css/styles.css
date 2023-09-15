@@ -449,6 +449,12 @@ legend + * {
   display: none;
 }
 
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
 ::-webkit-datetime-edit-fields-wrapper,
 ::-webkit-datetime-edit-text,
 ::-webkit-datetime-edit-minute,
@@ -4058,8 +4064,16 @@ textarea.form-control-lg {
   /* background: #e00500; */
   transition: all 0.3s ease;
 }
+/* Enroll button overriding hover and after */
+.enroll-btn:after {
+  background: #fff !important;
+}
+.enroll-btn:hover {
+  color: #e00500 !important;
+}
+
 .request-quote-btn:hover {
-  color: #fff !important;
+  color: #fff;
 }
 .request-quote-btn:hover:after {
   left: 0;
@@ -7500,6 +7514,10 @@ textarea.form-control-lg {
 
 .fs-6 {
   font-size: 1rem !important;
+}
+
+.fs-7 {
+  font-size: 40px !important;
 }
 
 .fst-italic {
@@ -13066,7 +13084,7 @@ hr {
 }
 
 .contactForm input, .contactForm select {
-  /* color: #ffffff; */
+  color: #ffffff;
   background-color: rgba(34,37,46,1);
   border-color: #363a45;
 }
@@ -15580,3 +15598,167 @@ select::-ms-expand {
     display: none;
   }
 } */
+
+/* COURSE CARDS ON HOME PAGE */
+.courses-img {
+  overflow: hidden;
+}
+
+/* [2] Transition property for smooth transformation of images */
+.courses-img img {
+  transition: transform .5s ease;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+.courses-img:hover img {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.course-title:hover {
+  color: var(--color-red);
+}
+
+.course-line {
+  width: 100%;
+  border-top: 1px solid var(--body-color);
+}
+
+.course-container {
+  background-image: url("../assets/img/courses/course-top-shape.png") !important;
+  background-repeat: no-repeat;
+}
+
+/* List with Checked Icon */
+
+ul.facility-list {
+  padding-left: 0rem;
+}
+
+.facility-list li {
+  list-style-type: none;
+  padding-bottom: 30px;
+}
+
+.facility-list__item {
+  display: flex;
+  align-items: center;
+}
+
+.facility-list__item p {
+  font-weight: 500;
+  letter-spacing: .5px;
+}
+
+.icon-circle {
+  height: 50px;
+  width: 50px;
+  background-color: #e00500;
+  border-radius: 50%;
+
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-circle i {
+  font-size: 25px;
+  color: #fff !important;
+}
+
+/* Nav Menu Dropdown */
+/* Dropdown list binds to JS toggle event */
+.nav-dropdown {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  /* box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15); */
+  /* background-color: var(--bs-dark); */
+  /* float: right; */
+}
+
+.nav-dropdown li {
+  list-style: none;
+  /* float: left; */
+  /* position: relative; */
+  /* margin: 0;
+  padding: 0; */
+}
+
+.nav-dropdown a {
+  text-decoration: none;
+}
+
+.nav-dropdown li a, .nav-dropdown li a:visited {
+  display: block;
+  padding: 0 20px 0 20px;
+  line-height: 70px;
+  background: var(--bs-dark);
+  color: #fff;
+  text-decoration: none;
+  text-transform: none;
+  font-weight: 600;
+}
+
+.nav-dropdown li a:hover, .nav-dropdown li a:visited:hover {
+  background: var(--color-red);
+  color: #fff;
+}
+.nav-dropdown li a:not(:only-child):after, .nav-dropdown li a:visited:not(:only-child):after {
+  padding-left: 4px;
+  content: ' ▾';
+}
+
+/* Nested List */
+
+/* .list-wrapper
+{
+  width: 300px;
+  margin: 10% auto;
+  padding: 50px;
+  border-radius: 10px;
+  background: #fff
+} */
+
+ul.nested
+{
+  list-style:none;
+  margin: 0;
+  padding: 0 0;
+  width: 100%;
+}
+
+ul.nested li
+{
+  padding: 5px;
+}
+
+ul.nested li ul
+{
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  font-size: 1.2em;
+
+}
+
+.nested-label
+{
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.nested-label:hover
+{
+  color: #e00500;
+  cursor: pointer;
+}
+
+ul.nested li ul li:hover
+{
+  color: var(--body-color);
+  cursor: pointer;
+  background: #f6eeee;
+  border-radius: 5px;
+}
