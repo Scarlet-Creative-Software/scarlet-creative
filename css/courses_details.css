@@ -12,6 +12,11 @@ a:focus {
     color: #e00500;
 }
 
+.course-nav-container {
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+}
+
 .courses-header {
     font-size: 4.5em;
 }
@@ -130,8 +135,8 @@ p {
     font-size: 18px;
     font-weight: 600;
     margin-top: -2px;
-    white-space: nowrap;
-    
+    /* white-space: nowrap; */
+    white-space: initial;
   }
   .explain-contents-courses {
     height: 66px;
@@ -306,8 +311,8 @@ p {
     .nav-tabs {
         display: inline-block;
         width: 100%;
-        padding-left: 100px;
-        padding-right: 100px;
+        /* padding-left: 100px;
+        padding-right: 100px; */
         text-align: center;
     }
 
@@ -317,6 +322,14 @@ p {
 
     .nav-tabs .nav-item-courses>.nav-link {
         margin-bottom: 5px;
+    }
+
+    .course-container {
+        padding-left: 5px;
+    }
+
+    .courses-header {
+        font-size: 3.5em;
     }
 }
 

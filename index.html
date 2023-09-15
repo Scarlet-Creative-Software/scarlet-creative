@@ -83,7 +83,7 @@
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" href="#programming-courses">Courses</a></li> -->
                         <li class="nav-item">
-                            <a class="nav-link">Courses ▾</a>
+                            <a id="conditional-link" class="nav-link">Courses ▾</a>
                             <ul class="nav-dropdown">
                               <li>
                                 <a href="programming_courses/intro_to_programming.html">Introduction to Programming with Python</a>
@@ -1246,6 +1246,19 @@
 
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
+
+    <script>
+        function setMobileLink() {
+          const width = window.innerWidth;
+      
+          if (width < 992) {
+            document.getElementById('conditional-link').setAttribute('href', '#programming-courses');
+          }
+        }
+      
+        window.addEventListener('resize', setMobileLink);
+        window.addEventListener('load', setMobileLink);
+      </script>
 
     <script>
         (function($) { // Begin jQuery

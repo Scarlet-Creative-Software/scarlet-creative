@@ -400,6 +400,10 @@ ul.product_list_widget li a:hover,
     font-size: 21px;
 }
 
+.inner-sidebar {
+    padding-left: 0px !important;
+}
+
 #sidebar .sidebar-inner {
     display: flex;
     flex-direction: column;
@@ -531,6 +535,10 @@ ul.product_list_widget {
     list-style-type: none;
 }
 
+.sidebar-nav ul {
+    padding-left: 0px !important;
+}
+
 .sidebar-nav li a {
     color: var(--theme-general-color);
     padding: 15px 30px;
@@ -540,6 +548,7 @@ ul.product_list_widget {
     font-size: 16px;
     width: 100%;
     text-decoration: none;
+    margin: 0;
 }
 
 .sidebar-nav li.active a,
