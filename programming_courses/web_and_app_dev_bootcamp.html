@@ -63,9 +63,12 @@
     </head>
     <body id="page-top">
          <!-- Facebook Tracking-->
-        <script>
-             fbq('track', 'ViewContent');
-        </script>
+         <script>
+            fbq('track', 'ViewContent', {
+              content_name: 'Web Development Bootcamp',  // Replace with the actual course name
+              content_category: 'Programming Courses',  // Replace with the actual category
+            });
+          </script>
         
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg shadow-5-strong navbar-dark fixed-top mainNav">
