@@ -61,7 +61,7 @@
   }
   
   @media only screen and (max-width: 600px) {
-    .container {
+    .container-accordian {
       padding: 80px;
     }
   }
