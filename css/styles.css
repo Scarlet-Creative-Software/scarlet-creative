@@ -15762,3 +15762,72 @@ ul.nested li ul li:hover
   background: #f6eeee;
   border-radius: 5px;
 }
+
+/* Down Arrow to Text */
+
+.arrowBox{
+  position: relative;
+  width:220px;
+  background: #e00500;
+  height:40px;
+  line-height: 40px;
+  margin-bottom:30px; 
+  text-align:center;
+  color:#fff;
+}
+
+.arrowBox a{
+  color:#fff;
+}
+
+/*top arrow*/
+
+.arrow-top:before{
+  position: absolute;
+  top: -10px;
+  left:50%;
+  margin-left: -10px;
+  content:"";
+  display:block;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #e00500; 
+}
+
+/*bottom arrow*/
+
+.arrow-bottom:after{
+  position: absolute;
+  bottom: -10px;
+  left:50%;
+  margin-left: -10px;
+  content:"";
+  display:block;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #e00500; 
+}
+
+/*right arrow*/
+
+.arrow-right:after{
+    content: "";
+    position: absolute;
+    right: -20px;
+    top: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #e00500; 
+}
+
+/*left arrow*/
+
+.arrow-left:before{
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-right: 20px solid #e00500; 
+}
