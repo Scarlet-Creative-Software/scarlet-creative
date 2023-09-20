@@ -12370,6 +12370,21 @@ header.masthead .masthead-heading {
   opacity: 0.3;
 }
 
+@media screen and (max-width: 767px){
+  .portfolio-modal .modal-dialog {
+    margin: 1rem 0 1rem 0;
+  }
+
+  /* .portfolio-modal .modal-content {
+    height: 100%;
+  } */
+
+  .modal-dialog {
+    width: 100%;
+  }
+}
+
+
 .timeline {
   position: relative;
   padding: 0;
