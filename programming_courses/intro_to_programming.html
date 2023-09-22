@@ -103,7 +103,7 @@
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
         <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
         <!-- Meta Pixel Code -->
-        <!-- <script>
+        <script>
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -112,12 +112,12 @@
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            // fbq('init', '163625125698118');
-            // fbq('track', 'PageView');
-        </script> -->
-        <!-- <noscript><img height="1" width="1" style="display:none"
+            fbq('init', '163625125698118');
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=163625125698118&ev=PageView&noscript=1"
-        /></noscript> -->
+        /></noscript>
         <!-- End Meta Pixel Code --> 
         <!-- For International Phone Numbers -->
         <link
@@ -129,12 +129,12 @@
     </head>
     <body id="page-top">
          <!-- Facebook Tracking-->
-         <!-- <script>
+         <script>
             fbq('track', 'ViewContent', {
               content_name: 'Intro to Programming',  // Replace with the actual course name
               content_category: 'Programming Courses',  // Replace with the actual category
             });
-          </script> -->
+          </script>
 
         
         <!-- Navigation-->
@@ -566,6 +566,9 @@
                                                 <button class="lightbox-232551459275865 custom-btn enroll-btn request-quote-btn _btn_04 btn-xl text-uppercase" id="enrollButton2" type="submit" onclick="">Enroll Today!</button>
                                             </div> -->
                                             <div class="text-center">
+                                                <script>
+                                                    fbq('track', 'SubmitApplication');
+                                                  </script>
                                                 <a data-bs-toggle="modal" href="#enrollIntotoProgModal"><button class="custom-btn enroll-btn request-quote-btn _btn_04 btn-xl text-uppercase" id="enrollButton1" type="submit" onclick="">Enroll Today!</button></a>
                                             </div>
                                         </div>
