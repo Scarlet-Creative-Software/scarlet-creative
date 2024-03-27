@@ -104,4 +104,29 @@
 		 /* width: 1250px; */
 	}
 }
+
+/* Tags representing skills used for Portfolio */
+
+.tags {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.tag {
+	/* outline: 1px solid white; */
+	outline: 1px solid #212529;
+	padding: 0.5rem;
+	font-size: 0.8rem;
+	transition: 250ms ease;
+	/* color: white; */
+	color: #212529;
+}
+.tag:hover {
+	background: #212529;
+	color: #ffffff;
+	/* background: white; */
+	/* color: #050505; */
+}
  
