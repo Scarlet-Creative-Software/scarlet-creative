@@ -146,7 +146,10 @@
         const pdf = await pdfjsLib.getDocument(singleUrl).promise;
         beforePDF = afterPDF = pdf;
         const count = pdf.numPages;
-        for (let i = 1; i <= count; i += 2) pagePairs.push([i, Math.min(i + 1, count)]);
+        // Each page is its own slide — no pairing
+        for (let i = 1; i <= count; i++) {
+            pagePairs.push([i, i]); // before = after = same page (you'll only render one)
+        }
       }
 
       // ===================== Build placeholder slides =====================
