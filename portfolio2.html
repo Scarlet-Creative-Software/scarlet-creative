@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Scarlet Creative Software — Portfolio</title>
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+  <style>
+    :root {
+      --max-width: 900px;   /* cap width on desktop */
+      --page-pad: 12px;     /* outer padding around each page */
+      --gap: 18px;          /* spacing between slides */
+      --bg: #0d0d0d;
+      --card: #111;
+    }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: #fff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    /* Center the swiper column */
+    .wrap {
+      min-height: 100%;
+      display: grid;
+      align-items: start;
+      justify-items: center;
+      padding: 24px 16px;
+    }
+
+    /* Swiper container */
+    .swiper {
+      width: min(92vw, var(--max-width));
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Each slide auto-sizes to its content (the page) */
+    .swiper-slide {
+      height: auto !important;        /* critical for “one page = one slide” */
+      display: block;                 /* let content define height */
+      background: transparent;
+    }
+
+    /* Page card */
+    .page {
+      position: relative;
+      width: 100%;
+      padding: var(--page-pad);
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 10px 32px rgba(0,0,0,.35);
+      overflow: hidden;
+    }
+    /* Make canvas responsive: fit width, keep aspect ratio */
+    .page canvas {
+      display: block;
+      width: 100% !important; /* CSS width */
+      height: auto !important; /* auto height keeps the ratio */
+    }
+    /* Simple page chip (e.g., “Page 3 / 24”) */
+    .chip {
+      position: absolute; left: 12px; top: 12px;
+      padding: 6px 10px; border-radius: 8px;
+      background: rgba(0,0,0,.5); backdrop-filter: blur(6px);
+      font: 600 12px/1 system-ui, sans-serif; color: #fff;
+    }
+
+    /* Pagination bullets pinned right (optional) */
+    .swiper-pagination {
+      right: 8px !important; left: auto !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="swiper" aria-label="Portfolio PDF pages">
+      <div class="swiper-wrapper" id="slides"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+
+  <!-- Swiper + PDF.js -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    // ============ CONFIG ============
+    const PDF_URL = 'https://www.scarletcreativesoftware.com/assets/portfolio.pdf';
+    const MAX_DPR = 2;        // cap devicePixelRatio for performance
+    const QUALITY = 1.15;     // render sharpness multiplier (1.0–1.5 is sane)
+    const NEIGHBORHOOD = 1;   // render active +/- this many slides
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    // Render page to canvas sized to fit the page container *width* (keeps aspect ratio)
+    async function renderPageToCanvas(pdf, pageNum, cssWidth) {
+      const page = await pdf.getPage(pageNum);
+      const vp1 = page.getViewport({ scale: 1 });
+      const ratio = vp1.height / vp1.width;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+      const scale = QUALITY * (cssWidth / vp1.width) * dpr;  // scale by target CSS width
+      const viewport = page.getViewport({ scale });
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d', { alpha: false });
+
+      // Device pixels for sharpness
+      canvas.width  = Math.floor(viewport.width);
+      canvas.height = Math.floor(viewport.height);
+
+      // CSS pixels for layout (keep aspect)
+      canvas.style.width  = cssWidth + 'px';
+      canvas.style.height = Math.round(cssWidth * ratio) + 'px';
+
+      await page.render({ canvasContext: ctx, viewport }).promise;
+      return canvas;
+    }
+
+    function debounce(fn, ms=150){ let t; return (...a)=>{clearTimeout(t); t=setTimeout(()=>fn(...a),ms)} }
+
+    (async () => {
+      // 1) Load PDF
+      const pdf = await pdfjsLib.getDocument(PDF_URL).promise;
+      const pageCount = pdf.numPages;
+
+      // 2) Build slides (placeholders)
+      const wrap = document.getElementById('slides');
+      for (let i = 1; i <= pageCount; i++) {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.dataset.page = String(i);
+
+        const pageCard = document.createElement('div');
+        pageCard.className = 'page';
+
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.textContent = `Page ${i} / ${pageCount}`;
+
+        pageCard.appendChild(chip);
+        slide.appendChild(pageCard);
+        wrap.appendChild(slide);
+      }
+
+      // 3) Init Swiper (vertical, variable-height slides)
+      const swiper = new Swiper('.swiper', {
+        direction: 'vertical',
+        slidesPerView: 'auto',
+        centeredSlides: false,
+        spaceBetween: 18,
+        mousewheel: { forceToAxis: true, releaseOnEdges: true, sensitivity: 1.2 },
+        keyboard: { enabled: true, onlyInViewport: true },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        watchSlidesProgress: true,
+        preloadImages: false,
+        lazy: false
+      });
+
+      // Track rendered canvases by page+width for quick rerender on resize
+      const rendered = new Map(); // key: `${page}@${width}` -> canvas
+
+      async function renderSlide(slideEl, force=false) {
+        const pageNum = Number(slideEl.dataset.page);
+        const card = slideEl.querySelector('.page');
+
+        // Compute available CSS width inside the card (minus padding)
+        const cardRect = card.getBoundingClientRect();
+        // padding is in CSS; getComputedStyle more robust than var usage
+        const styles = getComputedStyle(card);
+        const padX = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+        const cssWidth = Math.max(10, Math.round(cardRect.width - padX));
+
+        const key = `${pageNum}@${cssWidth}`;
+        if (!force && rendered.has(key)) {
+          // reuse canvas if already rendered at this width
+          const existing = rendered.get(key);
+          card.querySelector('canvas')?.remove();
+          card.appendChild(existing);
+          return;
+        }
+
+        const canvas = await renderPageToCanvas(pdf, pageNum, cssWidth);
+
+        // Cache and swap in
+        rendered.set(key, canvas);
+        // Clear older sizes for same page to avoid memory bloat
+        [...rendered.keys()]
+          .filter(k => k.startsWith(`${pageNum}@`) && k !== key)
+          .forEach(k => rendered.delete(k));
+
+        card.querySelector('canvas')?.remove();
+        card.appendChild(canvas);
+      }
+
+      function renderNeighborhood(centerIdx0) {
+        for (let d = -NEIGHBORHOOD; d <= NEIGHBORHOOD; d++) {
+          const el = swiper.slides[centerIdx0 + d];
+          if (el) renderSlide(el);
+        }
+      }
+
+      swiper.on('init', () => renderNeighborhood(0));
+      swiper.on('slideChange', () => renderNeighborhood(swiper.activeIndex));
+
+      // Smooth resize handling (orientation change, desktop resize)
+      const onResize = debounce(() => {
+        const idx = swiper.activeIndex;
+        renderNeighborhood(idx);
+      }, 180);
+      window.addEventListener('resize', onResize, { passive: true });
+
+      swiper.init();
+      renderNeighborhood(0); // initial render
+    })();
+  </script>
+</body>
+</html>
