@@ -6,7 +6,7 @@
     name="viewport"
     content="width=device-width,initial-scale=1,viewport-fit=cover"
   />
-  <title>Before / After PDF Slider</title>
+  <title>Scarlet Creative Software Portfolio</title>
 
   <!-- Swiper styles (CDN) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -171,14 +171,14 @@
         left.className = 'chip';
         right.className = 'chip';
 
-        if (MODE === 'two-pdf') {
-          left.textContent  = `Before: p${b}`;
-          right.textContent = `After: p${a}`;
-        } else {
-          // single-pdf-pairs (odd=before, even=after)
-          left.textContent  = `Before (odd): p${b}`;
-          right.textContent = `After  (even): p${a}`;
-        }
+        // if (MODE === 'two-pdf') {
+        //   left.textContent  = `Before: p${b}`;
+        //   right.textContent = `After: p${a}`;
+        // } else {
+        //   // single-pdf-pairs (odd=before, even=after)
+        //   left.textContent  = `Before (odd): p${b}`;
+        //   right.textContent = `After  (even): p${a}`;
+        // }
         chips.append(left, right);
         wrap.appendChild(chips);
 
