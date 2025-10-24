@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,viewport-fit=cover"
+  />
+  <title>Before / After PDF Slider</title>
+
+  <!-- Swiper styles (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    :root { --slide-h: 80vh; }
+
+    /* Page */
+    html, body { height: 100%; background:#0d0d0d; margin:0; }
+    body { display:grid; place-items:center; }
+
+    /* Swiper container */
+    .swiper {
+      height: 100vh;
+      width: min(92vw, 760px);
+      overflow: visible;
+      margin: 0 auto;
+    }
+    .swiper-slide {
+      height: var(--slide-h) !important; /* enables slidesPerView:'auto' */
+      border-radius: 12px;
+      background: #111;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
+      overflow: hidden;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    /* before/after stack */
+    .ba-wrap { position: relative; width: 100%; height: 100%; background:#1b1b1b; display:grid; place-items:center; }
+    .ba-before, .ba-after { display:grid; place-items:center; }
+    .ba-before { position: relative; z-index: 1; }
+    .ba-after  {
+      position: absolute; inset: 0; z-index: 2;
+      /* reveal controlled via --reveal (0–100%) */
+      --reveal: 0%;
+      -webkit-mask-image: linear-gradient(to bottom, white 0%, white var(--reveal), transparent var(--reveal), transparent 100%);
+              mask-image: linear-gradient(to bottom, white 0%, white var(--reveal), transparent var(--reveal), transparent 100%);
+      transition: mask-image .16s linear, -webkit-mask-image .16s linear;
+    }
+    canvas { max-width: 100%; max-height: 100%; display:block; }
+
+    .ba-chip {
+      position: absolute; left: 12px; top: 12px; display:flex; gap:8px; z-index:3;
+      font: 600 12px/1.2 system-ui, sans-serif; color:#fff;
+    }
+    .chip {
+      padding: 6px 8px; border-radius: 6px;
+      background: rgba(0,0,0,.45); backdrop-filter: blur(6px);
+    }
+    .swiper-pagination { right: 8px !important; left: auto !important; }
+  </style>
+</head>
+<body>
+
+  <!-- App -->
+  <div class="swiper" aria-label="Before and After portfolio slider">
+    <div class="swiper-wrapper" id="slides"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- Scripts (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <script>
+    // ===================== CONFIG =====================
+    // MODE = 'two-pdf'  OR  'single-pdf-pairs' (odd=before, even=after)
+    const MODE = 'single-pdf-pairs';
+
+    // Host your file(s) and set the URL(s) here:
+    // Single-pdf mode:
+    const singleUrl = 'https://drive.google.com/uc?export=download&id=1cPZK4Te-bIG8sh1__lIr-JT8ZqSmyJ3C';
+
+    
+    // Two-pdf mode (optional):
+    const beforeUrl = 'assets/portfolio-before.pdf';
+    const afterUrl  = 'assets/portfolio-after.pdf';
+
+    // Rendering quality & behavior
+    const BASE_SCALE = 1.25; // increase for sharper (heavier), decrease for speed
+    const NEIGHBORHOOD = 1;  // render active slide +/- this many neighbors
+    const MAX_DPR = 2;       // cap DPR for performance
+
+    // ===================== PDF.js worker =====================
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+    // Fit canvas to container height at devicePixelRatio for crispness
+    async function renderToCanvas(pdf, pageNum, containerW, containerH) {
+      const page = await pdf.getPage(pageNum);
+
+      // Viewport at scale 1 (intrinsic)
+      const vp1 = page.getViewport({ scale: 1 });
+      const ratio = vp1.width / vp1.height;
+
+      // We fit by height to fill the slide nicely
+      const fitHeight = containerH;
+      const fitWidth  = fitHeight * ratio;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+      const scale = BASE_SCALE * (fitHeight / vp1.height) * dpr;
+      const viewport = page.getViewport({ scale });
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d', { alpha: false });
+
+      canvas.width  = Math.floor(viewport.width);
+      canvas.height = Math.floor(viewport.height);
+      // CSS size (layout pixels)
+      canvas.style.width  = Math.min(fitWidth, containerW) + 'px';
+      canvas.style.height = fitHeight + 'px';
+
+      await page.render({ canvasContext: ctx, viewport }).promise;
+      return canvas;
+    }
+
+    // Debounce helper
+    function debounce(fn, delay=150) {
+      let t;
+      return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+    }
+
+    (async () => {
+      // ===================== Load PDFs =====================
+      let beforePDF, afterPDF, pagePairs = [];
+
+      if (MODE === 'two-pdf') {
+        [beforePDF, afterPDF] = await Promise.all([
+          pdfjsLib.getDocument(beforeUrl).promise,
+          pdfjsLib.getDocument(afterUrl).promise
+        ]);
+        const pageCount = Math.min(beforePDF.numPages, afterPDF.numPages);
+        for (let i = 1; i <= pageCount; i++) pagePairs.push([i, i]); // 1↔1, 2↔2, etc.
+      } else {
+        // 'single-pdf-pairs': pairs are (1,2), (3,4), ...
+        const pdf = await pdfjsLib.getDocument(singleUrl).promise;
+        beforePDF = afterPDF = pdf;
+        const count = pdf.numPages;
+        for (let i = 1; i <= count; i += 2) pagePairs.push([i, Math.min(i + 1, count)]);
+      }
+
+      // ===================== Build placeholder slides =====================
+      const slidesWrap = document.getElementById('slides');
+      const slides = pagePairs.map(([b, a], idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.dataset.index = String(idx + 1);
+        slide.dataset.before = String(b);
+        slide.dataset.after  = String(a);
+
+        const wrap = document.createElement('div');
+        wrap.className = 'ba-wrap';
+
+        const chips = document.createElement('div');
+        chips.className = 'ba-chip';
+        const left = document.createElement('span');
+        const right = document.createElement('span');
+        left.className = 'chip';
+        right.className = 'chip';
+
+        if (MODE === 'two-pdf') {
+          left.textContent  = `Before: p${b}`;
+          right.textContent = `After: p${a}`;
+        } else {
+          // single-pdf-pairs (odd=before, even=after)
+          left.textContent  = `Before (odd): p${b}`;
+          right.textContent = `After  (even): p${a}`;
+        }
+        chips.append(left, right);
+        wrap.appendChild(chips);
+
+        const beforeHolder = document.createElement('div');
+        beforeHolder.className = 'ba-before';
+        beforeHolder.textContent = 'Loading…';
+
+        const afterHolder = document.createElement('div');
+        afterHolder.className = 'ba-after';
+        afterHolder.textContent = '';
+
+        wrap.append(beforeHolder, afterHolder);
+        slide.appendChild(wrap);
+        slidesWrap.appendChild(slide);
+        return slide;
+      });
+
+      // ===================== Init Swiper (vertical with peeking) =====================
+      const swiper = new Swiper('.swiper', {
+        direction: 'vertical',
+        slidesPerView: 'auto',    // CSS height controls slide size (80vh)
+        centeredSlides: true,
+        spaceBetween: 18,
+        mousewheel: { forceToAxis: true, releaseOnEdges: true, sensitivity: 1.2 },
+        keyboard: { enabled: true, onlyInViewport: true },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        watchSlidesProgress: true,
+        preloadImages: false,
+        lazy: false
+      });
+
+      // Helpers
+      function getSlideInnerSize(slideEl) {
+        const wrap = slideEl.querySelector('.ba-wrap');
+        const rect = wrap.getBoundingClientRect();
+        return { w: rect.width, h: rect.height };
+      }
+
+      // Render cache
+      const rendered = new Map(); // key -> {bCanvas, aCanvas, w, h}
+
+      async function renderSlide(slideEl, force = false) {
+        const key = slideEl.dataset.index;
+        const bNum = Number(slideEl.dataset.before);
+        const aNum = Number(slideEl.dataset.after);
+        const { w, h } = getSlideInnerSize(slideEl);
+
+        const prev = rendered.get(key);
+        // Re-render if forced or size changed materially
+        if (!force && prev && Math.abs(prev.h - h) < 4 && Math.abs(prev.w - w) < 4) return;
+
+        const [bCanvas, aCanvas] = await Promise.all([
+          renderToCanvas(beforePDF, bNum, w, h),
+          renderToCanvas(afterPDF,  aNum, w, h)
+        ]);
+
+        const beforeHolder = slideEl.querySelector('.ba-before');
+        const afterHolder  = slideEl.querySelector('.ba-after');
+
+        beforeHolder.replaceChildren(bCanvas);
+        afterHolder.replaceChildren(aCanvas);
+
+        rendered.set(key, { bCanvas, aCanvas, w, h });
+      }
+
+      function ensureNeighborhoodRendered(centerIdx1) {
+        const zeroIdx = centerIdx1 - 1;
+        for (let delta = -NEIGHBORHOOD; delta <= NEIGHBORHOOD; delta++) {
+          const el = swiper.slides[zeroIdx + delta];
+          if (el) renderSlide(el);
+        }
+      }
+
+      // Progress-based reveal (makes “after” join as you scroll)
+      function updateReveal() {
+        swiper.slides.forEach(slideEl => {
+          // progress: 0 at center; ~±1 when a full slide away
+          const closeness = 1 - Math.min(1, Math.abs(slideEl.progress || 0));
+          const pct = Math.round(closeness * 100); // 0–100
+          slideEl.querySelectorAll('.ba-after').forEach(el => {
+            el.style.setProperty('--reveal', pct + '%');
+          });
+        });
+      }
+
+      swiper.on('init', () => {
+        ensureNeighborhoodRendered(1);
+        updateReveal();
+      });
+      swiper.on('slideChange', () => {
+        ensureNeighborhoodRendered(swiper.activeIndex + 1);
+      });
+      swiper.on('progress', updateReveal);
+      swiper.on('setTranslate', updateReveal);
+
+      // Re-render the active slide on resize for crispness (debounced)
+      const onResize = debounce(() => {
+        const el = swiper.slides[swiper.activeIndex];
+        if (el) renderSlide(el, true);
+        ensureNeighborhoodRendered(swiper.activeIndex + 1);
+        updateReveal();
+      }, 200);
+      window.addEventListener('resize', onResize, { passive: true });
+
+      swiper.init();
+      // Kick initial render for first view
+      ensureNeighborhoodRendered(1);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+#introLoader {
+    position: fixed;
+    inset: 0;
+    background: #FAF9F7; /* your background color */
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    transition: opacity .4s ease;
+  }
+  #introLoader.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #introLoader video, #introLoader img {
+    width: min(400px, 70vw);
+    height: auto;
+    border-radius: 12px;
+  }
+  
