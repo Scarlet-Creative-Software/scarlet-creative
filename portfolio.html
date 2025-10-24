@@ -2,45 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Vertical Coverflow — PDF Pages</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
   <style>
     :root{
-      --gap: 18px;
-      --card-bg: #111;
-      --max-w: 720px;           /* max card width on desktop */
+      --max-w: 760px;           /* wider = taller page = fewer visible */
       --radius: 14px;
-      --page-pad: 0;            /* inner padding (set >0 if you want a frame) */
+      --card-bg: #111;
+      --gap: 18px;
+      --pad-block: 28px;        /* top/bottom padding for peeking */
     }
     html, body { height: 100%; margin: 0; background:#000; color:#fff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-    .swiper { height: 100vh; width: 100%; padding-block: 36px; }
-    .swiper-wrapper { align-items: center; }
-    .swiper-slide { height: auto !important; display: grid; place-items: center; background: transparent; }
 
-    /* The PDF page card */
+    /* Full-height vertical stage with a little breathing room so next page peeks in */
+    .swiper {
+      height: 100vh;
+      width: 100%;
+      padding-block: var(--pad-block);
+    }
+    .swiper-wrapper { align-items: center; }
+
+    /* Each slide sizes itself by its content (the page card) */
+    .swiper-slide {
+      height: auto !important;
+      display: grid;
+      place-items: center;
+      background: transparent;
+    }
+
+    /* Reserve portrait height BEFORE canvas renders so Swiper measures correctly */
     .card {
       width: min(92vw, var(--max-w));
+      aspect-ratio: 3 / 4;            /* portrait; use 8.5/11 if you prefer letter shape */
       background: var(--card-bg);
       border-radius: var(--radius);
-      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      box-shadow: 0 14px 44px rgba(0,0,0,.5);
       overflow: hidden;
       position: relative;
-      padding: var(--page-pad);
       display: grid;
       place-items: center;
     }
 
-    /* Canvas is responsive: width 100%, height auto keeps aspect ratio (no stretch) */
+    /* Responsive canvas (no distortion) */
     .card canvas {
       width: 100% !important;
       height: auto !important;
       display: block;
     }
 
-    /* Small page chip (optional) */
+    /* Page chip (optional) */
     .chip {
       position: absolute; left: 12px; top: 12px;
       padding: 6px 10px; border-radius: 8px;
@@ -48,57 +61,54 @@
       font: 600 12px/1 system-ui, sans-serif;
     }
 
-    /* Right-side bullets for vertical flow */
-    .swiper-pagination { right: 8px !important; left: auto !important; }
-
-    /* Minimal loader */
+    /* Minimal spinner while a page renders */
     .spinner {
       width: 28px; height: 28px; border-radius: 50%;
       border: 3px solid rgba(255,255,255,.25);
-      border-top-color: #fff; animation: spin 0.9s linear infinite;
-      margin: 40px auto;
+      border-top-color: #fff; animation: spin .9s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* Bullets pinned right for vertical flow */
+    .swiper-pagination { right: 8px !important; left: auto !important; }
+
     @media (max-width: 480px){
-      .swiper { padding-block: 20px; }
+      :root { --max-w: 92vw; --pad-block: 22px; }
     }
   </style>
 </head>
 <body>
 
   <div class="swiper mySwiper" aria-label="Vertical coverflow PDF">
-    <div class="swiper-wrapper" id="slides">
-      <!-- slides get injected after PDF loads -->
-    </div>
+    <div class="swiper-wrapper" id="slides"></div>
     <div class="swiper-pagination"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
-    // ================= CONFIG =================
+    // ========= CONFIG =========
     const PDF_URL   = 'https://www.scarletcreativesoftware.com/assets/portfolio.pdf';
     const MAX_DPR   = 2;       // cap for perf
-    const QUALITY   = 1.2;     // 1.0–1.4 is nice
+    const QUALITY   = 1.25;    // 1.0–1.4 looks great
     const NEIGHBORS = 1;       // render active ± neighbors
 
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    // Render a PDF page to canvas sized to the card's CSS width
+    // Render a page to canvas sized by the card's CSS width (keeps aspect)
     async function renderPageToCanvas(pdf, pageNum, cssWidth) {
-      const page = await pdf.getPage(pageNum);
-      const vp1  = page.getViewport({ scale: 1 });
-      const ratio = vp1.height / vp1.width; // keep natural PDF aspect
-      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+      const page  = await pdf.getPage(pageNum);
+      const vp1   = page.getViewport({ scale: 1 });
+      const ratio = vp1.height / vp1.width;                     // natural PDF aspect
+      const dpr   = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       const scale = QUALITY * (cssWidth / vp1.width) * dpr;
       const viewport = page.getViewport({ scale });
 
       const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d', { alpha: false });
+      const ctx    = canvas.getContext('2d', { alpha: false });
 
-      // device pixels for sharpness
+      // device pixels for crisp rendering
       canvas.width  = Math.floor(viewport.width);
       canvas.height = Math.floor(viewport.height);
 
@@ -113,7 +123,7 @@
     function debounce(fn, ms=150){ let t; return (...a)=>{clearTimeout(t); t=setTimeout(()=>fn(...a),ms)} }
 
     (async () => {
-      // 1) Load the PDF
+      // 1) Load PDF
       const pdf = await pdfjsLib.getDocument(PDF_URL).promise;
       const total = pdf.numPages;
 
@@ -126,6 +136,7 @@
 
         const card = document.createElement('div');
         card.className = 'card';
+
         const chip = document.createElement('div');
         chip.className = 'chip';
         chip.textContent = `Page ${i} / ${total}`;
@@ -138,18 +149,18 @@
         wrap.appendChild(slide);
       }
 
-      // 3) Init Swiper with vertical coverflow
+      // 3) Init Swiper (vertical coverflow)
       const swiper = new Swiper('.mySwiper', {
         direction: 'vertical',
         effect: 'coverflow',
         centeredSlides: true,
-        slidesPerView: 'auto',
+        slidesPerView: 'auto',     // let slide/card height control how many fit
         spaceBetween: 18,
         coverflowEffect: {
-          rotate: 32,     // tilt (rotateX in vertical mode)
-          stretch: 60,    // spacing along vertical axis
-          depth: 180,     // z-depth
-          modifier: 1.08,
+          rotate: 22,              // subtle tilt
+          stretch: 90,             // vertical spacing (higher = more peek / fewer visible)
+          depth: 240,              // z-depth
+          modifier: 0.95,          // intensity; <1 tightens stack
           slideShadows: true
         },
         mousewheel: { forceToAxis: true, releaseOnEdges: true, sensitivity: 1.2 },
@@ -160,17 +171,26 @@
         lazy: false
       });
 
-      // 4) Render logic with simple caching
+      // Helper to force re-measure so we keep "1 full + peek"
+      function swiperRefresh() {
+        swiper.updateSlides();
+        swiper.updateAutoHeight();
+        swiper.updateProgress();
+        swiper.updateSlidesClasses();
+        swiper.translateTo(swiper.translate, 0); // keep position, no jump
+      }
+
+      // 4) Render logic with a tiny cache
       const cache = new Map(); // key: `${page}@${w}` -> canvas
 
       async function renderSlide(slideEl, force=false) {
         const pageNum = Number(slideEl.dataset.page);
         const card = slideEl.querySelector('.card');
 
-        // CSS width inside card (minus padding)
-        const rect = card.getBoundingClientRect();
+        // compute the target CSS width inside the card
+        const rect   = card.getBoundingClientRect();
         const styles = getComputedStyle(card);
-        const padX = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+        const padX   = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
         const cssWidth = Math.max(10, Math.round(rect.width - padX));
 
         const key = `${pageNum}@${cssWidth}`;
@@ -178,13 +198,14 @@
           card.querySelector('canvas')?.remove();
           card.querySelector('.spinner')?.remove();
           card.appendChild(cache.get(key));
+          swiperRefresh();
           return;
         }
 
         const canvas = await renderPageToCanvas(pdf, pageNum, cssWidth);
         cache.set(key, canvas);
 
-        // prune older sizes for same page to cap memory
+        // prune older sizes of same page to cap memory
         for (const k of [...cache.keys()]) {
           if (k.startsWith(`${pageNum}@`) && k !== key) cache.delete(k);
         }
@@ -192,10 +213,11 @@
         card.querySelector('canvas')?.remove();
         card.querySelector('.spinner')?.remove();
         card.appendChild(canvas);
+        swiperRefresh(); // critical: re-measure after real height is known
       }
 
       function renderNeighborhood(centerIdx0) {
-        for (let d = -NEIGHBORS; d <= NEIGHBORS; d++) {
+        for (let d = -1 * 1; d <= NEIGHBORS; d++) {
           const el = swiper.slides[centerIdx0 + d];
           if (el) renderSlide(el);
         }
@@ -204,7 +226,7 @@
       swiper.on('init', () => renderNeighborhood(0));
       swiper.on('slideChange', () => renderNeighborhood(swiper.activeIndex));
 
-      // Re-render visible pages on resize/orientation change
+      // Re-render visible on resize/orientation change
       const onResize = debounce(() => renderNeighborhood(swiper.activeIndex), 180);
       window.addEventListener('resize', onResize, { passive: true });
 
