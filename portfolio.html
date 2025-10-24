@@ -1,106 +1,213 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Vertical Coverflow — PDF Pages</title>
+  <title>Scarlet Creative — Portfolio</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
   <style>
+    /* =============== THEME TOKENS =============== */
     :root{
-      --max-w: 760px;           /* wider = taller page = fewer visible */
+      /* Aspect ratio for the page cards — Letter by default (8.5x11). */
+      --aspect-w: 8.5;
+      --aspect-h: 11;
+
+      --max-w: 760px;         /* wider => taller card => fewer visible */
       --radius: 14px;
-      --card-bg: #111;
       --gap: 18px;
-      --pad-block: 28px;        /* top/bottom padding for peeking */
-    }
-    html, body { height: 100%; margin: 0; background:#000; color:#fff; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      --pad-block: 28px;      /* top/bottom room so next page peeks */
 
-    /* Full-height vertical stage with a little breathing room so next page peeks in */
-    .swiper {
-      height: 100vh;
-      width: 100%;
-      padding-block: var(--pad-block);
+      /* Dark theme defaults */
+      --bg: #000;
+      --card: #111;
+      --text: #fff;
+      --muted: #bfc3c7;
+      --chip: rgba(0,0,0,.5);
+      --cta: #e44;
+      --cta-text: #fff;
+      --ring: rgba(255,255,255,.18);
+      --shadow: 0 14px 44px rgba(0,0,0,.5);
+      --grad: linear-gradient(to top, rgba(0,0,0,.75), transparent 60%);
     }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f7f7f8;
+        --card: #fff;
+        --text: #0c0d10;
+        --muted: #5b6168;
+        --chip: rgba(255,255,255,.7);
+        --cta: #cc1d1d;
+        --cta-text: #fff;
+        --ring: rgba(0,0,0,.12);
+        --shadow: 0 18px 40px rgba(0,0,0,.12);
+        --grad: linear-gradient(to top, rgba(255,255,255,.85), transparent 60%);
+      }
+    }
+    /* Force theme if user toggles */
+    [data-theme="dark"]  { --bg:#000; --card:#111; --text:#fff; --muted:#bfc3c7; --chip:rgba(0,0,0,.5); --cta:#e44; --cta-text:#fff; --ring:rgba(255,255,255,.18); --shadow:0 14px 44px rgba(0,0,0,.5); --grad: linear-gradient(to top, rgba(0,0,0,.75), transparent 60%); }
+    [data-theme="light"] { --bg:#f7f7f8; --card:#fff; --text:#0c0d10; --muted:#5b6168; --chip:rgba(255,255,255,.7); --cta:#cc1d1d; --cta-text:#fff; --ring:rgba(0,0,0,.12); --shadow:0 18px 40px rgba(0,0,0,.12); --grad: linear-gradient(to top, rgba(255,255,255,.85), transparent 60%); }
+
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed; z-index: 20; right: 14px; top: 12px;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border-radius: 999px; background: var(--card);
+      color: var(--text); border: 1px solid var(--ring); cursor: pointer;
+      box-shadow: var(--shadow); user-select: none;
+    }
+
+    /* Stage */
+    .swiper { height: 100vh; width: 100%; padding-block: var(--pad-block); }
     .swiper-wrapper { align-items: center; }
+    .swiper-slide { height: auto !important; display: grid; place-items: center; background: transparent; }
 
-    /* Each slide sizes itself by its content (the page card) */
-    .swiper-slide {
-      height: auto !important;
-      display: grid;
-      place-items: center;
-      background: transparent;
-    }
-
-    /* Reserve portrait height BEFORE canvas renders so Swiper measures correctly */
+    /* Page card reserves height with aspect-ratio so Swiper measures correctly */
     .card {
       width: min(92vw, var(--max-w));
-      aspect-ratio: 3 / 4;            /* portrait; use 8.5/11 if you prefer letter shape */
-      background: var(--card-bg);
+      aspect-ratio: var(--aspect-w) / var(--aspect-h);
+      background: var(--card);
       border-radius: var(--radius);
-      box-shadow: 0 14px 44px rgba(0,0,0,.5);
+      box-shadow: var(--shadow);
       overflow: hidden;
       position: relative;
       display: grid;
       place-items: center;
     }
+    .card canvas { width: 100% !important; height: auto !important; display: block; }
 
-    /* Responsive canvas (no distortion) */
-    .card canvas {
-      width: 100% !important;
-      height: auto !important;
-      display: block;
+    /* Cover card (first slide) */
+    .cover {
+      background: linear-gradient(145deg, #e23, #f60 60%, #fb3);
+      color: #fff;
+      display: grid; place-items: center;
+      text-align: center; padding: 24px;
+    }
+    .cover-inner { max-width: 80%; }
+    .cover h1 { margin: 0 0 8px; font-size: clamp(22px, 4.4vw, 40px); line-height: 1.05; }
+    .cover p  { margin: 8px 0 18px; opacity: .95; font-size: clamp(14px, 2.6vw, 18px); }
+    .btn {
+      display:inline-block; padding: 10px 14px; border-radius: 10px;
+      background: #fff; color:#111; font-weight: 700; text-decoration: none;
+      border: 0; cursor: pointer;
     }
 
-    /* Page chip (optional) */
+    /* Page chip & footer CTA */
     .chip {
       position: absolute; left: 12px; top: 12px;
       padding: 6px 10px; border-radius: 8px;
-      background: rgba(0,0,0,.45); backdrop-filter: blur(6px);
-      font: 600 12px/1 system-ui, sans-serif;
+      background: var(--chip);
+      color: #000; font-weight: 700; mix-blend-mode: normal;
+    }
+    .footer-cta {
+      position: absolute; inset: auto 0 0 0; padding: 14px 16px;
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      background: var(--grad);
+    }
+    .footer-cta p { margin: 0; color: var(--text); opacity: .9; font-size: 14px; }
+    .cta-btn {
+      padding: 9px 14px; border-radius: 10px; border: 0; cursor: pointer;
+      background: var(--cta); color: var(--cta-text); font-weight: 700;
+      box-shadow: 0 6px 18px rgba(0,0,0,.35);
     }
 
-    /* Minimal spinner while a page renders */
-    .spinner {
-      width: 28px; height: 28px; border-radius: 50%;
-      border: 3px solid rgba(255,255,255,.25);
-      border-top-color: #fff; animation: spin .9s linear infinite;
-    }
+    /* Spinner */
+    .spinner { width: 28px; height: 28px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.25); border-top-color: #fff;
+      animation: spin .9s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Bullets pinned right for vertical flow */
+    /* Pagination bullets (right side for vertical) */
     .swiper-pagination { right: 8px !important; left: auto !important; }
 
     @media (max-width: 480px){
       :root { --max-w: 92vw; --pad-block: 22px; }
+      .cover-inner { max-width: 90%; }
+      .footer-cta p { font-size: 13px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="swiper mySwiper" aria-label="Vertical coverflow PDF">
-    <div class="swiper-wrapper" id="slides"></div>
+  <!-- Theme toggle -->
+  <button class="theme-toggle" id="themeToggle" type="button">
+    <span id="themeLabel">Theme: Auto</span>
+  </button>
+
+  <div class="swiper mySwiper" aria-label="Vertical coverflow PDF portfolio">
+    <div class="swiper-wrapper" id="slides">
+      <!-- COVER SLIDE (hero) -->
+      <div class="swiper-slide">
+        <div class="card cover">
+          <div class="cover-inner">
+            <h1>Scarlet Creative — Portfolio</h1>
+            <p>Swipe up to explore selected work. Enjoy the tactile, book-like flow.</p>
+            <a class="btn" href="#pages">Start Browsing</a>
+          </div>
+        </div>
+      </div>
+      <!-- PDF slides get injected below -->
+    </div>
     <div class="swiper-pagination"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
-    // ========= CONFIG =========
+    // ================== CONFIG ==================
     const PDF_URL   = 'https://www.scarletcreativesoftware.com/assets/portfolio.pdf';
-    const MAX_DPR   = 2;       // cap for perf
-    const QUALITY   = 1.25;    // 1.0–1.4 looks great
-    const NEIGHBORS = 1;       // render active ± neighbors
+    const MAX_DPR   = 2;
+    const QUALITY   = 1.25;
+    const NEIGHBORS = 1;
 
+    // ----- coverflow TUNING (for 1 full page + a peek) -----
+    const COVERFLOW = {
+      rotate: 22,      // subtle tilt
+      stretch: 90,     // vertical spacing (increase => tighter stack, more peek)
+      depth: 240,      // z-depth
+      modifier: 0.95,  // intensity (<1 = fewer neighbors)
+      slideShadows: true
+    };
+    const SWIPE_FEEL = {
+      speed: 520,             // snap speed (ms)
+      longSwipesMs: 140,      // how long a touch counts as "long"
+      longSwipesRatio: 0.2,   // distance needed to trigger slide
+      resistanceRatio: 0.85,  // "rubber band" feel at edges
+      threshold: 5            // minimal movement to start
+    };
+
+    // ================== THEME TOGGLE ==================
+    const themeToggle = document.getElementById('themeToggle');
+    const themeLabel  = document.getElementById('themeLabel');
+    const root = document.documentElement;
+
+    function applyTheme(mode){
+      // mode: 'auto' | 'dark' | 'light'
+      document.documentElement.setAttribute('data-theme', mode);
+      themeLabel.textContent = `Theme: ${mode[0].toUpperCase() + mode.slice(1)}`;
+      localStorage.setItem('theme', mode);
+    }
+    (function initTheme(){
+      const saved = localStorage.getItem('theme') || 'auto';
+      applyTheme(saved);
+    })();
+    themeToggle.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') || 'auto';
+      const next = cur === 'auto' ? 'dark' : cur === 'dark' ? 'light' : 'auto';
+      applyTheme(next);
+    });
+
+    // ================== PDF RENDERING ==================
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    // Render a page to canvas sized by the card's CSS width (keeps aspect)
     async function renderPageToCanvas(pdf, pageNum, cssWidth) {
       const page  = await pdf.getPage(pageNum);
       const vp1   = page.getViewport({ scale: 1 });
-      const ratio = vp1.height / vp1.width;                     // natural PDF aspect
+      const ratio = vp1.height / vp1.width;
       const dpr   = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       const scale = QUALITY * (cssWidth / vp1.width) * dpr;
       const viewport = page.getViewport({ scale });
@@ -108,11 +215,8 @@
       const canvas = document.createElement('canvas');
       const ctx    = canvas.getContext('2d', { alpha: false });
 
-      // device pixels for crisp rendering
       canvas.width  = Math.floor(viewport.width);
       canvas.height = Math.floor(viewport.height);
-
-      // CSS size for layout (controls responsiveness)
       canvas.style.width  = cssWidth + 'px';
       canvas.style.height = Math.round(cssWidth * ratio) + 'px';
 
@@ -123,71 +227,69 @@
     function debounce(fn, ms=150){ let t; return (...a)=>{clearTimeout(t); t=setTimeout(()=>fn(...a),ms)} }
 
     (async () => {
-      // 1) Load PDF
+      // 1) Load PDF & create slides
       const pdf = await pdfjsLib.getDocument(PDF_URL).promise;
       const total = pdf.numPages;
 
-      // 2) Create slides (placeholders)
       const wrap = document.getElementById('slides');
+
       for (let i = 1; i <= total; i++) {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
         slide.dataset.page = String(i);
+        if (i === 1) slide.id = 'pages'; // anchor for "Start Browsing"
 
         const card = document.createElement('div');
         card.className = 'card';
 
-        const chip = document.createElement('div');
-        chip.className = 'chip';
+        const chip = document.createElement('div'); chip.className = 'chip';
         chip.textContent = `Page ${i} / ${total}`;
 
-        const spinner = document.createElement('div');
-        spinner.className = 'spinner';
+        const spinner = document.createElement('div'); spinner.className = 'spinner';
 
-        card.append(chip, spinner);
+        const footer = document.createElement('div'); footer.className = 'footer-cta';
+        footer.innerHTML = `
+          <p>Like this project? Let’s build yours.</p>
+          <button class="cta-btn" onclick="window.location.href='mailto:hello@scarletcreativesoftware.com?subject=Project%20inquiry'">Get in touch</button>
+        `;
+
+        card.append(chip, spinner, footer);
         slide.appendChild(card);
         wrap.appendChild(slide);
       }
 
-      // 3) Init Swiper (vertical coverflow)
+      // 2) Init Swiper (vertical coverflow, 1+peek feel)
       const swiper = new Swiper('.mySwiper', {
         direction: 'vertical',
         effect: 'coverflow',
         centeredSlides: true,
-        slidesPerView: 'auto',     // let slide/card height control how many fit
+        slidesPerView: 'auto',
         spaceBetween: 18,
-        coverflowEffect: {
-          rotate: 22,              // subtle tilt
-          stretch: 90,             // vertical spacing (higher = more peek / fewer visible)
-          depth: 240,              // z-depth
-          modifier: 0.95,          // intensity; <1 tightens stack
-          slideShadows: true
-        },
-        mousewheel: { forceToAxis: true, releaseOnEdges: true, sensitivity: 1.2 },
+        coverflowEffect: COVERFLOW,
+        mousewheel: { forceToAxis: true, releaseOnEdges: true, sensitivity: 1.1, thresholdDelta: 10 },
         keyboard:   { enabled: true, onlyInViewport: true },
         pagination: { el: '.swiper-pagination', clickable: true },
         watchSlidesProgress: true,
         preloadImages: false,
-        lazy: false
+        lazy: false,
+        ...SWIPE_FEEL
       });
 
-      // Helper to force re-measure so we keep "1 full + peek"
       function swiperRefresh() {
         swiper.updateSlides();
         swiper.updateAutoHeight();
         swiper.updateProgress();
         swiper.updateSlidesClasses();
-        swiper.translateTo(swiper.translate, 0); // keep position, no jump
+        swiper.translateTo(swiper.translate, 0);
       }
 
-      // 4) Render logic with a tiny cache
+      // 3) Render logic with cache
       const cache = new Map(); // key: `${page}@${w}` -> canvas
 
       async function renderSlide(slideEl, force=false) {
         const pageNum = Number(slideEl.dataset.page);
         const card = slideEl.querySelector('.card');
 
-        // compute the target CSS width inside the card
         const rect   = card.getBoundingClientRect();
         const styles = getComputedStyle(card);
         const padX   = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
@@ -204,8 +306,7 @@
 
         const canvas = await renderPageToCanvas(pdf, pageNum, cssWidth);
         cache.set(key, canvas);
-
-        // prune older sizes of same page to cap memory
+        // prune old sizes for this page
         for (const k of [...cache.keys()]) {
           if (k.startsWith(`${pageNum}@`) && k !== key) cache.delete(k);
         }
@@ -213,11 +314,11 @@
         card.querySelector('canvas')?.remove();
         card.querySelector('.spinner')?.remove();
         card.appendChild(canvas);
-        swiperRefresh(); // critical: re-measure after real height is known
+        swiperRefresh();
       }
 
       function renderNeighborhood(centerIdx0) {
-        for (let d = -1 * 1; d <= NEIGHBORS; d++) {
+        for (let d = -NEIGHBORS; d <= NEIGHBORS; d++) {
           const el = swiper.slides[centerIdx0 + d];
           if (el) renderSlide(el);
         }
@@ -226,7 +327,6 @@
       swiper.on('init', () => renderNeighborhood(0));
       swiper.on('slideChange', () => renderNeighborhood(swiper.activeIndex));
 
-      // Re-render visible on resize/orientation change
       const onResize = debounce(() => renderNeighborhood(swiper.activeIndex), 180);
       window.addEventListener('resize', onResize, { passive: true });
 
