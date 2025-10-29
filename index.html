@@ -7,8 +7,7 @@
         <meta name="author" content="Scarlet Creative Software Limited" />
         <title>Scarlet Creative - Technology with a Conscience</title>
 
-
-        <meta property="og:title" content="Scarlet Creative — Technology with a Conscience">
+        <meta property="og:title" content="Scarlet Creative - Technology with a Conscience">
         <meta property="og:description" content="We build software that scales businesses and serves communities. Empathy first, impact always.">
         <meta property="og:url" content="https://scarletcreative.org/">
         <meta property="og:type" content="website">
@@ -20,26 +19,102 @@
         <meta property="og:image:height" content="630">
         <meta name="twitter:card" content="summary_large_image">
 
-        <meta description="Scarlet Creative is a leading software development firm with a global presence. We specialize in creating modern, secure, and scalable technological solutions, including AI-powered business process optimization and blockchain development. Explore our wide range of services and let us help you transform your business.">
+        <meta description="Scarlet Creative is a leading software development firm with a global presence. We specialise in creating modern, secure, and scalable technological solutions, including AI-powered business process optimization and blockchain development. Explore our wide range of services and let us help you transform your business.">
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/scarlet-favicon.png" />
 
         <style>
-            /* FULLSCREEN OVERLAY */
-            #introLoader{
-                position:fixed; inset:0; z-index:9999;
-                display:block; background:#FAF9F7;
-                transition:opacity 60s ease;
+              :root{
+                --scarlet-900:#7c0f1a; --scarlet-800:#921321; --scarlet-700:#b0172a;
+                --scarlet-600:#c61b32; --scarlet-500:#de213b; --scarlet-400:#f04553;
+                --scarlet-300:#ff6b7d; --scarlet-200:#ff9aa7; --scarlet-100:#ffd6db;
+                --ink:#1a1a1a; --bg:#0a0a0a; --text:#fff;
             }
-            /* make the video COVER the screen (like a bg), centered */
-            #introLoader video{
-                position:absolute; top:50%; left:50%;
-                transform:translate(-50%,-50%);
-                min-width:100%; min-height:100%;
-                width:auto; height:auto; object-fit:cover;
+
+            body.is-loading {
+                background: #0a0a0a; /* Or your dark radial-gradient if you prefer */
+                overflow: hidden !important;
             }
-            /* fade out class */
-            #introLoader.hidden{ opacity:0; pointer-events:none; }
+
+            /* 1) Loader */
+            .loading-overlay{
+                position:fixed; inset:0; display:grid; place-items:center; z-index:3000;
+                background:
+                radial-gradient(1200px 800px at 30% 0%, #1a0c0f 0%, #0e0809 55%, #080506 100%);
+                transition:opacity .35s ease;
+            }
+            .loading-card{
+                width:min(300px,82vw); aspect-ratio:1/1; max-height:74vh;
+                display:grid; grid-template-rows:1fr auto auto; place-items:center; gap:10px;
+                padding:18px; border-radius:12px;
+                border:2px solid color-mix(in oklab, var(--scarlet-500) 65%, #fff 0%);
+                background:linear-gradient(180deg, rgba(222,33,59,.10), rgba(222,33,59,.06));
+                backdrop-filter:blur(6px);
+                box-shadow:0 0 0 6px rgba(222,33,59,.06), 0 10px 40px rgba(222,33,59,.25);
+            }
+            .logo-wrap {
+                width:86%;
+                aspect-ratio:1/1;
+                display:grid;
+                place-items:center; 
+                animation: float 2.2s ease-in-out infinite;
+            }
+            .ibis-logo{ width:100%; height:100%; object-fit:contain; display:block; }
+
+            @keyframes float{ 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-6px) } }
+
+            .load-lines{
+                text-align:center; font-weight:700; letter-spacing:.08em; line-height:1.35;
+                font-size:12px; text-transform:uppercase; color:#ffd6db;
+            }
+            .load-lines small{ display:block; opacity:.75; color:#ffc7cf }
+
+            .loader-progress{
+                width:100%; height:8px; border-radius:999px; overflow:hidden; position:relative;
+                background:rgba(255,214,219,.12); border:1px solid rgba(255,214,219,.25);
+            }
+            .bar{
+                position:absolute; inset:0 100% 0 0;
+                background:linear-gradient(90deg,var(--scarlet-400),var(--scarlet-200));
+                animation:loadbar 2.4s ease-in-out forwards;
+            }
+            @keyframes loadbar{
+                0%{right:100%} 60%{right:25%} 85%{right:8%} 100%{right:0%}
+            }
+
+            /* 3) Welcome Page */
+            .welcome-page {
+                opacity: 0;
+                transform: translateY(10px); /* Start 10px down */
+                transition: opacity 1.2s ease-out, transform 1.2s ease-out; /* Slower, smoother fade */
+            }
+            .welcome-page.show {
+                opacity: 1;
+                transform: translateY(0); /* Move to final position */
+            }
+
+            .welcome-page-inner{ text-align:center; padding:24px 24px 28px }
+            .kicker{
+                display:inline-block; padding:.35rem .65rem; border-radius:999px;
+                font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+                color:#ffe5e9; background:rgba(222,33,59,.15); border:1px solid rgba(222,33,59,.35)
+            }
+
+            /* reduce motion */
+            @media (prefers-reduced-motion: reduce){
+                .bar {animation:none}
+                .welcome-page{transition:none}
+            }
+
+            /* This class removes the styles that conflict with z-index,
+               but only *after* the animation is finished.
+            */
+            .welcome-page.animation-finished {
+                filter: none;
+                transform: none;
+                clip-path: none;
+                transition: none; /* Stop it from animating this change */
+            }
         </style>
         <!-- Font Awesome icons (free version)-->
         <!-- <script src="https://use.fontawesome.com/5a18be030b.js" crossorigin="anonymous"></script> -->
@@ -58,6 +133,9 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
 
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
@@ -94,29 +172,25 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
     </head>
-    <body id="page-top">
+    <body id="page-top" class="is-loading">
          <!-- Facebook Tracking-->
         <script>
              fbq('track', 'ViewContent');
-        </script>
+        </script>  
 
-        <!-- Loading Welcome Screen -->
-        <div id="introLoader" aria-hidden="true">
-            <video id="loadingVideo"
-                    autoplay
-                    playsinline
-                    muted
-                    preload="auto"
-                    poster="assets/Loading-Screen/Scarlet-Creative-Loading.jpg"
-                    aria-label="Brand intro animation">
-                <source src="assets/Loading-Screen/Scarlet-Creative-Loading.m4v" type="video/mp4">
-            </video>
+        <!-- 1) Preloader -->
+        <div class="loading-overlay" id="loading">
+            <div class="loading-card">
+            <div class="logo-wrap">
+                <img src="assets/scarlet-heart.svg" alt="Scarlet Ibis" class="ibis-logo" />
+            </div>
+            <div class="load-lines" role="status" aria-live="polite">
+                COLOURING THE FUTURE<br/><small>ONE LINE AT A TIME</small>
+            </div>
+            <div class="loader-progress" aria-hidden="true"><div class="bar"></div></div>
+            </div>
         </div>
-
-        <!-- PRELOADER -->
-        <!-- <div class="boxLoading"></div> -->
-        <!-- /PRELOADER -->  
-
+        
         <div>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg shadow-5-strong navbar-dark fixed-top mainNav">
@@ -155,7 +229,7 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <section>
+        <section class="welcome-page" id="welcome-page">
         <div class="video-wrapper">
             <div class="overlay"></div>
             <!-- <img src="assets/img/black_red.jpg"> -->
@@ -1083,7 +1157,7 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 text-lg-left">
                             <div class="copyright-text">
-                                <p>Copyright &copy; 2024 All Right Reserved, <br><a href="#">Scarlet Creative Software Limited</a></p>
+                                <p>Copyright &copy; 2025 All Right Reserved, <br><a href="#">Scarlet Creative Software Limited</a></p>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 d-none d-lg-block text-end">
@@ -1765,76 +1839,50 @@
 
     </div>
 
-        <!-- Loader -->
-        <!-- <p class="spinner"><i class="fa fa-spinner fa-5x"></i></p> -->
-
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-    <!-- Remove Loading Welcome Screen -->
     <script>
-        (function(){
-        const loader = document.getElementById('introLoader');
-        const video  = document.getElementById('introVideo');
-        
-        const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const MIN_SHOW = 2000;     // ms to keep overlay at least
-        const MAX_WAIT = 9000;    // safety timeout
-        const start = performance.now();
-        
-        // If user prefers reduced motion, skip the intro entirely
-        if (prefersReduced) { hide(); return; }
-        
-        // Try to autoplay (must be muted + playsinline)
-        function playIntro(){
-            if (!video) { hide(); return; }
-            video.muted = true;
-            video.playsInline = true;
-        
-            const p = video.play();
-            if (p && p.catch) {
-            p.catch(() => { // autoplay blocked? just fade out
-                setTimeout(hide, Math.max(0, MIN_SHOW - (performance.now()-start)));
+        /* Preloader */
+        const loader = document.getElementById('loading');
+        const welcomePage = document.getElementById('welcome-page');
+        const after = (ms,fn)=>setTimeout(fn,ms);
+
+        // --- CHECK IF INTRO HAS BEEN SEEN THIS SESSION ---
+        if (sessionStorage.getItem('scarletIntroSeen') === 'true') {
+            
+            // --- 1. SKIP THE ANIMATION ---
+            loader.style.display = 'none';
+            welcomePage.classList.add('show');
+            document.body.style.overflow = 'auto';
+            document.body.classList.remove('is-loading');
+            welcomePage.classList.add('animation-finished');
+
+        } else {
+
+            // --- 2. PLAY THE FULL ANIMATION ---
+            
+            // After 2.4s: Start fading out the loader
+            after(2400, () => {
+                loader.style.opacity = '0';
             });
-            }
+
+            // After 2.8s (as loader is fading): Hide loader, start fading in welcome page
+            after(2800, () => {
+                loader.style.display = 'none'; 
+                welcomePage.classList.add('show'); // Triggers the simple fade-in
+            });
+
+            // After 3.8s (animation is done): Clean up and enable scrolling
+            after(3800, () => {
+                document.body.style.overflow = 'auto'; 
+                document.body.classList.remove('is-loading');
+                welcomePage.classList.add('animation-finished');
+            });
+
+            // --- SET THE FLAG ---
+            sessionStorage.setItem('scarletIntroSeen', 'true');
         }
-        
-        // Close when video ends OR page finishes loading (whichever later)
-        video && video.addEventListener('ended', maybeHide);
-        window.addEventListener('load', maybeHide);
-        
-        // Kick it off when we have enough data
-        if (video.readyState >= 2) playIntro();
-        else video.addEventListener('loadeddata', playIntro, { once:true });
-        
-        // Failsafe
-        setTimeout(maybeHide, MAX_WAIT);
-        
-        function maybeHide(){
-            const elapsed = performance.now() - start;
-            const wait = Math.max(0, MIN_SHOW - elapsed);
-            setTimeout(hide, wait);
-        }
-        function hide(){
-            if (!loader) return;
-            loader.classList.add('hidden');
-            setTimeout(()=> loader.remove(), 400);
-        }
-        })();
     </script>
             
     </body>
-
-    <script>
-        function setMobileLink() {
-          const width = window.innerWidth;
-      
-          if (width < 992) {
-            document.getElementById('conditional-link').setAttribute('href', '#programming-courses');
-          }
-        }
-      
-        window.addEventListener('resize', setMobileLink);
-        window.addEventListener('load', setMobileLink);
-      </script>
 
     <script>
         (function($) { // Begin jQuery
@@ -2065,23 +2113,4 @@
             dynamic: true
         });
     </script>
-
-    <!-- <script>
-        $(window).load(function() {
-	
-            setTimeout(function() {
-              $('.spinner').fadeOut("slow");
-                  
-                setTimeout(function() {
-                $('#preloader').fadeOut("slow"); 
-                
-                    setTimeout(function() {
-                        $('.content-block').addClass('animated fadeInDown').fadeIn("slow");
-                         $('#footer').fadeIn('slow');
-                         
-                    }, 900);
-                }, 700);	  
-            }, 700);	
-      });
-    </script> -->
 </html>
