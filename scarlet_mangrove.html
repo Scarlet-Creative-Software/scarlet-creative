@@ -1,0 +1,2261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Welcome To Scarlet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
+<script>
+    (function() {
+      var hash = window.location.hash;
+      if (hash === '#mangrove' || hash === '#blackhole') {
+        // This style will hide the bulb *before* it renders
+        document.write('<style>#scene-bulb { opacity: 0 !important; }</style>');
+      }
+    })();
+</script>
+<style>
+    :root{
+
+        --on: 0;
+        --bg-h: calc(200 - (var(--on) * 160));
+        --bg-s: calc(20% + (var(--on) * 50%));
+        --bg-l: calc(6% + (var(--on) * 40%));
+    }
+    *{box-sizing:border-box}
+
+    body {
+        font-family:"Montserrat", Manrope,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;
+        /* background:hsl(var(--bg-h), var(--bg-s), var(--bg-l)); */
+        background: black;
+        color:#ffffff;
+        /* transition:background .35s ease; */
+        overflow:hidden;
+    }
+
+    /* when the waterfall scene is active, unlock height so the deck can create real page scroll */
+    body.mode-waterfall, 
+    body.mode-waterfall html {
+        height: auto;
+    }
+
+    /* --- Scene containers --- */
+    .scene{
+        position:fixed; inset:0;
+        display:grid; place-items:center;
+        opacity:1; pointer-events:auto;
+        transition:opacity .5s ease;
+    }
+    .scene.is-hidden{opacity:0; pointer-events:none}
+
+    #scene-water {
+        position: static;     
+        display: block;   
+        inset: auto;
+        height: auto;
+        min-height: 100%;
+        background:#0b1020;
+    }
+
+    /* Scene A layout */
+    
+    /* put the bulb scene’s content at the top of the viewport */
+    #scene-bulb{
+        place-items: start center;   /* overrides .scene's center/center */
+    }
+
+    /* make the room span the viewport height so top:0 is the top of the screen */
+    #scene-bulb .room{
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    .bulb-wrap, .room{
+        position:relative;
+        width:min(70vmin, 520px);
+        height:70vmin;
+        max-height:520px;
+        display:flex;
+        align-items:flex-start;
+        justify-content:center;
+    }
+
+    /* Big warm vignette (centered slightly above middle) */
+    .room::before{
+        content:"";
+        position:absolute; inset:-50vmax;   /* way larger than the room */
+        background:
+            radial-gradient(
+            70vmin 70vmin at 50% 40%,
+            rgba(235,209,164,0.18),
+            rgba(235,209,164,0.10) 35%,
+            rgba(0,0,0,0) 80%              /* fade to transparent, not black */
+            );
+        pointer-events:none;
+        filter:none;                        /* avoid box-edge artifacts */
+
+        /* display: none; */
+        /* content:"";
+        position:absolute; inset:-20vmin;
+        background:
+            radial-gradient(
+            60vmin 60vmin at 50% 35%,
+            rgba(235,209,164,0.15),
+            rgba(235,209,164,0.02) 30%,
+            rgba(235,209,164,0.02) 55%,
+            rgba(0,0,0,0.75) 30%,
+            rgba(0,0,0,1) 20%
+            );
+        pointer-events:none;
+        filter: blur(2px); */
+    }
+
+    /* The small “zig” filament bulb (your second design) */
+    .area{
+        position: absolute;
+        top: 0;          /* attach the wire’s top to the top of the viewport */
+        left: 50%;
+        transform: translateX(-50%);
+        width:200px; height:500px;
+        animation:swing 1.2s ease-in-out infinite alternate;
+        transform-origin:top;
+    }
+    /* make the animation preserve the translate */
+    @keyframes swing{
+        from{ transform: translateX(-50%) rotate(3deg); }
+        to  { transform: translateX(-50%) rotate(-3deg); }
+    }
+
+    .strip{ position:relative; width:18px; height:2px; right:1px; top:4px; background:darkgrey; }
+    .strip:nth-of-type(2){ top:7px } .strip:nth-of-type(3){ top:10px }
+
+    .wire,
+    .fixture,
+    .bulb {
+        left: 50%;
+        transform: translateX(-50%);       /* centers each piece on the page */
+    }
+
+    /* the rest stays the same: just remove the old left:98/92/80px */
+    .wire {
+        position: relative;
+        height: clamp(180px, 40vh, 320px);
+        width: 2px;
+        background: #565151;
+    }
+
+    .fixture {
+        position: relative;
+        background: grey;
+        width: 16px;
+        height: 20px;
+        margin-top: 0; /* optional: tighten join with wire */
+    }
+
+    .bulb {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        bottom: 2px;
+        border-radius: 50%;
+        background: rgba(226,211,161,.15);
+        box-shadow: 0 0 0 0 transparent;
+        transition: background .25s ease, box-shadow .25s ease;
+    }
+
+    /* the vignette, centered on the bulb itself */
+    .bulb::after{
+        content:"";
+        position:absolute;
+        left:50%; top:50%;
+        transform:translate(-50%,-50%);
+        width:200vmax;                 /* bigger than any screen dimension */
+        height:200vmax;
+        pointer-events:none;
+        /* don't blur the element's box; let the gradient do the softness */
+        filter:none;
+        opacity:0;
+        background:
+            radial-gradient(
+            60vmin 60vmin at 50% 50%,
+            rgba(235,209,164,0.35) 0%,
+            rgba(235,209,164,0.22) 30%,
+            rgba(235,209,164,0.08) 55%,
+            rgba(0,0,0,0) 75%          /* transparent at the edge */
+            );
+        z-index:-1;            /* behind the bulb */
+    }
+
+    .bulb.on{
+        background:rgba(226,211,161,.85);
+        box-shadow:0 0 300px 77px rgba(235,209,164,1);
+    }
+    .bulb.on::after{ opacity: 1; }
+
+
+    .zig{
+        position:relative; background:transparent; width:10px; height:5px;
+        border-radius:5px / 2.5px; left:14px; border:#000 solid 1px;
+    }
+    .zig:nth-of-type(2){ top:-3px } .zig:nth-of-type(3){ top:-6px }
+
+    /* Flick switch (bottom center) */
+    .flick{
+        position:absolute; left:50%; bottom:10%; transform:translateX(-50%);
+        display:flex; align-items:center; gap:.8rem;
+    }
+    .flick input{ position:absolute; opacity:0; pointer-events:none; }
+    .flick .rocker{
+        width:74px; height:40px; border-radius:999px; background:#222;
+        border:1px solid rgba(255,255,255,.15);
+        position:relative;
+        box-shadow:inset 0 0 8px rgba(0,0,0,.6);
+        transition:background .25s,border-color .25s,box-shadow .25s;
+    }
+    .flick .knob{
+        position:absolute; top:3px; left:37px; /* start ON (right) */
+        width:34px; height:34px; border-radius:50%; background:#ffe38a;
+        box-shadow:0 2px 6px rgba(0,0,0,.35), inset 0 -1px 0 rgba(255,255,255,.2);
+        transition:left .25s cubic-bezier(.3,1.3,.4,1), background .25s;
+    }
+    .flick input:not(:checked) ~ .rocker .knob{ left:3px; background:#555; }
+    .flick input:not(:checked) ~ .rocker{
+        background:#222; border-color:rgba(255,255,255,.15); box-shadow:inset 0 0 8px rgba(0,0,0,.6);
+    }
+    .flick input:checked ~ .rocker{
+        background:#433; border-color:rgba(255,235,0,.45);
+        box-shadow:inset 0 0 16px rgba(255,235,0,.25);
+    }
+    .flick .label{
+        font:600 14px/1.2 "Montserrat", Manrope, system-ui, Segoe UI, Roboto, Arial;
+        color:hsl(0 0% 75% / .9);
+    }
+    
+    /* @keyframes jelloWobble {
+        0%   { transform: translate(-50%, -50%) scale(1,1) }
+        15%  { transform: translate(-50%, -50%) scale(1.25,0.75) }
+        30%  { transform: translate(-50%, -50%) scale(0.75,1.25) }
+        45%  { transform: translate(-50%, -50%) scale(1.15,0.85) }
+        60%  { transform: translate(-50%, -50%) scale(0.95,1.05) }
+        75%  { transform: translate(-50%, -50%) scale(1.05,0.95) }
+        100% { transform: translate(-50%, -50%) scale(1,1) }
+    } */
+    /* .knob.jello {
+    animation: jelloWobble 1.1s cubic-bezier(.23,1,.32,1);
+    } */
+
+    .hint{ position:absolute; bottom:10%; width:100%; text-align:center; opacity:.7; font-size:.95rem }
+
+    /* wiggle feedback */
+    @keyframes wiggle { 0%{transform:translate(-50%,-50%) rotate(0)} 25%{transform:translate(-50%,-50%) rotate(2deg)} 50%{transform:translate(-50%,-50%) rotate(-2deg)} 100%{transform:translate(-50%,-50%) rotate(0)} }
+    .bulb.wiggle{ animation:wiggle .25s ease }
+
+    /* --- Black hole scene (your canvas + ENTER) --- */
+    #blackhole {
+        height:100%; width:100%;
+        position:relative; display:flex;
+        background: rgb(0,0,0); 
+    }
+    .centerHover{
+        width:255px; height:255px; border-radius:50%;
+        position:absolute; left:50%; top:50%;
+        margin:-128px 0 0 -128px;
+        z-index:2; cursor:pointer;
+        line-height:255px; text-align:center;
+        transition:all 500ms;
+    }
+    .centerHover.open{ opacity:0; pointer-events:none }
+    .centerHover span{
+        color:#666; font-family: "Montserrat", Manrope, serif; font-size:18px; position:relative; transition:all 500ms;
+    }
+    .centerHover span:before,
+    .centerHover span:after{
+        content:''; display:inline-block; height:1px; width:16px;
+        margin:0 12px 4px; background:#666; transition:all 500ms;
+    }
+    .centerHover:hover span{ color:#ddd }
+    .centerHover:hover span:before,
+    .centerHover:hover span:after{ background:#ddd }
+
+    canvas{ position:relative; z-index:1; width:100%; height:100%; margin:auto }
+
+    /* --- Floating mini toggle (keep a way back) --- */
+    .mini-toggle{
+        position:fixed; left:16px; bottom:16px; z-index:9999;
+        display:inline-flex; align-items:center; gap:.5rem;
+        background:rgba(20,20,20,.7); color:#ffd166;
+        border:1px solid rgba(255,255,255,.12);
+        border-radius:999px; padding:.5rem .9rem; cursor:pointer;
+        backdrop-filter: blur(6px);
+        transition:transform .2s ease, opacity .2s ease;
+    }
+    .mini-toggle:hover{ transform:translateY(-2px) }
+    .mini-toggle svg{ width:18px; height:18px }
+
+
+    /* 
+    h2,h3{
+    position:relative;
+    text-transform:uppercase;
+    font-family:open-sans-condensed, sans-serif;
+    font-size:3rem;
+    font-weight:100;
+    letter-spacing:.1em;
+    margin:0 0 .5rem 0;
+    text-shadow:0 5px 10px rgba(0,0,0,.5);
+    }
+    h3{ font-size:1.5rem } */
+
+    a{ text-decoration:none; font-size:1.5rem; font-weight:500 }
+    a:hover{ color:#fff }
+
+    ol{ font-size:3rem; text-transform:uppercase; list-style:decimal }
+    li{ line-height:1.5 }
+
+    .slide {
+        position:relative;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        width:100vw; height:100vh;
+        box-sizing:border-box;
+        padding:1rem;
+    }
+
+    figure{
+        position:relative;
+        padding:50px 80px;
+        width:400px;
+        opacity:0;
+        transition:opacity .2s;
+    }
+    figure canvas{
+        position:absolute; top:0; transform:scale(0);
+        transition:transform .5s;
+    }
+    figure.in{ opacity:1 }
+    figure.in canvas{ transform:scale(1) }
+    figure.in figcaption{ opacity:1 }
+
+    figure.right{ float:right }
+    figure.right canvas{ left:0 }
+    figure.right figcaption{ border-left:2px solid #fff; text-align:left }
+
+    figure.left{ float:left }
+    figure.left canvas{ right:0 }
+    figure.left figcaption{ border-right:2px solid #fff; text-align:right }
+
+    figcaption{
+        position:relative;
+        padding:0 10px;
+        z-index:1;
+        text-transform:uppercase;
+        font-family: "Montserrat", Manrope, sans-serif;
+        font-size:1.3rem;
+        opacity:0;
+        transition:opacity 1s;
+    }
+    figcaption p{ line-height:1.5 }
+
+    .section{ width:100vw; height:100vh }
+
+    #title{ margin:auto }
+
+    #scroll-btn{
+        position:fixed; bottom:0; left:50%;
+        margin-left:-54px; opacity:1;
+        transform:translateZ(0);
+        transition:opacity .2s;
+    }
+    #scroll-btn.out{ opacity:0 }
+
+    #ground{
+        position:fixed;
+        top:0; left:0; width:100%; height:100%;
+        display:block;
+        pointer-events:none; 
+        z-index:0;
+    }
+
+    #deck { 
+        position:relative; 
+        z-index:10;
+    }
+
+    #deck h2, #deck h3 {
+        text-shadow: 0 2px 8px rgba(0,0,0,.4);
+    }
+
+    /* Keyframe for the orb's spinning ring */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* --- Scroll Nudge Arrow --- */
+    #scroll-arrow {
+        position: absolute;
+        bottom: 30px; /* Position it at the bottom of the screen */
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        pointer-events: none; /* So it can't be clicked */
+        animation: bounce 2s ease-in-out infinite;
+        transition: opacity 0.3s ease;
+    }
+
+    #scroll-arrow.is-visible {
+        opacity: 0.7; /* This will fade it in */
+    }
+
+    #scroll-arrow.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Bouncing animation keyframes */
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translate(-50%, 0);
+        }
+        40% {
+            transform: translate(-50%, -15px); /* Move up */
+        }
+        60% {
+            transform: translate(-50%, -8px); 
+        }
+    }
+
+    #frog-link {
+        position: fixed;
+        bottom: 20px; /* Adjust as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        
+        /* Control visibility */
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+    }
+
+    #frog-link img {
+        width: 160px; /* Set the size of your frog */
+        height: auto;
+        display: block;
+    }
+
+    /* This class will be removed by JS when at the bottom */
+    #frog-link.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* This class will be added by JS */
+    #frog-link.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        cursor: pointer;
+    }
+
+    /* reduces motion? keep fades only */
+    @media (prefers-reduced-motion: reduce){
+        .scene{ transition:none }
+        .bulb.wiggle{ animation:none }
+        #scroll-arrow { animation: none }
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <!-- Scene A: Bulb pull -->
+    <!-- Scene A: ON by default (CSS bulb + flick switch) -->
+    <section id="scene-bulb" class="scene">
+        <div class="room">
+    
+        <div class="area">
+            <div class="wire"></div>
+            <div class="fixture">
+            <div class="strip"></div>
+            <div class="strip"></div>
+            <div class="strip"></div>
+            </div>
+    
+            <!-- ON at load -->
+            <div class="bulb on" id="bulbGlass">
+            <div class="zig"></div>
+            <div class="zig"></div>
+            <div class="zig"></div>
+            </div>
+        </div>
+    
+        <!-- Flick switch -->
+        <label class="flick">
+            <input type="checkbox" id="switchInput" checked aria-label="Light switch">
+            <div class="rocker"><span class="knob"></span></div>
+            <span class="label">Click On Me!</span>
+        </label>
+    
+        </div>
+    </section>
+  
+
+    <!-- Scene B: Black hole (hidden initially) -->
+    <section id="scene-hole" class="scene is-hidden" aria-hidden="true">
+        <div id="blackhole">
+        <div class="centerHover"><span>ENTER</span></div>
+        <!-- canvas will be injected by JS -->
+        </div>
+    </section>
+
+    <!-- Scene C: Waterfall (hidden initially) -->
+    <section id="scene-water" class="scene is-hidden" aria-hidden="true">
+        <script id="skyVS" type="x-shader/x-vertex">
+            varying vec2 vUv;
+            varying float time;
+            uniform float delta;
+          
+            void main()
+            {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix *  vec4(position,1.0);
+            }
+        </script>
+
+        <script id="skyFS" type="x-shader/x-fragment">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+            
+            uniform vec2  resolution;
+            uniform float time;
+            uniform float delta;
+            
+            varying vec2 vUv;
+            
+            void main(void)
+            {
+                float y = vUv.y; // 0.0 at bottom (horizon), 1.0 at top
+                
+                // 1. Define the 3 colors for the gradient
+                // A subtle dark red/purple for the horizon
+                vec3 colorSunset = vec3(0.35, 0.1, 0.15); 
+                // A dark, rich blue for the mid-sky
+                vec3 colorDarkBlue = vec3(0.1, 0.05, 0.25); 
+                // An almost-black blue for the top
+                vec3 colorBlack = vec3(0.0, 0.0, 0.05);     
+                
+                // 2. Create the two gradient halves
+                // Blend from Sunset to Dark Blue (from y=0.0 to y=0.4)
+                float t_bottom = smoothstep(0.0, 0.8, y);
+                vec3 bottomHalf = mix(colorSunset, colorDarkBlue, t_bottom);
+                
+                // Blend from Dark Blue to Black (from y=0.4 to y=0.9)
+                float t_top = smoothstep(0.8, 0.9, y);
+                vec3 topHalf = mix(colorDarkBlue, colorBlack, t_top);
+                
+                // 3. Combine the two halves
+                vec3 col = mix(bottomHalf, topHalf, t_top);
+                
+                // 4. (This is your original code) Add the subtle wiggles back in
+                if (y < 0.85) {
+                    float wiggle = 0.6 + 0.4 * sin(delta * 0.3 + vUv.x * 2.0);
+                    float add    = (0.85 - y) * 0.12 * wiggle;
+                    col += vec3(add * 0.6, add * 0.1, add);
+                }
+                if (y < 0.80) {
+                    col += vec3(0.0, 0.00, 0.015) * cos(vUv.x * 3.0 + delta * 0.2);
+                }
+                
+                gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+            }
+            
+        </script>
+
+        <script id="mangroveWaterVS" type="x-shader/x-vertex">
+            varying vec2 vUv;
+            uniform float uTime;
+            void main() {
+                vUv = uv * 8.0;   // tile UVs (8x) for ripples
+                vec3 pos = position;
+                // Calmer, slower ripples
+                pos.z += sin((pos.x + uTime*0.1)*0.12)*0.6;
+                pos.z += cos((pos.y + uTime*0.08)*0.1)*0.5;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
+            }
+        </script>
+          
+        <script id="mangroveWaterFS" type="x-shader/x-fragment">
+            #ifdef GL_ES
+            precision highp float;
+            #endif
+            varying vec2 vUv;
+            uniform float uTime;
+            
+            float hash(vec2 p){ return fract(sin(dot(p, vec2(23.43, 45.17))) * 125413.33); }
+            float noise(vec2 p){
+              vec2 i = floor(p), f = fract(p);
+              float a = hash(i);
+              float b = hash(i + vec2(1.0,0.0));
+              float c = hash(i + vec2(0.0,1.0));
+              float d = hash(i + vec2(1.0,1.0));
+              vec2  u = f*f*(3.0-2.0*f);
+              return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+            }
+            
+            void main(){
+              // more saturated teal
+              // vec3 shallow = vec3(0.05, 0.66, 0.60);
+              // vec3 deep    = vec3(0.04, 0.28, 0.36);
+
+                // Murky mangrove green
+                vec3 shallow = vec3(0.05, 0.15, 0.20); 
+                vec3 deep    = vec3(0.01, 0.05, 0.08); 
+            
+                float g = smoothstep(0.18, 0.86, vUv.y);
+                vec3 col = mix(shallow, deep, g);
+                
+                float c1 = noise(vUv*2.2 + uTime*0.10);
+                float c2 = noise(vUv*3.7 + uTime*0.18);
+                float caustics = pow(max(0.0, c1*0.6 + c2*0.4 - 0.45), 2.0) * 1.1;
+                
+                // fake fresnel: brighter at glancing angles (near top of plane)
+                float fres = smoothstep(0.65, 1.0, vUv.y);
+                col += vec3(0.30, 0.36, 0.42) * caustics;
+                col += vec3(0.18, 0.22, 0.25) * fres;
+                
+                gl_FragColor = vec4(col, 0.4);
+            }            
+        </script>
+          
+   
+        <canvas id="ground"></canvas>
+    
+        <div id="deck">
+            <section id="cover" class="cover slide slide--green" data-x="0" data-y="0" data-z="0">
+                <h2 tabindex="-1">Hi There!</h2>
+                <h3>Welcome To Scarlet</h3>
+                <h4>Scroll Down</h4>
+                <svg id="scroll-arrow" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.59 8.59003L12 13.17L7.41 8.59003L6 10L12 16L18 10L16.59 8.59003Z" fill="white"/>
+                </svg>
+            </section>
+            <section class="section">
+                <figure class="right">
+                    <figcaption>
+                        <h2>Conflict</h2>
+                        <p>Conflict arises from attempts to control the flow of mana by use of technology or magic between different civilizations.</p>
+                    </figcaption>
+                </figure>
+            </section>
+        
+            <section class="section">
+                <figure class="left">
+                    <figcaption>
+                        <h2>knights</h2>
+                        <p>An order of knights work to maintain balance of mana in the world to avert disaster, and protect the Mana Tree.</p>
+                    </figcaption>
+                </figure>
+            </section>
+        
+            <section class="section">
+                <figure class="right">
+                    <figcaption>
+                        <h2>cataclysm</h2>
+                        <p>Hints that a cataclysm may be on the horizon, or has already happened in the past also play a large part in both games.</p>
+                    </figcaption>
+                </figure>
+            </section>
+        
+            <section class="section">
+                <figure class="left">
+                    <figcaption>
+                        <h2>Disobeying</h2>
+                        <p>Disobeying their Elder's instructions, three boys from the small Potos village trespass into a local waterfall where a treasure is said to be kept.</p>
+                    </figcaption>
+                </figure>
+            </section>
+            
+            <section class="section">
+                <figure class="right">
+                    <figcaption>
+                        <h2>Randi</h2>
+                        <p>One of the boys, the game's protagonist (named Randi in the original Japanese version), stumbles and falls into the lake, where he finds a rusty sword embedded in a stone.</p>
+                    </figcaption>
+                </figure>
+            </section>
+        
+            <section class="section">
+                <figure class="left">
+                    <figcaption>
+                        <h2>Sword</h2>
+                        <p>Guided by a disembodied voice, he pulls the sword free, inadvertently unleashing monsters in the surrounding countryside of the village. </p>
+                    </figcaption>
+                </figure>
+            </section>
+            
+            <section class="section">
+                <figure class="right">
+                    <figcaption>
+                        <h2>Omen</h2>
+                        <p>The villagers interpret the sword's removal as a bad omen and banish the boy from Potos forever. </p>
+                    </figcaption>
+                </figure>
+            </section>
+        
+            <section class="section">
+                <figure class="left">
+                    <figcaption>
+                        <h2>Jema</h2>
+                        <p>An elderly knight named Jema recognizes the blade as the legendary Mana Sword, and encourages the hero to re-energize it by visiting the eight Mana Temples.</p>
+                    </figcaption>
+                </figure>
+            </section>
+            
+            <section class="section">
+                <figure class="right">
+                    <figcaption>
+                        <h2>journey</h2>
+                        <p>During his journey, the hero is joined by an amnesiac sprite child and the daughter of a nobleman from Pandora. </p>
+                    </figcaption>
+                </figure>
+            </section>
+        
+            <section class="section">
+                <figure class="left">
+                    <figcaption>
+                        <h2>Sprite</h2>
+                        <p>The orphaned sprite (named Popoi in the original Japanese version) initially tries to con the hero out of his money, but later accompanies him in hope of recovering his lost memory.</p>
+                    </figcaption>
+                </figure>
+            </section>
+            
+            <section class="section">
+                <figure class="right">
+                    <figcaption>
+                        <h2>THE Girl</h2>
+                        <p>The girl (named Purimu in the original Japanese version) joins the party in search of her lost love, Dyluck, an officer in Pandora's army who has gone missing.</p>
+                    </figcaption>
+                </figure>
+            </section>
+        </div>
+
+    
+        </div>
+    </section>
+  
+    <!-- Always-available toggle (tiny pull) -->
+    <button class="mini-toggle" id="miniToggle" title="Toggle scenes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="8" r="6"></circle>
+        <path d="M12 14v7"></path>
+        </svg>
+        Lights
+    </button>
+    <!-- Surprise Frog (takes you to Bongo) -->
+    <a href="bongo_cat.html" id="frog-link" class="is-hidden" aria-label="A Surprise!">
+        <img src="assets/mangrove/scarlet_frog.png" alt="A small frog that links to the next page" />
+    </a>;
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r61/three.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/Draggable.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/MotionPathPlugin.min.js"></script>
+
+
+<script>
+/* ----------------------------
+   Scene switcher + squishy ball
+----------------------------- */
+gsap.registerPlugin(Draggable, MotionPathPlugin);
+
+function setRendererDPR(renderer, dpr, cssW, cssH) {
+  renderer.setSize(cssW * dpr, cssH * dpr, false);
+  renderer.domElement.style.width  = cssW + 'px';
+  renderer.domElement.style.height = cssH + 'px';
+}
+
+
+(function(){
+    const sceneBulb = document.getElementById('scene-bulb');
+    const sceneHole = document.getElementById('scene-hole');
+    const sceneWater = document.getElementById('scene-water');
+    const mini  = document.getElementById('miniToggle');
+    const clickSfx = new Audio('https://assets.codepen.io/605876/click.mp3');
+
+    const root = document.documentElement;
+    const bulb = document.getElementById('bulbGlass');
+    const input = document.getElementById('switchInput');
+
+    // Start ON
+    function setOn(on){
+        root.style.setProperty('--on', on ? 1 : 0);
+        bulb.classList.toggle('on', on);
+        input.checked = !!on;
+    }
+
+    setOn(true);
+
+    function switchToHole(){
+        sceneBulb.classList.add('is-hidden');
+        sceneHole.classList.remove('is-hidden');
+        sceneHole.setAttribute('aria-hidden','false');
+        if (!window.__blackholeInit) { window.__blackholeInit = true; startBlackHole(); }
+        window.location.hash = 'blackhole';
+    }
+
+    function switchToBulb(){
+        setOn(true);
+        sceneHole.classList.add('is-hidden');
+        sceneBulb.classList.remove('is-hidden');
+        sceneHole.setAttribute('aria-hidden','true');
+        window.location.hash = '';
+    }
+
+    //  The waterfall scene
+    // helper: show Scene C (waterfall)
+    function switchToWater() {
+        if (!window.__waterfallInit) {
+            window.__waterfallInit = true;
+            initWaterfall();
+            startWaterfallLoop();
+        }
+
+        sceneBulb.classList.add('is-hidden');
+        sceneHole.classList.add('is-hidden');
+        sceneWater.classList.remove('is-hidden');
+        document.body.classList.add('mode-waterfall');
+
+        window.location.hash = 'mangrove';
+
+        // unlock scroll
+        document.documentElement.style.overflowY = 'auto';
+        document.body.style.overflowY = 'auto';
+
+        // reset scroll then compute after layout
+        requestAnimationFrame(() => {
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            // This moves the user's focus to the new content
+            document.querySelector("#cover h2").focus({ preventScroll: true });
+            requestAnimationFrame(() => {
+                computeMaxScroll();
+                __bg && __bg.render();
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            computeMaxScroll();
+            __bg && __bg.resize();
+        }, { passive:true });
+    }
+
+    // Switch behavior: OFF → dim then go to hole
+    input.addEventListener('change', e => {
+        clickSfx.currentTime = 0; clickSfx.play().catch(()=>{});
+        if (e.target.checked){
+        setOn(true);   // back on, stay here
+        } else {
+        setOn(false);  // quick dim
+        setTimeout(switchToHole, 250);
+        }
+    });
+
+    // Mini button still flips between scenes
+    mini.addEventListener('click', ()=>{
+        if (sceneBulb.classList.contains('is-hidden')) {
+        switchToBulb();
+        } else {
+        setOn(false);
+        setTimeout(switchToHole, 200);
+        }
+    });
+
+    // Expose for other code that might call them
+    window.switchToHole = switchToHole;
+    window.switchToBulb = switchToBulb;
+    window.switchToWater = switchToWater;
+
+    window.addEventListener("DOMContentLoaded", () => {
+        // Check the URL hash when the page loads
+        const currentHash = window.location.hash;
+
+        if (currentHash === "#mangrove") {
+            sceneBulb.classList.add('is-hidden'); // Instantly hide bulb
+            // If the hash is #mangrove, skip straight to the water scene
+            // We call setOn(false) to ensure the lightbulb scene is off
+            setOn(false);
+            switchToWater();
+        } else if (currentHash === "#blackhole") {
+            sceneBulb.classList.add('is-hidden'); // Instantly hide bulb
+            // If the hash is #blackhole, skip to that scene
+            setOn(false);
+            switchToHole();
+        }
+        // If the hash is empty, do nothing and let the lightbulb load by default
+    });
+
+})();
+
+
+/* ---------------------------------------
+   Your black hole implementation (wrapped)
+---------------------------------------- */
+function blackhole(element) {
+    const container = document.querySelector(element);
+    const h = container.offsetHeight;
+    const w = container.offsetWidth;
+    const cw = w, ch = h;
+    const maxorbit = 255;
+    const centery = ch / 2;
+    const centerx = cw / 2;
+
+    const startTime = new Date().getTime();
+    let currentTime = 0;
+
+    const stars = [];
+    let collapse = false, expanse = false, returning = false;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = cw; canvas.height = ch;
+    container.appendChild(canvas);
+    const context = canvas.getContext("2d");
+    context.globalCompositeOperation = "multiply";
+
+    function setDPI(canvas, dpi) {
+        if (!canvas.style.width) canvas.style.width = canvas.width + 'px';
+        if (!canvas.style.height) canvas.style.height = canvas.height + 'px';
+        const scaleFactor = dpi / 96;
+        canvas.width = Math.ceil(canvas.width * scaleFactor);
+        canvas.height = Math.ceil(canvas.height * scaleFactor);
+        const ctx = canvas.getContext('2d');
+        ctx.scale(scaleFactor, scaleFactor);
+    }
+
+    function rotate(cx, cy, x, y, angle) {
+        const cos = Math.cos(angle), sin = Math.sin(angle);
+        const nx = (cos * (x - cx)) + (sin * (y - cy)) + cx;
+        const ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
+        return [nx, ny];
+    }
+
+    setDPI(canvas, 192);
+
+    class Star {
+        constructor() {
+            const rands = [];
+            rands.push(Math.random() * (maxorbit / 2) + 1);
+            rands.push(Math.random() * (maxorbit / 2) + maxorbit);
+            this.orbital = (rands.reduce((p, c) => p + c, 0) / rands.length);
+
+            this.x = centerx;
+            this.y = centery + this.orbital;
+            this.yOrigin = centery + this.orbital;
+
+            this.speed = (Math.floor(Math.random() * 2.5) + 1.5) * Math.PI / 180;
+            this.rotation = 0;
+            this.startRotation = (Math.floor(Math.random() * 360) + 1) * Math.PI / 180;
+
+            this.id = stars.length;
+
+            this.collapseBonus = this.orbital - (maxorbit * 0.7);
+            if (this.collapseBonus < 0) this.collapseBonus = 0;
+
+            this.color = 'rgba(255,255,255,' + (1 - ((this.orbital) / 255)) + ')';
+            this.hoverPos = centery + (maxorbit / 2) + this.collapseBonus;
+            this.expansePos = centery + (this.id % 100) * -10 + (Math.floor(Math.random() * 20) + 1);
+
+            this.prevR = this.startRotation;
+            this.prevX = this.x;
+            this.prevY = this.y;
+
+            this.originalY = this.yOrigin;
+            stars.push(this);
+        }
+        draw() {
+            if (!expanse && !returning) {
+                this.rotation = this.startRotation + (currentTime * this.speed);
+                if (!collapse) {
+                    if (this.y > this.yOrigin) this.y -= 2.5;
+                    if (this.y < this.yOrigin - 4) this.y += (this.yOrigin - this.y) / 10;
+                } else {
+                    if (this.y > this.hoverPos) this.y -= (this.hoverPos - this.y) / -5;
+                    if (this.y < this.hoverPos - 4) this.y += 2.5;
+                }
+            } else if (expanse && !returning) {
+                this.rotation = this.startRotation + (currentTime * (this.speed / 2));
+                if (this.y > this.expansePos) this.y -= Math.floor(this.expansePos - this.y) / -80;
+            } else if (returning) {
+                this.rotation = this.startRotation + (currentTime * this.speed);
+                if (Math.abs(this.y - this.originalY) > 2) {
+                    this.y += (this.originalY - this.y) / 50;
+                } else {
+                    this.y = this.originalY;
+                    this.yOrigin = this.originalY;
+                }
+            }
+
+            context.save();
+            context.fillStyle = this.color;
+            context.strokeStyle = this.color;
+            context.beginPath();
+            const oldPos = rotate(centerx, centery, this.prevX, this.prevY, -this.prevR);
+            context.moveTo(oldPos[0], oldPos[1]);
+            context.translate(centerx, centery);
+            context.rotate(this.rotation);
+            context.translate(-centerx, -centery);
+            context.lineTo(this.x, this.y);
+            context.stroke();
+            context.restore();
+
+            this.prevR = this.rotation;
+            this.prevX = this.x;
+            this.prevY = this.y;
+        }
+    }
+
+    const centerHover = document.querySelector('.centerHover');
+
+    centerHover.addEventListener('click', function() {
+        collapse = false; expanse = true; returning = false;
+        this.classList.add('open');
+
+        // Let the black-hole animation play briefly, then go Waterfall
+        setTimeout(() => {
+            switchToWater();              // <-- crossfade to waterfall scene
+        }, 2500); // 2.5s feels right; adjust between 2000-3000ms to taste
+
+        // After expansion, begin return; then reset ENTER
+        setTimeout(() => {
+            expanse = false; returning = true;
+            setTimeout(() => {
+                returning = false;
+                this.classList.remove('open');
+            }, 8000);
+        }, 25000);
+    });
+
+    centerHover.addEventListener('mouseover', function() {
+        if (expanse === false) collapse = true;
+    });
+    centerHover.addEventListener('mouseout', function() {
+        if (expanse === false) collapse = false;
+    });
+
+    function loop() {
+        const now = new Date().getTime();
+        currentTime = (now - startTime) / 50;
+        context.fillStyle = 'rgba(0,0,0,0.2)';
+        context.fillRect(0, 0, cw, ch);
+
+        for (let i = 0; i < stars.length; i++) {
+            if (stars[i]) stars[i].draw();
+        }
+        requestAnimationFrame(loop);
+    }
+
+    function init() {
+        context.fillStyle = 'rgba(0,0,0,1)';
+        context.fillRect(0, 0, cw, ch);
+        for (let i = 0; i < 1200; i++) new Star();
+        loop();
+    }
+    init();
+}
+
+    // lazy-start when first revealed
+    function startBlackHole() {
+        blackhole('#blackhole');
+        // prewarm the heavy scene in parallel
+        if (!window.__waterfallInit) {
+            window.__waterfallInit = true;
+            initWaterfall();          // builds renderer/sky/etc.
+            startWaterfallLoop();
+            // don't start the RAF yet; just let it set up assets
+        }
+    }
+
+
+    // ---- Waterfall controls (thin wrapper around your code) ----
+    let __bg = null, __waterfallRAF = null;
+
+    let __maxScroll = 1;
+    let deckEl = null;
+
+    function computeMaxScroll(){
+        // re-grab in case DOM changed or scene just became visible
+        deckEl = deckEl || document.getElementById('deck');
+        const h = (deckEl?.scrollHeight || document.body.scrollHeight || document.documentElement.scrollHeight || 0);
+        __maxScroll = Math.max(1, h - window.innerHeight);
+    }
+
+    function getScrollPercentDeck(){
+        const y = (document.scrollingElement ? document.scrollingElement.scrollTop : window.pageYOffset) || 0;
+        return Math.min(1, Math.max(0, y / __maxScroll));
+    }
+
+
+    // call once, from switchToWater()
+    function initWaterfall(){
+        var width = window.innerWidth,
+		height = window.innerHeight;
+
+        // Water plane and root geometry
+        var waterMesh;
+        var rootMeshes = [];
+        var critterSystems = [];
+
+        var cloud2JSON = {
+
+            "metadata" :
+            {
+                "formatVersion" : 3.1,
+                "generatedBy"   : "Blender 2.66 Exporter",
+                "vertices"      : 23,
+                "faces"         : 42,
+                "normals"       : 23,
+                "colors"        : 0,
+                "uvs"           : [],
+                "materials"     : 1,
+                "morphTargets"  : 0,
+                "bones"         : 0
+            },
+
+            "scale" : 1.000000,
+
+            "materials" : [	{
+                "DbgColor" : 15658734,
+                "DbgIndex" : 0,
+                "DbgName" : "Material",
+                "blending" : "NormalBlending",
+                "colorAmbient" : [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+                "colorDiffuse" : [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+                "colorSpecular" : [0.5, 0.5, 0.5],
+                "depthTest" : true,
+                "depthWrite" : true,
+                "shading" : "Lambert",
+                "specularCoef" : 50,
+                "transparency" : 1.0,
+                "transparent" : false,
+                "vertexColors" : false
+            }],
+
+            "vertices" : [0.264565,0.190335,0.23983,-0.407119,0.282942,0.292677,-0.399785,0.337511,-0.300026,0.268916,0.190184,-0.234818,0.207358,0.456511,0.298214,-0.199247,0.406566,0.294489,-0.150372,0.469028,-0.297686,0.199243,0.509608,-0.294489,-0.210521,0.172333,-0.33376,-0.216009,0.172524,0.264947,0.341617,0.371295,0.181447,0.346175,0.408321,-0.175147,0.536695,0.167716,0.0936085,0.543608,0.159727,-0.063679,0.566838,0.26125,0.0837765,0.573751,0.253262,-0.0735111,-0.443357,0.339024,-0.00404965,-0.328773,0.373073,-0.0031145,-0.600928,0.264937,0.17272,-0.597605,0.264821,-0.18982,-0.688149,0.170952,-0.157842,-0.559727,0.166492,0.155074,-0.693294,0.268144,-0.00941288],
+
+            "morphTargets" : [],
+
+            "normals" : [-0.286019,0.956389,0.058992,-0.438643,0.516984,-0.735038,-0.548143,0.657582,-0.51677,0.295846,0.607746,0.73693,0.321055,0.698996,-0.638966,-0.219245,0.636219,0.739647,0.258614,-0.675375,0.690603,0.006653,-0.756706,0.653706,-0.373028,0.925108,0.070742,-0.029695,-0.651448,-0.75808,0.309915,-0.674306,-0.670247,0.653523,0.537522,0.532853,-0.406171,0.243629,0.880703,-0.433637,-0.790613,0.432234,0.541215,-0.688986,0.482009,-0.721793,0.346141,0.599292,0.686941,0.572253,-0.447859,0.541337,-0.750755,-0.378521,0.839442,0.306742,0.448531,-0.782464,-0.461745,-0.417707,-0.914151,0.362102,0.182104,-0.210456,0.771966,-0.59978,0.853755,0.202277,-0.47972],
+
+            "colors" : [],
+
+            "uvs" : [],
+
+            "faces" : [34,16,2,19,0,0,1,2,34,4,7,5,0,3,4,5,34,0,4,9,0,6,3,7,34,16,17,2,0,0,8,1,34,8,7,3,0,9,4,10,34,7,4,10,0,4,3,11,34,9,1,21,0,7,12,13,34,0,3,12,0,6,10,14,34,1,16,18,0,12,0,15,34,3,11,13,0,10,16,17,34,14,12,13,0,18,14,17,34,21,18,20,0,13,15,19,34,11,10,14,0,16,11,18,34,3,7,11,0,10,4,16,34,10,0,12,0,11,6,14,34,4,0,10,0,3,6,11,34,1,5,17,0,12,5,8,34,0,9,8,0,6,7,9,34,8,9,21,0,9,7,13,34,2,8,20,0,1,9,19,34,22,16,19,0,20,0,2,34,7,6,5,0,4,21,5,34,6,17,5,0,21,8,5,34,4,5,9,0,3,5,7,34,5,1,9,0,5,12,7,34,17,6,2,0,8,21,1,34,2,6,8,0,1,21,9,34,6,7,8,0,21,4,9,34,11,7,10,0,16,4,11,34,1,18,21,0,12,15,13,34,3,13,12,0,10,17,14,34,16,22,18,0,0,20,15,34,11,15,13,0,16,22,17,34,15,14,13,0,22,18,17,34,18,22,20,0,15,20,19,34,22,19,20,0,20,2,19,34,15,11,14,0,22,16,18,34,14,10,12,0,18,11,14,34,16,1,17,0,0,12,8,34,3,0,8,0,10,6,9,34,20,8,21,0,19,9,13,34,19,2,20,0,2,1,19],
+
+            "bones" : [],
+
+            "skinIndices" : [],
+
+            "skinWeights" : [],
+
+            "animation" : {}
+
+
+        };
+
+        var cloud1JSON = {
+
+            "metadata" :
+            {
+                "formatVersion" : 3.1,
+                "generatedBy"   : "Blender 2.66 Exporter",
+                "vertices"      : 23,
+                "faces"         : 42,
+                "normals"       : 23,
+                "colors"        : 0,
+                "uvs"           : [],
+                "materials"     : 1,
+                "morphTargets"  : 0,
+                "bones"         : 0
+            },
+
+            "scale" : 1.000000,
+
+            "materials" : [	{
+                "DbgColor" : 15658734,
+                "DbgIndex" : 0,
+                "DbgName" : "Material",
+                "blending" : "NormalBlending",
+                "colorAmbient" : [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+                "colorDiffuse" : [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+                "colorSpecular" : [0.5, 0.5, 0.5],
+                "depthTest" : true,
+                "depthWrite" : true,
+                "shading" : "Lambert",
+                "specularCoef" : 50,
+                "transparency" : 1.0,
+                "transparent" : false,
+                "vertexColors" : false
+            }],
+
+            "vertices" : [0.3966,0.238884,0.240987,-0.587449,0.35083,0.290995,-0.582013,0.439416,-0.301721,0.400953,0.238884,-0.233672,0.29364,0.745033,0.299076,-0.299076,0.831431,0.29364,-0.2097,0.909423,-0.298306,0.299076,0.831431,-0.29364,-0.297767,0.183136,-0.334636,-0.303258,0.183136,0.264085,0.499559,0.535611,0.182898,0.50283,0.595696,-0.173705,1.57441,0.217608,0.0981573,1.58424,0.205087,-0.0591095,1.61359,0.370436,0.0884378,1.62342,0.357915,-0.0688291,-0.644388,0.439416,-0.00590975,-0.495559,0.831431,-0.004545,-1.36215,0.310859,0.168796,-1.35882,0.310859,-0.193751,-1.48598,0.1541,-0.162139,-1.29715,0.1541,0.151338,-1.49778,0.310859,-0.0137364],
+
+            "morphTargets" : [],
+
+            "normals" : [-0.603076,0.791009,0.102603,-0.386029,0.372753,-0.843806,-0.319712,0.590777,-0.740745,0.386853,0.574602,0.721183,0.436933,0.670736,-0.599292,-0.21308,0.657826,0.722373,0.138096,-0.68096,0.719138,0.042116,-0.733573,0.678274,-0.683737,0.729423,0.02002,0.025422,-0.680135,-0.732627,0.173956,-0.687521,-0.704978,0.490677,0.528794,0.692496,-0.285958,0.177099,0.94171,-0.321116,-0.736595,0.595172,0.49382,-0.615101,0.614582,-0.550493,0.415601,0.724021,0.580462,0.583514,-0.567888,0.526566,-0.689505,-0.497238,0.696829,0.476363,0.536149,-0.722465,-0.525651,-0.44911,-0.882382,0.424451,0.202918,-0.13712,0.779077,-0.611713,0.733909,0.385876,-0.558946],
+
+            "colors" : [],
+
+            "uvs" : [],
+
+            "faces" : [34,16,2,19,0,0,1,2,34,4,7,5,0,3,4,5,34,0,4,9,0,6,3,7,34,16,17,2,0,0,8,1,34,8,7,3,0,9,4,10,34,7,4,10,0,4,3,11,34,9,1,21,0,7,12,13,34,0,3,12,0,6,10,14,34,1,16,18,0,12,0,15,34,3,11,13,0,10,16,17,34,14,12,13,0,18,14,17,34,21,18,20,0,13,15,19,34,11,10,14,0,16,11,18,34,3,7,11,0,10,4,16,34,10,0,12,0,11,6,14,34,4,0,10,0,3,6,11,34,1,5,17,0,12,5,8,34,0,9,8,0,6,7,9,34,8,9,21,0,9,7,13,34,2,8,20,0,1,9,19,34,22,16,19,0,20,0,2,34,7,6,5,0,4,21,5,34,6,17,5,0,21,8,5,34,4,5,9,0,3,5,7,34,5,1,9,0,5,12,7,34,17,6,2,0,8,21,1,34,2,6,8,0,1,21,9,34,6,7,8,0,21,4,9,34,11,7,10,0,16,4,11,34,1,18,21,0,12,15,13,34,3,13,12,0,10,17,14,34,16,22,18,0,0,20,15,34,11,15,13,0,16,22,17,34,15,14,13,0,22,18,17,34,18,22,20,0,15,20,19,34,22,19,20,0,20,2,19,34,15,11,14,0,22,16,18,34,14,10,12,0,18,11,14,34,16,1,17,0,0,12,8,34,3,0,8,0,10,6,9,34,20,8,21,0,19,9,13,34,19,2,20,0,2,1,19],
+
+            "bones" : [],
+
+            "skinIndices" : [],
+
+            "skinWeights" : [],
+
+            "animation" : {}
+
+
+        };
+
+        /* POLYGON */
+        var POL = function (vertices, obj) {
+                var comma,
+                    i;
+                    
+                if (vertices instanceof Array === true) {
+                    this.vertices = vertices;
+                } else if (typeof(vertices) == 'string') {
+                    comma = vertices.indexOf(' ') > vertices.indexOf(',') ? false : true; //determine if comma or space delimeted
+
+                    if (comma) {
+                        this.vertices = vertices.split(',');
+                        for (i = 0; i < this.vertices.length; i += 1) {
+                            this.vertices[i] = this.vertices[i].split(' ');
+                        }
+                    } else {
+                        this.vertices = vertices.split(' ');
+                        for (i = 0; i < this.vertices.length; i += 1) {
+                            this.vertices[i] = this.vertices[i].split(',');
+                        }
+                    }
+                }
+            };
+            
+            POL.prototype.setContext = function (ctx) {
+                this.ctx = ctx;
+            };
+
+            POL.prototype.setClip = function (clipTarget) {
+                this.clipTarget = clipTarget;
+            };
+            
+            POL.prototype.getVertices = function () {
+                return this.vertices;
+            };
+            
+            /**
+            * create canvas polygon out of vertices
+            */
+            POL.prototype.canvasPolygon = function (vertices) {
+                var i,
+                    vertices = vertices ? vertices : this.vertices;
+
+                if (this.ctx) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(vertices[0][0], vertices[0][1]);
+
+                    for (i = 1; i < vertices.length; i += 1) {
+                        this.ctx.lineTo(vertices[i][0], vertices[i][1]);
+                    }
+
+                    this.ctx.closePath();
+                }
+            };
+
+            /**
+            * create clip path out of vertices
+            */
+            POL.prototype.clipPolygon = function (vertices) {
+                var i,
+                    clipString,
+                    vertices = vertices ? vertices : this.vertices;
+
+                if (this.clipTarget) {
+                    clipString = "polygon(";
+
+                    for (i = 0; i < vertices.length; i += 1) {
+                        clipString += vertices[i][0] + "px " + vertices[i][1] + 'px';
+
+                        if (i < vertices.length - 1) {
+                            clipString += ", ";
+                        }
+                    }
+
+                    clipString += ")";
+                    this.clipTarget.style.webkitClipPath = clipString;
+                }
+            };
+
+
+        var FigureView = function (options) {
+        this.el = options.el;
+        this.$el = $(this.el);
+        this.initialize();
+        };
+
+        FigureView.prototype = {
+
+                initialize: function () {
+                    this.figcaption = this.$el.find('figcaption')[0];
+                    
+                    this.canvas = document.createElement('canvas');
+                    this.canvas.width = 500;
+                    this.canvas.height = 300;
+                    
+                    this.ctx = this.canvas.getContext('2d');
+                    
+                    this.$el.prepend(this.canvas);
+                    
+                    var vertices1 = '176.507,26.975 270.11,0 399.519,6.939 457.684,61.974 443.204,138.881 469.982,213.852 331.876,235.904 196.589,209.441 61.302,236.454 0,158.726 42.279,99.191 66.587,28.076';
+                    this.polygon1 = new POL(vertices1);
+                    this.polygon1.setContext(this.ctx);
+                    
+                    var vertices2 = '61.985,79.344 47.188,135.573 87.351,198.417 182.475,198.417 273.37,188.494 309.306,208.34 404.43,191.802 404.43,120.689 423.454,69.233 326.217,33.038 253.289,69.233 205.727,33.038 123.287,69.233';
+                    this.polygon2 = new POL(vertices2);
+                    this.polygon2.setContext(this.ctx);
+                    
+                    var vertices3 = '180.758,85.892 180.128,88.285 181.837,90.958 185.885,90.958 189.752,90.536 191.281,91.381 195.329,90.677 195.329,87.651 196.138,85.462 192.001,83.922 188.898,85.462 186.874,83.922 183.366,85.462';
+                    this.clip1 = new POL(vertices3);
+                    
+                    var vertices4 = '-105.931,17.51 -131.035,112.902 -62.898,219.517 98.479,219.517 252.684,202.683 313.649,236.351 475.026,208.295 475.026,87.651 507.301,0.356 342.338,-61.049 218.616,0.356 137.927,-61.049 -1.933,0.356';
+                    this.clip2 = new POL(vertices4);
+                    
+                    this.clip1.setClip(this.figcaption);
+                    this.clip2.setClip(this.figcaption);
+                    
+            window.addEventListener('scroll', function() {
+                console.log('mousewheel');
+                    if (this.$el.offset().top >= window.pageYOffset
+                        && this.$el.offset().top + (this.$el.height() / 2) <= window.pageYOffset + height) 
+                    {
+                        if (!this.$el.hasClass('in')) {
+                            this.$el.addClass('in');
+                        }
+                    } else {
+                        if (this.$el.hasClass('in')) {
+                            this.$el.removeClass('in');
+                        }
+                    }
+            }.bind(this));
+            
+                    this.render();
+                },
+                
+                render: function () {
+                    this.ctx.fillStyle = "rgba(38, 14, 10, 0.7)";
+                    this.polygon1.canvasPolygon();	
+                    this.ctx.fill();
+                    
+                    this.ctx.fillStyle = "rgba(38, 14, 10, 0.7)";
+                    this.polygon2.canvasPolygon();	
+                    this.ctx.fill();
+                },
+                
+                resize: function () {
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                }
+        }
+
+        $('figure').each(function () {
+        new FigureView({el: this});
+        });
+
+
+        //BG
+        var models = [
+        {url: 'http://radiolights.com/TEST/scroll/assets/models/cloud1.js', json: cloud1JSON, geometry: null},
+            {url: 'http://radiolights.com/TEST/scroll/assets/models/cloud2.js', json: cloud2JSON, geometry: null},
+        ];
+
+        var Background = function () {
+            var instance = this;
+            instance.stars = [];
+            // --- Add variables for smooth camera interpolation ---
+            // Initialise to the camera's position at p=0 (start of scroll)
+            instance.cameraCurrentX = 0; // sway at p=0 is 0
+            instance.cameraCurrentY = 1700; // This is your 'startY' value
+            instance.cameraCurrentZ = 2300; // This is your 'dollyZ' at p=0
+            this.d = 0;
+            this.worldCenter = {y: -3500 + window.innerWidth / 2};
+            loadModels(); 
+            
+        function addBg(x, y) {
+            var geometry,
+                        material,
+                        mountains;
+                        
+                    geometry= new THREE.CubeGeometry( 14000, 120, 2000, 10, 10, 10 );
+                    // THREE.GeometryUtils.triangulateQuads(geometry);
+                    
+                    for (var i = 0; i < geometry.vertices.length; i += 1) {
+                        var vertice = geometry.vertices[i];
+                        vertice.y = vertice.y + Math.random() * 200;
+                        vertice.x = vertice.x + Math.random() * 100;
+
+                        if (vertice.z > 0) {
+                            vertice.y -= 100;
+                        }
+                    }
+                    
+                    material = new THREE.MeshLambertMaterial({
+                        ambient: 0x000000, 
+                        color: 0x443053, 
+                        shading: THREE.FlatShading
+                    });
+                    
+                    mountains = new THREE.Mesh(geometry, material);
+                    mountains.position.set(0, instance.worldCenter.y + 3500, -4000);
+                    instance.scene.add(mountains);
+        }
+        
+        function addSky() {
+            var sky,
+            material,
+            geometry;
+                            
+            geometry = new THREE.PlaneGeometry(30000, 20000, 10, 10);
+            
+            skyUniforms = {
+                time: {
+                    type: 'f',
+                    value: 1.0
+                },
+                delta: {
+                    type: 'f',
+                    value: 1.0
+                }
+            };
+
+            material = new THREE.ShaderMaterial({
+                uniforms: skyUniforms,
+                vertexShader: document.getElementById('skyVS').textContent,
+                fragmentShader: document.getElementById('skyFS').textContent
+            });
+            
+            sky = new THREE.Mesh(geometry, material);
+            sky.position.set(0, -5000, -5000);
+            
+            instance.scene.add(sky);
+        }
+        
+        function addClouds(x, y, z) {
+            var cloud,
+                        material,
+                        geometry,
+                        scale = 0.4 + Math.random() * 0.3;
+                
+                    var randCloud = 1 + Math.floor(Math.random() * 2);
+                    geometry = models[randCloud].geometry;
+
+                    material = new THREE.MeshLambertMaterial({
+                        ambient: 0x000000, 
+                        color: 0x7e559f, 
+                        opacity: 0.2, 
+                        transparent: true,
+                        side: THREE.DoubleSide,
+                        shading: THREE.FlatShading
+                    });
+                    cloud = new THREE.Mesh(geometry, material);
+                    cloud.position.set(x, y, z);
+                    cloud.scale.set(500 * (1 + Math.random()), 500 * (0.5 + Math.random() * 0.5), 500);
+                    
+                    instance.clouds.push(cloud);
+                    instance.scene.add(cloud);
+        }
+
+        // ---------- Mangrove lagoon water ----------
+        function addLagoon() {
+            var geo = new THREE.PlaneGeometry(16000, 9000, 80, 40);
+            // tilt slightly so top of screen looks “farther”
+            geo.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
+
+            var uniforms = {
+                uTime: { type: 'f', value: 0.0 }
+            };
+
+            instance.waterUniforms = uniforms;
+
+            var mat = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: document.getElementById('mangroveWaterVS').textContent,
+                fragmentShader: document.getElementById('mangroveWaterFS').textContent,
+                transparent: true,
+                side: THREE.DoubleSide
+            });
+
+            instance.lagoon = new THREE.Mesh(geo, mat);
+            instance.lagoon.position.set(0, instance.worldCenter.y + 3300, -1800);
+            if (instance.lagoon) instance.lagoon.receiveShadow = true;
+
+            instance.scene.add(instance.lagoon);
+
+            // // TODO: PUT INTO FUNCTION
+            // // Water Plane (slightly above the "ground" level, so it's visible)
+            // var waterGeometry = new THREE.PlaneGeometry(1000, 1000); // Large plane
+            // var waterMaterial = new THREE.MeshLambertMaterial({
+            //     color: 0x004466, // A dark, slightly greenish-blue
+            //     transparent: true,
+            //     opacity: 0.7, // Make it semi-transparent
+            //     side: THREE.DoubleSide // Important for viewing from both above and below
+            // });
+            // waterMesh = new THREE.Mesh(waterGeometry, waterMaterial);
+            // waterMesh.rotation.x = -Math.PI / 2; // Rotate to be flat
+            // waterMesh.position.y = -5; // Position slightly above the current ground (-10)
+            // instance.scene.add(waterMesh);
+        }
+
+        // ---------- Sandy banks / soft islets ----------
+        function addBanks() {
+            var geo = new THREE.CubeGeometry( 16000, 1200, 3200, 24, 4, 8 );
+            for (var i = 0; i < geo.vertices.length; i++){
+                var v = geo.vertices[i];
+                // flatten middle (channel), raise edges like banks
+                var edge = Math.abs(v.x) / 8000;
+                v.y += Math.pow(edge, 1.8) * 480;    // lift banks
+                v.z += (Math.random() - 0.5) * 60;
+                v.x += (Math.random() - 0.5) * 60;
+            }
+            var mat = new THREE.MeshLambertMaterial({
+                color: 0x020508, vertexColors: THREE.NoColors, shading: THREE.FlatShading
+            });
+            instance.banks = new THREE.Mesh(geo, mat);
+            instance.banks.position.set(0, instance.worldCenter.y + 3000, -1800);
+            if (instance.banks)  instance.banks.receiveShadow = true;
+            instance.scene.add(instance.banks);
+        }
+
+        function addIslet() {
+            var geo = new THREE.CylinderGeometry( 2600, 2800, 320, 24, 1, true );
+            // puff the top so it domes upward toward the center
+            for (var i = 0; i < geo.vertices.length; i++) {
+                var v = geo.vertices[i];
+                var r = Math.sqrt(v.x*v.x + v.z*v.z) / 2800;     // 0 at center → 1 at edge
+                v.y += (1.0 - r) * 180 + (Math.random() - 0.5) * 18;
+            }
+            var mat = new THREE.MeshLambertMaterial({ color: 0x020508, shading: THREE.FlatShading });
+            instance.islet = new THREE.Mesh(geo, mat);
+            instance.islet.position.set(0, instance.worldCenter.y + 3150, -1900);
+            if (instance.islet)  instance.islet.receiveShadow = true;
+            instance.scene.add(instance.islet);
+        }
+
+
+        // ---------- Mangrove clump (trunk + prop roots + canopy billboards) ----------
+        function createMangroveClump() {
+            var group = new THREE.Object3D();
+
+            // trunk
+            var trunkMat = new THREE.MeshLambertMaterial({ color: 0x4a3a2a, shading: THREE.FlatShading });
+
+            var trunkGeo = new THREE.CylinderGeometry( 16, 24, 350, 6, 1, false );
+            var trunkMat = new THREE.MeshLambertMaterial({ color: 0x5b4a32, shading: THREE.FlatShading });
+            var trunk = new THREE.Mesh(trunkGeo, trunkMat);
+            trunk.position.y = 175;
+            // trunk.castShadow = true;
+            trunk.castShadow = false;
+            group.add(trunk);
+
+            // prop roots (4–6 legs)
+            var rootMat  = new THREE.MeshLambertMaterial({ color: 0x3e2f23, shading: THREE.FlatShading });
+            var rootGeo = new THREE.CylinderGeometry( 12, 24, 300, 5, 1, false );
+            var roots = 4 + Math.floor(Math.random()*3);
+            for (var i=0;i<roots;i++) {
+                var r = new THREE.Mesh(rootGeo, rootMat);
+                // r.castShadow = true;
+                r.castShadow = false;
+                var a = (Math.PI*2) * (i/roots) + Math.random()*0.3;
+                var radius = 40 + Math.random()*30;
+                r.position.set(Math.cos(a)*radius, 90, Math.sin(a)*radius);
+                r.rotation.z = (Math.random() < 0.5 ? 1 : -1) * (0.8 + Math.random()*0.25); // lean outwards
+                group.add(r);
+            }
+
+            // canopy (simple crossed billboards)
+            var leafMat = new THREE.MeshLambertMaterial({
+                // old: 0x2e6a3b
+                color: 0x103015,           // darker, richer green
+                transparent: true,
+                opacity: 0.95,
+                shading: THREE.FlatShading
+            });
+
+            // tiny random tint per canopy
+            var t = 0.9 + Math.random() * 0.2;         // 0.9–1.1
+            leafMat.color.offsetHSL(0, 0.05*(Math.random()*2-1), -0.03); // tiny sat/value wiggle
+            leafMat.color.multiplyScalar(t);
+
+            var leafGeo = new THREE.SphereGeometry( 110 + Math.random()*40, 5, 4 );
+            var canopy = new THREE.Mesh(leafGeo, leafMat);
+            canopy.position.y = 350;
+            // canopy.castShadow = true;
+            canopy.castShadow = false;
+            group.add(canopy);
+            
+
+            return group;
+        }
+
+        // ---------- Scatter mangroves along banks & shallow water ----------
+        function addMangroveForest() {
+            var count = 80;
+            instance.mangroves = new THREE.Object3D();
+            var cx = 0, cz = -1900;            // island center
+            var R  = 2200;                     // island radius
+
+            for (var i = 0; i < count; i++) {
+                var m = createMangroveClump();
+
+                // random angle around the island, biased toward the rim
+                var a = Math.random() * Math.PI * 2;
+                var r = R * (0.65 + Math.random() * 0.35);     // most near the edge
+
+                var x = cx + Math.cos(a) * r;
+                var z = cz + Math.sin(a) * r * 0.65;           // slight oval
+
+                // occasional inner clumps
+                if (Math.random() < 0.15) {
+                    r = R * (0.3 + Math.random() * 0.3);
+                    x = cx + Math.cos(a) * r;
+                    z = cz + Math.sin(a) * r * 0.6;
+                    m.scale.set(0.85, 0.85, 0.85);
+                }
+
+                m.position.set(x, instance.worldCenter.y + 3250, z); // Lower the trees into the water
+                m.rotation.y = Math.random() * Math.PI * 2;
+                var s = 0.8 + Math.random() * 0.9;
+                m.scale.set(s, s, s);
+
+                instance.mangroves.add(m);
+            }
+
+            instance.scene.add(instance.mangroves);
+        }
+
+        // ---------- Fireflies (particles) ----------
+        function addFireflies() {
+            var count = 250; 
+            var geo = new THREE.Geometry();
+            
+            // --- NEW: Add arrays to store animation data ---
+            geo.basePositions = [];
+            geo.danceData = [];
+
+            for (var i=0;i<count;i++){
+                var v = new THREE.Vector3(
+                    -7000 + Math.random()*14000,
+                    instance.worldCenter.y + 3300 + Math.random()*500,
+                    -3600 + Math.random()*2400
+                );
+                geo.vertices.push(v);
+
+                // --- NEW: Store base position and random dance data ---
+                geo.basePositions.push(v.clone());
+                geo.danceData.push({
+                    phaseX: Math.random() * Math.PI * 2,
+                    phaseY: Math.random() * Math.PI * 2,
+                    phaseZ: Math.random() * Math.PI * 2,
+                    speed: 0.5 + Math.random() * 0.5 // random speed
+                });
+            }
+
+            var mat = new THREE.ParticleBasicMaterial({
+                color: 0xfff8b8,
+                size: 30,
+                sizeAttenuation: true,
+                blending: THREE.AdditiveBlending,
+                transparent: true,
+                opacity: 0.95
+            });
+
+            instance.fireflies = new THREE.ParticleSystem(geo, mat);
+
+            instance.scene.add(instance.fireflies);
+        }
+
+        function addMangroveRoots(numRoots = 150) {
+            var rootMaterial = new THREE.MeshLambertMaterial({
+                color: 0x3e2f23, // Use the same color as the prop roots
+                flatShading: true,
+            }); // 1. Create one single, empty geometry
+            var finalRootsGeo = new THREE.Geometry();
+
+            var cx = 0,
+                cz = -1900;
+            var R = 2200;
+
+            for (var i = 0; i < numRoots; i++) {
+                var radius = THREE.Math.randFloat(15, 30); // <-- Fixed syntax here
+                var height = THREE.Math.randFloat(200, 450);
+                var rootGeometry = new THREE.CylinderGeometry(
+                    radius,
+                    radius * THREE.Math.randFloat(0.5, 1.2),
+                    height,
+                    5,
+                ); // 2. Create a temporary mesh just to set position/rotation
+
+                var tempMesh = new THREE.Mesh(rootGeometry);
+
+                var a = Math.random() * Math.PI * 2;
+                var r = R * (0.1 + Math.random() * 0.9);
+                var x = cx + Math.cos(a) * r;
+                var z = cz + Math.sin(a) * r * 0.65;
+                var waterY = instance.lagoon.position.y;
+                tempMesh.position.set(x, waterY - height / 2 + 50, z);
+                tempMesh.rotation.set(
+                THREE.Math.randFloat(-0.4, 0.4),
+                Math.random() * Math.PI,
+                THREE.Math.randFloat(-0.4, 0.4),
+                ); // 3. Update the mesh's matrix
+
+                tempMesh.updateMatrix(); // 4. Merge the mesh into our single geometry
+                THREE.GeometryUtils.merge(finalRootsGeo, tempMesh); // (We don't need rootMeshes.push() anymore)
+            } // 5. Create one single mesh from the giant geometry
+            var finalRootsMesh = new THREE.Mesh(finalRootsGeo, rootMaterial);
+            instance.scene.add(finalRootsMesh);
+        }
+
+        function addCritters() {
+            var cx = 0,
+            cz = -1900;
+            var R = 2200;
+            var waterY = instance.lagoon.position.y;
+            var groundY = instance.islet.position.y - 160; // --- 1. Add dancing plankton (This one is OK, but see Step 3) ---
+
+            var planktonCount = 300;
+            var planktonGeo = new THREE.Geometry();
+            planktonGeo.basePositions = [];
+            planktonGeo.danceData = [];
+
+            for (var i = 0; i < planktonCount; i++) {
+                var a = Math.random() * Math.PI * 2;
+                var r = R * (0.1 + Math.random() * 0.9);
+                var x = cx + Math.cos(a) * r;
+                var z = cz + Math.sin(a) * r * 0.65;
+                var y = THREE.Math.randFloat(groundY, waterY);
+                var v = new THREE.Vector3(x, y, z);
+                planktonGeo.vertices.push(v);
+                planktonGeo.basePositions.push(v.clone());
+                planktonGeo.danceData.push({
+                phaseX: Math.random() * Math.PI * 2,
+                phaseY: Math.random() * Math.PI * 2,
+                phaseZ: Math.random() * Math.PI * 2,
+                speed: 0.3 + Math.random() * 0.3,
+                });
+            }
+            var planktonMat = new THREE.ParticleBasicMaterial({
+                color: 0xaaaaff,
+                size: 15, // Made bigger
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                opacity: 0.7,
+                fog: false,
+            });
+            var plankton = new THREE.ParticleSystem(planktonGeo, planktonMat);
+            critterSystems.push(plankton); // Add to array [index 0]
+            instance.scene.add(plankton); // --- 2. Add "Crabs" on the bottom (MERGED) ---
+
+            var crabCount = 80;
+            var finalCrabGeo = new THREE.Geometry(); // The one big geometry
+            var singleCrabGeo = new THREE.CubeGeometry(15, 8, 15); // Use a small box for each "crab"
+
+            for (var i = 0; i < crabCount; i++) {
+                var tempCrab = new THREE.Mesh(singleCrabGeo); // Use a temp mesh
+                var a = Math.random() * Math.PI * 2;
+                var r = R * (0.1 + Math.random() * 0.9);
+                var x = cx + Math.cos(a) * r;
+                var z = cz + Math.sin(a) * r * 0.65;
+                var y = groundY + THREE.Math.randFloat(5, 15);
+                tempCrab.position.set(x, y, z);
+                tempCrab.rotation.y = Math.random() * Math.PI;
+                tempCrab.updateMatrix();
+                THREE.GeometryUtils.merge(finalCrabGeo, tempCrab);
+            }
+            var crabMat = new THREE.MeshBasicMaterial({
+                color: 0xff8800, // A brighter orange
+                transparent: true,
+                opacity: 0.9, // fog: false (let them be in the fog a bit)
+            });
+            var crabs = new THREE.Mesh(finalCrabGeo, crabMat); // This is now a MESH
+            critterSystems.push(crabs); // Add to array [index 1]
+            instance.scene.add(crabs);
+        }
+
+        function addBirds() {
+            var flock = new THREE.Object3D();
+            instance.birds = [];
+            var N = 16; // how many birds
+
+            // Re-usable materials
+            var birdBodyMat = new THREE.MeshBasicMaterial({ color: 0xd93a2e });
+            var birdWingMat = new THREE.MeshBasicMaterial({ color: 0xd93a2e, side: THREE.DoubleSide });
+
+            // Re-usable wing geometry
+            var wingGeo = new THREE.Geometry();
+            wingGeo.vertices.push(
+                new THREE.Vector3(0, 0, 0),
+                new THREE.Vector3(18, 4, 0), // Wingtip
+                new THREE.Vector3(18, -4, 0) // Back of wing
+            );
+            wingGeo.faces.push(new THREE.Face3(0, 1, 2));
+
+            for (var i = 0; i < N; i++) {
+                
+                // 1. Create the main bird Object3D
+                var bird = new THREE.Object3D();
+
+                // 2. Create and add the wings
+                var wingL = new THREE.Mesh(wingGeo, birdWingMat);
+                wingL.position.set(0, 0, -1); // Attach to side of body
+                bird.add(wingL);
+
+                var wingR = new THREE.Mesh(wingGeo, birdWingMat);
+                wingR.scale.z = -1; // Flip the wing geometry
+                wingR.position.set(0, 0, 1); // Attach to other side
+                bird.add(wingR);
+
+                var scale = 10;
+                bird.scale.set(scale, scale, scale);
+
+                // 3. Set bird's position and flight data
+                bird.position.set(
+                    -9000 + Math.random() * 18000,
+                    instance.worldCenter.y + 4800 + Math.random() * 800,
+                    -4200 + Math.random() * 800
+                );
+
+                bird.userData = {
+                    dir: (Math.random() < 0.5 ? 1 : -1),
+                    speed: 70 + Math.random() * 60,
+                    amp: 10 + Math.random() * 12,     // Bobbing amount
+                    phase: Math.random() * Math.PI * 2, // Bobbing phase
+                    flapSpeed: 0.2 + Math.random() * 0.15, // Flap speed
+                    flapPhase: Math.random() * Math.PI * 2, // Flap phase
+                    wings: [wingL, wingR] // Store wings for animation
+                };
+                bird.rotation.y = (bird.userData.dir > 0 ? 0 : Math.PI);
+
+                flock.add(bird);
+                instance.birds.push(bird);
+            }
+            instance.scene.add(flock);
+        }
+
+        function addMoon() {
+            var geo = new THREE.CircleGeometry(400, 32); // 400-unit radius
+            var mat = new THREE.MeshBasicMaterial({ 
+                color: 0xFFFEE5, // A soft, pale yellow-white
+                transparent: true, 
+                opacity: 0.9 
+            });
+            instance.moon = new THREE.Mesh(geo, mat);
+
+            // Position it high up, far left, and just in front of the sky plane
+            instance.moon.position.set(-3000, instance.worldCenter.y + 5400, -4900);
+            instance.scene.add(instance.moon);
+        }
+
+        function addStars(count, size) {
+            var geo = new THREE.Geometry();
+
+            for (var i = 0; i < count; i++) {
+                var v = new THREE.Vector3(
+                THREE.Math.randFloatSpread(100000), // Very wide spread
+                instance.worldCenter.y + THREE.Math.randFloat(5000, 8000), // High in the sky
+                THREE.Math.randFloat(-4500, -8900), // Between trees and sky
+                );
+                geo.vertices.push(v);
+            }
+
+            var mat = new THREE.ParticleBasicMaterial({
+                color: 0xffffff,
+                size: size,
+                sizeAttenuation: true,
+                transparent: true,
+                opacity: 0.8,
+                fog: false,
+            });
+
+            var stars = new THREE.ParticleSystem(geo, mat);
+            instance.stars.push(stars); // <-- Add this new system to our array
+            instance.scene.add(stars);
+        }
+
+        function modelsLoaded() {
+
+            instance.renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('ground'),
+                antialias: true,             
+                powerPreference: 'high-performance'
+            });
+
+            // push DPR a bit (clamped for safety)
+            var dpr = Math.min(2, window.devicePixelRatio || 1);
+            setRendererDPR(instance.renderer, dpr, window.innerWidth, window.innerHeight);
+
+            instance.renderer.setClearColor(0x12021f, 1);
+
+            // r61 still has these:
+            instance.renderer.gammaInput  = true;
+            instance.renderer.gammaOutput = true;
+        
+            instance.scene = new THREE.Scene();
+            instance.scene.fog = new THREE.Fog(0x2a3c49, 2600, 8000);
+            // --- Store original fog settings ---
+            instance.originalFogColor = instance.scene.fog.color.clone();
+            instance.originalFogNear = instance.scene.fog.near;
+            instance.originalFogFar = instance.scene.fog.far;
+
+            // instance.scene.add(new THREE.AmbientLight(0x000000)); // darker baseline
+            instance.scene.add(new THREE.AmbientLight(0x000000)); // darker baseline
+
+            var hemi = new THREE.HemisphereLight(0x4a3a8a, 0x1b3a34, 0.6); // (sky, ground, intensity)
+            hemi.position.set(0, 5000, 0);
+            instance.scene.add(hemi);
+            
+            instance.hemiLight = hemi; // Keep a reference to the light
+            instance.originalHemiIntensity = hemi.intensity;
+
+
+            // key light with soft shadows
+            instance.spotLight = new THREE.SpotLight(0xffe2b0, 1.25, 10000, Math.PI/6, 0.45, 1.0);
+            instance.spotLight.position.set(window.innerWidth * 0.35, 1200, 1400);
+            instance.spotLight.castShadow = true;                 // turn on
+            instance.spotLight.shadowMapWidth  = 1024;
+            instance.spotLight.shadowMapHeight = 1024;
+            instance.spotLight.shadowCameraNear = 200;
+            instance.spotLight.shadowCameraFar  = 10000;
+            instance.scene.add(instance.spotLight);
+
+            instance.renderer.shadowMapEnabled = true;            // global switch
+            instance.renderer.shadowMapSoft = true;
+            
+            instance.projector = new THREE.Projector();
+            instance.mouse = new THREE.Vector2();
+            instance.scrollArrow = document.getElementById('scroll-arrow');
+            instance.frogLink = document.getElementById('frog-link');
+
+            addBg();
+            addSky();
+            addStars(800, 15); // 800 small stars
+            addStars(600, 25); // 600 medium stars
+            addStars(400, 35); // 400 large stars
+            // addMoon();
+
+            addBanks();              // low sandy border
+            addIslet();              // << new: raised island in the middle
+            addLagoon();             // water around
+            addMangroveForest();     // trees along the island rim
+            addFireflies();
+            addBirds();              // red birds in the sky
+            addMangroveRoots(75); // Generate 75 roots
+            addCritters();
+
+            if (instance.terrain) instance.terrain.visible = false; // hide old base
+
+            // instance.spotLight = new THREE.SpotLight(0xfff0d0, 2.2, 10000);
+            // instance.spotLight.position.set(window.innerWidth*0.4, 400, 1200);
+            
+            instance.camera = new THREE.PerspectiveCamera(35, width / height, 2, 10000);
+            instance.camera.position.set(0, 850, 2000 );
+            instance.camera.rotation.set(0 * Math.PI / 180, 0, 0);
+
+            // draw a guaranteed first frame
+            instance.renderer.render(instance.scene, instance.camera);
+            requestAnimationFrame(() => instance.renderer.render(instance.scene, instance.camera));
+        };
+        
+        function loadModels() {
+            var i = 0,
+                        loader,
+                data,
+                        loaded = 0;
+                            
+            function parseModels(d) {
+                models[loaded].geometry = d.geometry;
+                        models[loaded].materials = d.material || d.materials;
+                        loaded += 1;
+                if (loaded == models.length) {
+                            modelsLoaded();
+                        } else {
+                            loader = new THREE.JSONLoader();
+                    data = loader.parse(models[loaded].json);
+                    parseModels(data);
+                        }
+            };
+                
+            loader = new THREE.JSONLoader();
+            data = loader.parse(models[loaded].json);
+            parseModels(data);
+        };
+
+        // const deckEl = document.getElementById('deck');
+        // let __maxScroll = 1;
+
+        // function computeMaxScroll(){
+        //     const h = (deckEl?.scrollHeight || document.body.scrollHeight || document.documentElement.scrollHeight);
+        //     __maxScroll = Math.max(1, h - window.innerHeight);
+        // }
+
+        // function getScrollPercentDeck(){
+        //     const y = window.scrollY || window.pageYOffset || 0;
+        //     return Math.min(1, Math.max(0, y / __maxScroll));
+        // }
+
+        instance.render = function () {
+
+            // animate water shader
+            if (instance.waterUniforms) {
+                instance.waterUniforms.uTime.value = (Date.now() % 100000) / 1000.0;
+            }
+
+            const p = getScrollPercentDeck();           // 0..1 scroll progress
+
+            // --- DYNAMIC CAMERA Y-POSITION (UNDERWATER) ---
+            // 1. Calculate the water's Y position (which depends on screen width)
+            const lagoonY = instance.worldCenter.y + 3300;
+            
+            // 2. Define camera start and end Y positions
+            const startY = 1700; // Start high up
+            const endY = lagoonY - 200; // End 200 units *BELOW* the water
+            
+            // 3. Calculate the total distance for the camera to travel
+            const totalYTravel = endY - startY; // This will be a negative number
+
+
+            // 4. Calculate the camera's TARGET Y position based on scroll
+            const targetRiverY = startY + totalYTravel * p; // --- END CAMERA PATH ---
+            // --- (Your underwater fog/light code stays here) ---
+            const waterLevel = instance.worldCenter.y + 3300;
+            const underwaterFogColor = new THREE.Color(0x010A10);
+            if (instance.cameraCurrentY < waterLevel) {
+                // Check smoothed position
+                // --- WE ARE UNDERWATER ---
+                let depth = (waterLevel - instance.cameraCurrentY) / 200.0;
+                depth = Math.min(1.0, depth);
+                instance.scene.fog.color.copy(instance.originalFogColor);
+                instance.scene.fog.color.lerp(underwaterFogColor, depth);
+                instance.scene.fog.near = 100;
+                instance.scene.fog.far = 6000;
+                instance.hemiLight.intensity = instance.originalHemiIntensity * (1.0 - depth * 0.7);
+            } else {
+                // --- WE ARE ABOVE WATER ---
+                instance.scene.fog.color.copy(instance.originalFogColor);
+                instance.scene.fog.near = instance.originalFogNear;
+                instance.scene.fog.far = instance.originalFogFar;
+                instance.hemiLight.intensity = instance.originalHemiIntensity;
+            } // --- END FOG/LIGHT EFFECT ---
+            // --- SMOOTH CAMERA MOVEMENT ---
+            // 1. Calculate TARGET positions
+            const targetSway = Math.sin(p * Math.PI * 2.0) * 220;
+            const targetDollyZ = 2300 - p * 3000; // 2. Define smoothness factor (0.1 = fast, 0.01 = very slow)
+            const smoothness = 0.05; // 3. Interpolate (lerp) the CURRENT position toward the TARGET
+            instance.cameraCurrentX += (targetSway - instance.cameraCurrentX) * smoothness;
+            instance.cameraCurrentY += (targetRiverY - instance.cameraCurrentY) * smoothness;
+            instance.cameraCurrentZ += (targetDollyZ - instance.cameraCurrentZ) * smoothness; // 4. Set the camera to the new smoothed position
+
+            instance.camera.position.set(
+                instance.cameraCurrentX,
+                instance.cameraCurrentY,
+                instance.cameraCurrentZ,
+            ); // 5. Update spotlight based on the *smoothed* camera position
+            instance.spotLight.position.y = instance.cameraCurrentY + 900;
+            instance.spotLight.target.position.set(0, instance.cameraCurrentY + 500, -1000);
+
+            // --- HIDE/SHOW SCROLL ARROW ---
+            if (instance.scrollArrow) {
+                if (p > 0.01) {
+                    // If scrolled even a little
+                    instance.scrollArrow.classList.add("is-hidden");
+                    instance.scrollArrow.classList.remove("is-visible");
+                } else {
+                    instance.scrollArrow.classList.remove("is-hidden");
+                    instance.scrollArrow.classList.add("is-visible");
+                }
+            }
+
+            // --- SHOW FROG AT BOTTOM ---
+            if (instance.frogLink) {
+                if (p > 0.98) {
+                    // If almost at the bottom (98%)
+                    instance.frogLink.classList.add("is-visible");
+                    instance.frogLink.classList.remove("is-hidden");
+                } else {
+                    instance.frogLink.classList.add("is-hidden");
+                    instance.frogLink.classList.remove("is-visible");
+                }
+            }
+
+            // This tells Three.js to draw a new frame with the updated camera
+            if (instance.renderer && instance.scene && instance.camera) {
+                instance.renderer.render(instance.scene, instance.camera);
+            }
+
+            // twinkle & dance
+            if (instance.fireflies) {
+                var tF = Date.now() * 0.0025; // Time for opacity twinkle
+                var tD = Date.now() * 0.001;  // Time for dance movement
+
+                var vertices = instance.fireflies.geometry.vertices;
+                var basePositions = instance.fireflies.geometry.basePositions;
+                var danceData = instance.fireflies.geometry.danceData;
+
+                // Animate each firefly vertex
+                for (var i = 0; i < vertices.length; i++) {
+                    var v = vertices[i];
+                    var vBase = basePositions[i];
+                    var vData = danceData[i];
+                    
+                    var danceAmount = 15; // How far they dance (in units)
+
+                    v.x = vBase.x + Math.sin(tD * vData.speed + vData.phaseX) * danceAmount;
+                    v.y = vBase.y + Math.cos(tD * vData.speed + vData.phaseY) * danceAmount;
+                    v.z = vBase.z + Math.sin(tD * vData.speed + vData.phaseZ) * (danceAmount * 0.5);
+                }
+                
+                // Tell Three.js to update the vertex buffer
+                instance.fireflies.geometry.verticesNeedUpdate = true;
+
+                // Twinkle opacity
+                instance.fireflies.material.opacity = 0.85 + 0.15 * Math.sin(tF);
+            }
+
+            // --- Star Twinkle ---
+            if (instance.stars && instance.stars.length > 0) {
+                var tS_base = Date.now() * 0.0008; // Base time for stars
+                // Loop through each star particle system
+
+                for (var i = 0; i < instance.stars.length; i++) {
+                    var starSystem = instance.stars[i]; // Give each layer a slightly different twinkle speed/offset
+                    var tS = tS_base * (1.0 + i * 0.1);
+                    starSystem.material.opacity = 0.85 + 0.15 * Math.sin(tS + i);
+                }
+            }
+
+            // --- Animate Critters ---
+            if (critterSystems && critterSystems.length > 0) {
+                var tD = Date.now() * 0.001; // Dance time
+                // --- 1. Animate Plankton (index 0) ---
+
+                var plankton = critterSystems[0];
+                var vertices = plankton.geometry.vertices;
+                var basePositions = plankton.geometry.basePositions;
+                var danceData = plankton.geometry.danceData;
+
+                for (var i = 0; i < vertices.length; i++) {
+                    var v = vertices[i];
+                    var vBase = basePositions[i];
+                    var vData = danceData[i];
+                    var danceAmount = 10; // Plankton dance amount
+
+                    v.x = vBase.x + Math.sin(tD * vData.speed + vData.phaseX) * danceAmount;
+                    v.y = vBase.y + Math.cos(tD * vData.speed + vData.phaseY) * danceAmount;
+                }
+                plankton.geometry.verticesNeedUpdate = true; // --- 2. Animate Crabs (index 1) ---
+                var crabs = critterSystems[1]; // Make them "blink" or "shimmer"
+                crabs.material.opacity = 0.7 + 0.3 * Math.sin(tD * 3.0);
+            }
+
+            // birds
+            if (instance.birds) {
+                var tB = Date.now() * 0.01; // Use a slightly different time scale for flapping
+                var tBob = Date.now() * 0.003; // Original time for bobbing
+                for (var i = 0; i < instance.birds.length; i++) {
+                    var b = instance.birds[i], u = b.userData;
+                    
+                    // --- BIRD MOVEMENT (Unchanged) ---
+                    b.position.x += u.dir * u.speed * 0.16;
+                    b.position.y += Math.sin(tBob + u.phase) * (u.amp * 0.05); // Bobbing
+                    if (b.position.x > 9500 || b.position.x < -9500) {
+                        u.dir *= -1;
+                        b.rotation.y = (u.dir > 0 ? 0 : Math.PI);
+                    }
+
+                    // --- NEW FLAPPING ANIMATION ---
+                    // Calculate flap angle (a sine wave)
+                    var flapAngle = Math.sin(tB * u.flapSpeed + u.flapPhase) * 0.7; // 0.7 radians (about 40 degrees)
+                    
+                    // Apply rotation to the wings
+                    u.wings[0].rotation.z = flapAngle; // Left wing
+                    u.wings[1].rotation.z = -flapAngle; // Right wing
+                }
+            }
+
+            // console.log('deck scrollHeight', deckEl?.scrollHeight, 'max', __maxScroll);
+            // console.log('p', p.toFixed(3), '__maxScroll', __maxScroll);
+        };
+        
+        instance.resize = function () {
+            if (instance.renderer) {
+                const w = window.innerWidth, h = window.innerHeight;
+                setRendererDPR(instance.renderer, Math.min(1.5, window.devicePixelRatio || 1), w, h);
+                instance.camera = new THREE.PerspectiveCamera(35, w / h, 2, 10000);
+                instance.camera.position.set(0, 850, 2000 );
+                instance.camera.rotation.set(0 * Math.PI / 180, 0, 0);
+                instance.renderer.render(instance.scene, instance.camera );
+            }
+            console.log(getScrollPercentDeck());
+        };
+        
+        }
+
+        __bg = new Background();
+
+        function render(){
+            if (__bg) __bg.render();
+        }
+
+        // DO NOT auto-start here; we’ll call startWaterfallLoop() on switch
+        window.addEventListener('resize', () => {
+            if (document.body.classList.contains('mode-waterfall')) {
+                document.documentElement.style.height = 'auto';
+                document.body.style.height = 'auto';
+                document.documentElement.style.overflow = 'auto';
+                document.body.style.overflow = 'auto';
+            }
+            __bg && __bg.resize();
+        });
+
+    }
+
+    // start the RAF once Scene C is visible
+    function startWaterfallLoop() {
+        function tick() {
+            if (__bg) __bg.render();
+                __waterfallRAF = requestAnimationFrame(tick);
+            }
+        if (!__waterfallRAF) tick();
+    }
+
+    // (optional) stop if you ever navigate away from Scene C
+    function stopWaterfallLoop() {
+        if (__waterfallRAF){ cancelAnimationFrame(__waterfallRAF); __waterfallRAF = null; }
+    }
+
+</script>
+
+</body>
+</html>
