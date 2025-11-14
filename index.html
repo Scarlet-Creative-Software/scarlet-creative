@@ -32,7 +32,7 @@
             }
 
             body.is-loading {
-                background: #0a0a0a; /* Or your dark radial-gradient if you prefer */
+                /* background: #0a0a0a;  */
                 overflow: hidden !important;
             }
 
@@ -84,7 +84,8 @@
 
             /* 3) Welcome Page */
             .welcome-page {
-                opacity: 0;
+                /* opacity: 0; */
+                opacity: 1;
                 transform: translateY(10px); /* Start 10px down */
                 transition: opacity 1.2s ease-out, transform 1.2s ease-out; /* Slower, smoother fade */
             }
@@ -172,14 +173,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
     </head>
-    <body id="page-top" class="is-loading">
+    <body id="page-top">
+    <!-- <body id="page-top" class="is-loading"> -->
          <!-- Facebook Tracking-->
         <script>
              fbq('track', 'ViewContent');
         </script>  
 
         <!-- 1) Preloader -->
-        <div class="loading-overlay" id="loading">
+        <!-- <div class="loading-overlay" id="loading">
             <div class="loading-card">
             <div class="logo-wrap">
                 <img src="assets/scarlet-heart.svg" alt="Scarlet Ibis" class="ibis-logo" />
@@ -189,7 +191,7 @@
             </div>
             <div class="loader-progress" aria-hidden="true"><div class="bar"></div></div>
             </div>
-        </div>
+        </div> -->
         
         <div>
         <!-- Navigation-->
@@ -229,7 +231,8 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <section class="welcome-page" id="welcome-page">
+        <section>
+        <!-- <section class="welcome-page" id="welcome-page"> -->
         <div class="video-wrapper">
             <div class="overlay"></div>
             <!-- <img src="assets/img/black_red.jpg"> -->
@@ -1129,7 +1132,7 @@
                                     <li><a href="index.html#about">About</a></li>
                                     <li><a href="index.html#services">Services</a></li>
                                     <!-- <li><a href="index.html#portfolio">Portfolio</a></li> -->
-                                    <li><a href="portfolio.html">Portfolio</a></li>
+                                    <!-- <li><a href="portfolio.html">Portfolio</a></li> -->
                                     <li><a href="contact.html">Request Quote</a></li>
                                     <!-- <li><a href="careers.html">Careers</a></li> -->
                                     <!-- <li><a href="index.html#programming-courses">Courses</a></li> -->
@@ -1839,7 +1842,7 @@
 
     </div>
 
-    <script>
+    <!-- <script>
         /* Preloader */
         const loader = document.getElementById('loading');
         const welcomePage = document.getElementById('welcome-page');
@@ -1880,7 +1883,7 @@
             // --- SET THE FLAG ---
             sessionStorage.setItem('scarletIntroSeen', 'true');
         }
-    </script>
+    </script> -->
             
     </body>
 

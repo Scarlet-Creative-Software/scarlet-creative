@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>New Scarlet Site Coming Soon!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Quicksand:400,300,700);
+            :root{
+                --ink:#1a1a1a; --bg:#0a0a0a; --text:#fff;
+                /* Scarlet */
+                --scarlet-900:#7c0f1a;
+                --scarlet-800:#921321;
+                --scarlet-700:#b0172a;
+                --scarlet-600:#c61b32;
+                --scarlet-500:#de213b;
+                --scarlet-400:#f04553;
+                --scarlet-300:#ff6b7d;
+                --scarlet-200:#ff9aa7;
+                --scarlet-100:#ffd6db;
+
+                /* Sun / Gold */
+                --sun-900:  #7a3b00;   /* deep burnt amber */
+                --sun-800:  #9a4a00;
+                --sun-700:  #c25c00;
+                --sun-600:  #e76a00;
+                --sun-500:  #ff8a00;   /* strong orange */
+                --sun-400:  #ffb300;   /* golden */
+                --sun-300:  #ffd24d;
+                --sun-200:  #ffe58f;
+                --sun-100:  #fff5cc;
+
+                --ink:#1a1a1a;
+                --bg:#0a0a0a;
+                }
+
+                /* PRELOADER SHELL */
+                body.is-loading {
+                    background: var(--bg);
+                    overflow: hidden !important;
+                }
+
+                .loading-overlay{
+                position:fixed;
+                inset:0;
+                display:grid;
+                place-items:center;
+                z-index:3000;
+                background:
+                    radial-gradient(
+                    1200px 800px at 30% 0%,
+                    var(--scarlet-900) 0%,
+                    #12070a 45%,
+                    #050305 100%
+                    );
+                transition:opacity .35s ease;
+                }
+
+                /* CARD */
+                .loading-card{
+                width:min(300px,82vw);
+                aspect-ratio:1/1;
+                max-height:74vh;
+                display:grid;
+                grid-template-rows:1fr auto auto;
+                place-items:center;
+                gap:10px;
+                padding:18px;
+                border-radius:14px;
+
+                /* Mix of scarlet + sun */
+                border:1px solid color-mix(in oklab, var(--scarlet-500) 60%, var(--sun-400) 40%);
+                background:
+                    linear-gradient(
+                    145deg,
+                    rgba(222,33,59,0.16) 0%,
+                    rgba(255,179,0,0.12) 40%,
+                    rgba(10,10,10,0.95) 100%
+                    );
+                box-shadow:
+                    0 0 0 4px rgba(255,213,128,0.1),
+                    0 16px 45px rgba(0,0,0,0.85),
+                    0 0 40px rgba(255,138,0,0.28);
+                backdrop-filter:blur(8px);
+
+                text-align:center;
+                text-transform:uppercase;
+                letter-spacing:.09em;
+                font-size:12px;
+                font-weight:700;
+                color:var(--sun-100);
+                }
+
+                /* LOGO FLOAT */
+                .logo-wrap {
+                width:86%;
+                aspect-ratio:1/1;
+                display:grid;
+                place-items:center;
+                animation: float 2.2s ease-in-out infinite;
+                }
+                .ibis-logo{ width:100%; height:100%; object-fit:contain; display:block; }
+
+                @keyframes float{
+                0%,100%{ transform: translateY(0) }
+                50%    { transform: translateY(-6px) }
+                }
+
+                /* TEXT LINES */
+                .load-lines{
+                line-height:1.35;
+                }
+                .load-lines small{
+                display:block;
+                opacity:.8;
+                font-size:.7rem;
+                color:var(--scarlet-100);
+                }
+
+                /* PROGRESS BAR */
+                .loader-progress{
+                width:100%;
+                height:8px;
+                border-radius:999px;
+                overflow:hidden;
+                position:relative;
+                background:rgba(0,0,0,0.65);
+                border:1px solid rgba(255,245,204,0.4);
+                }
+
+                .bar{
+                position:absolute;
+                inset:0 100% 0 0;
+                background:
+                    linear-gradient(
+                    90deg,
+                    var(--scarlet-500),
+                    var(--sun-500),
+                    var(--sun-300)
+                    );
+                box-shadow:0 0 18px rgba(255,179,0,0.8);
+                animation:loadbar 2.4s ease-in-out forwards;
+                }
+
+                @keyframes loadbar{
+                0%   { right:100%; }
+                60%  { right:25%; }
+                85%  { right:8%;  }
+                100% { right:0%;  }
+                }
+
+                /* Reduced motion */
+                @media (prefers-reduced-motion: reduce){
+                .bar{ animation:none }
+                .loading-overlay{ transition:none }
+                }
+
+            /* 3) Welcome Page */
+            .coming-soon-page {
+                opacity: 0;
+                transform: translateY(10px); /* Start 10px down */
+                transition: opacity 1.2s ease-out, transform 1.2s ease-out; /* Slower, smoother fade */
+            }
+            .coming-soon-page.show {
+                opacity: 1;
+                transform: translateY(0); /* Move to final position */
+            }
+
+            .kicker{
+                display:inline-block; padding:.35rem .65rem; border-radius:999px;
+                font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+                color:#ffe5e9; background:rgba(222,33,59,.15); border:1px solid rgba(222,33,59,.35)
+            }
+
+            /* This class removes the styles that conflict with z-index,
+               but only *after* the animation is finished.
+            */
+            .coming-soon-page.animation-finished {
+                filter: none;
+                transform: none;
+                clip-path: none;
+                transition: none; /* Stop it from animating this change */
+            }
+
+            html {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            *, *:before, *:after {
+                -webkit-box-sizing: inherit;
+                -moz-box-sizing: inherit;
+                box-sizing: inherit;
+            }
+            html, body {
+                width: 100%;
+                margin: 0 auto;
+                background-color: #1c1c1c;
+                font-family: "Quicksand", sans-serif;
+                overflow: hidden;
+            }
+            html #background,
+            body #background {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;        /* key line: crop the video to fill */
+                z-index: -100;
+                -webkit-filter: blur(5px);
+                -moz-filter: blur(5px);
+                -o-filter: blur(5px);
+                -ms-filter: blur(5px);
+                filter: blur(5px);
+            }
+
+            /* Static fallback image, same position as video */
+            html #background-static,
+            body #background-static {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+                z-index: -100;
+                -webkit-filter: blur(5px);
+                -moz-filter: blur(5px);
+                -o-filter: blur(5px);
+                -ms-filter: blur(5px);
+                filter: blur(5px);
+                display: none; /* hidden by default */
+            }
+
+
+            html .main, body .main {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 50%;
+                left: 50%;
+                margin: 0 auto;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.5);
+            }
+            html .main #content, body .main #content {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                min-height: 24px;
+                height: 100%;
+                position: relative;
+                text-align: center;
+                top: 33%;
+            }
+            html .main #content .title, body .main #content .title {
+                color: white;
+                font-family: "Quicksand", sans-serif;
+                font-size: 4rem;
+                text-transform: uppercase;
+                padding-bottom: 0px;
+                margin-bottom: 0px;
+            }
+            html .main #content .title span, body .main #content .title span {
+                font-size: 4rem;
+                cursor: pointer;
+            }
+            html .main #content .title:hover, body .main #content .title:hover {
+                -webkit-animation: MISSION-HOVER 1.5s infinite;
+                -moz-animation: MISSION-HOVER 1.5s infinite;
+                -o-animation: MISSION-HOVER 1.5s infinite;
+                animation: MISSION-HOVER 1.5s infinite;
+                animation-direction: alternate;
+                animation-timing-function: ease;
+            }
+            @-webkit-keyframes MISSION-HOVER {
+                0%, 100% {
+                    font-size: 4rem;
+                    color: white;
+                }
+                50% {
+                    color: #fff5d2;
+                    letter-spacing: 5px;
+                    text-shadow: 0px 0px 30px rgba(191, 252, 255, 1);
+                }
+            }
+            html .main #content p, body .main #content p {
+                color: #e6dbae;
+                font-family: "Quicksand", sans-serif;
+                font-size: 1.5rem;
+                margin: 0 auto;
+                padding: 0;
+                letter-spacing: 0.5rem;
+                text-transform: uppercase;
+            }
+            html .main #content p:last-child, body .main #content p:last-child {
+                font-size: 0.75rem;
+                font-weight: 700;
+                margin: 3em auto;
+                padding: 0;
+                letter-spacing: 0.1rem;
+            }
+            html .main #content p:last-child > a, body .main #content p:last-child > a {
+                text-decoration: none;
+                color: inherit;
+                -moz-transition: all 0.2s ease-in;
+                -o-transition: all 0.2s ease-in;
+                -webkit-transition: all 0.2s ease-in;
+                transition: all 0.2s ease-in;
+            }
+            html .main #content p:last-child > a:hover, body .main #content p:last-child > a:hover {
+                color: #fff;
+            }
+            html .main #content section, body .main #content section {
+                color: #fff;
+                margin: 0 auto;
+                line-height: 24px;
+                font-size: 1rem;
+                font-weight: 700;
+            }
+            html .main #content section ul, body .main #content section ul {
+                list-style-type: none;
+                margin-bottom: 0;
+                margin-left: 0;
+            }
+            html .main #content section ul li, body .main #content section ul li {
+                display: inline-block;
+                margin-right: 2rem;
+                width: 6rem;
+            }
+            html .main #content section .timenumbers, body .main #content section .timenumbers {
+                display: block;
+                font-size: 1.3rem;
+                font-weight: 400;
+                line-height: 1.5rem;
+                margin: 0 auto;
+                text-align: center;
+            }
+            html .main #content section p.timedescription, body .main #content section p.timedescription {
+                font-size: 0.5rem;
+                font-variant: small-caps;
+                line-height: 1.5rem;
+                margin: 0 auto;
+                text-align: center;
+                position: relative;
+                top: 0px;
+            }
+
+            /* Respect prefers-reduced-motion: hide video, show image, disable hover animation */
+            @media (prefers-reduced-motion: reduce) {
+                #background {
+                    display: none;
+                }
+
+                #background-static {
+                    display: block;
+                }
+
+                /* Optional: turn off pulsing hover animation for motion-sensitive users */
+                .main #content .title:hover {
+                    animation: none;
+                    -webkit-animation: none;
+                    -moz-animation: none;
+                    -o-animation: none;
+                }
+            }
+ 
+        </style>
+    </head>
+
+    <body class="is-loading">
+         <!-- 1) Preloader -->
+        <div class="loading-overlay" id="loading">
+            <div class="loading-card">
+            <div class="logo-wrap">
+                <img src="assets/scarlet-heart.svg" alt="Scarlet Ibis" class="ibis-logo" />
+            </div>
+            <div class="load-lines" role="status" aria-live="polite">
+                COLOURING THE FUTURE<br/><small>ONE LINE AT A TIME</small>
+            </div>
+            <div class="loader-progress" aria-hidden="true"><div class="bar"></div></div>
+            </div>
+        </div>
+
+        <section class="coming-soon-page" id="coming-soon-page">
+            <video autoplay loop muted playsinline poster="/assets/Loading-Screen/Coming-Soon.jpg" id="background">
+                <source type="video/mv4" src="assets/Loading-Screen/Coming-Soon.m4v">
+                <source type="video/mp4" src="assets/Loading-Screen/Coming-Soon.mp4">
+                <source type="video/webm" src="assets/Loading-Screen/Coming-Soon.webm">
+            </video>
+
+            <img
+                id="background-static"
+                src="/assets/Loading-Screen/Coming-Soon.jpg"
+                alt="Scarlet Creative new site coming soon"
+                />
+            <div class="main">
+                <div id='content'>
+                <div class='title'>
+                    <span>SCARLET'S NEW SITE</span>
+                </div>
+                <p>Coming Soon</p>
+                <!-- <section>
+                    <ul id="countdown">
+                    <li><span class="days timenumbers">06</span>
+                        <p class="timeRefDays timedescription">days</p>
+                    </li>
+                    <li><span class="hours timenumbers">00</span>
+                        <p class="timeRefHours timedescription">hours</p>
+                    </li>
+                    <li><span class="minutes timenumbers">00</span>
+                        <p class="timeRefMinutes timedescription">minutes</p>
+                    </li>
+                    <li><span class="seconds timenumbers yellow-text">00</span>
+                        <p class="timeRefSeconds timedescription">seconds</p>
+                    </li>
+                    </ul>
+                </section> -->
+                <p><a href="index.html" target="_blank">Click here to view our current site!</a></p>
+                </div>
+            </div>
+        </section>
+
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+          
+
+          <script>
+            /* Preloader */
+            const loader = document.getElementById('loading');
+            const welcomePage = document.getElementById('coming-soon-page');
+            const after = (ms,fn)=>setTimeout(fn,ms);
+    
+            // --- CHECK IF INTRO HAS BEEN SEEN THIS SESSION ---
+            if (sessionStorage.getItem('comingSoonIntroSeen') === 'true') {
+                
+                // --- 1. SKIP THE ANIMATION ---
+                loader.style.display = 'none';
+                welcomePage.classList.add('show');
+                document.body.style.overflow = 'auto';
+                document.body.classList.remove('is-loading');
+                welcomePage.classList.add('animation-finished');
+    
+            } else {
+    
+                // --- 2. PLAY THE FULL ANIMATION ---
+                
+                // After 2.4s: Start fading out the loader
+                after(2400, () => {
+                    loader.style.opacity = '0';
+                });
+    
+                // After 2.8s (as loader is fading): Hide loader, start fading in welcome page
+                after(2800, () => {
+                    loader.style.display = 'none'; 
+                    welcomePage.classList.add('show'); // Triggers the simple fade-in
+                });
+    
+                // After 3.8s (animation is done): Clean up and enable scrolling
+                after(3800, () => {
+                    document.body.style.overflow = 'auto'; 
+                    document.body.classList.remove('is-loading');
+                    welcomePage.classList.add('animation-finished');
+                });
+    
+                // --- SET THE FLAG ---
+                sessionStorage.setItem('comingSoonIntroSeen', 'true');
+            }
+        </script>
+
+          <script>
+            (function($) {
+                $.fn.countdown = function(options, callback) {
+                    //custom 'this' selector
+                    thisEl = $(this);
+
+                    // array of custom settings
+                    var settings = {
+                        'date': null,
+                        'format': null
+                    };
+
+                    // append the settings array to options
+                    if (options) {
+                        $.extend(settings, options);
+                    }
+
+                    //create the countdown processing function
+                    function countdown_proc() {
+                        var eventDate = Date.parse(settings.date) / 1000;
+                        var currentDate = Math.floor($.now() / 1000);
+
+                        if (eventDate <= currentDate) {
+                            callback.call(this);
+                            clearInterval(interval);
+                        }
+
+                        var seconds = eventDate - currentDate;
+
+                        var days = Math.floor(seconds / (60 * 60 * 24));
+                        //calculate the number of days
+
+                        seconds -= days * 60 * 60 * 24;
+                        //update the seconds variable with number of days removed
+
+                        var hours = Math.floor(seconds / (60 * 60));
+                        seconds -= hours * 60 * 60;
+                        //update the seconds variable with number of hours removed
+
+                        var minutes = Math.floor(seconds / 60);
+                        seconds -= minutes * 60;
+                        //update the seconds variable with number of minutes removed
+
+                        //conditional statements
+                        if (days == 1) { thisEl.find(".timeRefDays").text("day"); } else { thisEl.find(".timeRefDays").text("days"); }
+                        if (hours == 1) { thisEl.find(".timeRefHours").text("hour"); } else { thisEl.find(".timeRefHours").text("hours"); }
+                        if (minutes == 1) { thisEl.find(".timeRefMinutes").text("minute"); } else { thisEl.find(".timeRefMinutes").text("minutes"); }
+                        if (seconds == 1) { thisEl.find(".timeRefSeconds").text("second"); } else { thisEl.find(".timeRefSeconds").text("seconds"); }
+
+                        //logic for the two_digits ON setting
+                        if (settings.format == "on") {
+                            days = (String(days).length >= 2) ? days : "0" + days;
+                            hours = (String(hours).length >= 2) ? hours : "0" + hours;
+                            minutes = (String(minutes).length >= 2) ? minutes : "0" + minutes;
+                            seconds = (String(seconds).length >= 2) ? seconds : "0" + seconds;
+                        }
+
+                        //update the countdown's html values.
+                        thisEl.find(".days").text(days);
+                        thisEl.find(".hours").text(hours);
+                        thisEl.find(".minutes").text(minutes);
+                        thisEl.find(".seconds").text(seconds);
+                    }
+
+                    //run the function
+                    countdown_proc();
+
+                    //loop the function
+                    interval = setInterval(countdown_proc, 1000);
+                };
+
+            })(jQuery);
+            //Provide the plugin settings
+            $("#countdown").countdown({
+                    //The countdown end date
+                    date: "20 November 2025 12:00:00",
+
+                    // on (03:07:52) | off (3:7:52) - two_digits set to ON maintains layout consistency
+                    format: "on"
+                },
+
+                function() {
+                    // This will run when the countdown ends
+                    //alert("We're Out Now");
+                });
+
+
+            function setHeights() {
+                var windowHeight = $(window).height();
+                $('.slide').height(windowHeight);
+            }
+
+            setHeights();
+
+            $(window).resize(function() {
+                setHeights();
+            });
+
+            function addSticky() {
+                $('.slide').each(function() {
+                    var scrollerAnchor = $(this).offset().top;
+                    if (window.scrollY >= scrollerAnchor) {
+                        $(this).addClass('fix-it');
+                    } else {
+                        $(this).removeClass('fix-it');
+                    }
+                });
+            }
+
+            $(window).scroll(function() {
+                addSticky();
+            });
+
+
+            // Respect prefers-reduced-motion and pause the video
+            const videoEl = document.getElementById('background');
+            const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+            function handleMotionPreference(e) {
+                if (!videoEl) return;
+                if (e.matches) {
+                // User prefers reduced motion
+                videoEl.pause();
+                videoEl.removeAttribute('autoplay');
+                videoEl.removeAttribute('loop');
+                }
+            }
+
+            // Initial check
+            handleMotionPreference(reduceMotionQuery);
+
+            // React to changes (e.g. user turns Reduce Motion on in OS)
+            if (reduceMotionQuery.addEventListener) {
+                reduceMotionQuery.addEventListener('change', handleMotionPreference);
+            } else if (reduceMotionQuery.addListener) {
+                // Older browsers
+                reduceMotionQuery.addListener(handleMotionPreference);
+            }
+          </script>
+    </body>
+</html>
