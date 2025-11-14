@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="We build software that scales businesses and serves communities. Empathy first, impact always." />
+        <meta name="author" content="Scarlet Creative Software Limited" />
+        <title>Scarlet Creative - Technology with a Conscience</title>
+
+        <meta property="og:title" content="Scarlet Creative - Technology with a Conscience">
+        <meta property="og:description" content="We build software that scales businesses and serves communities. Empathy first, impact always.">
+        <meta property="og:url" content="https://scarletcreative.org/">
+        <meta property="og:type" content="website">
+
+        <meta property="og:image" content="https://scarletcreative.org/assets/img/portfolio/Scarlet-Creative-Featured.jpg">
+        <meta property="og:image:secure_url" content="https://scarletcreative.org/assets/img/portfolio/Scarlet-Creative-Featured.jpg">
+        <meta property="og:image:alt" content="Scarlet Creative logo">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta name="twitter:card" content="summary_large_image">
+
+        <meta description="Scarlet Creative is a leading software development firm with a global presence. We specialise in creating modern, secure, and scalable technological solutions, including AI-powered business process optimization and blockchain development. Explore our wide range of services and let us help you transform your business.">
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/scarlet-favicon.png" />
+
+        <style>
+              :root{
+                --scarlet-900:#7c0f1a; --scarlet-800:#921321; --scarlet-700:#b0172a;
+                --scarlet-600:#c61b32; --scarlet-500:#de213b; --scarlet-400:#f04553;
+                --scarlet-300:#ff6b7d; --scarlet-200:#ff9aa7; --scarlet-100:#ffd6db;
+                --ink:#1a1a1a; --bg:#0a0a0a; --text:#fff;
+            }
+
+            body.is-loading {
+                /* background: #0a0a0a;  */
+                overflow: hidden !important;
+            }
+
+            /* 1) Loader */
+            .loading-overlay{
+                position:fixed; inset:0; display:grid; place-items:center; z-index:3000;
+                background:
+                radial-gradient(1200px 800px at 30% 0%, #1a0c0f 0%, #0e0809 55%, #080506 100%);
+                transition:opacity .35s ease;
+            }
+            .loading-card{
+                width:min(300px,82vw); aspect-ratio:1/1; max-height:74vh;
+                display:grid; grid-template-rows:1fr auto auto; place-items:center; gap:10px;
+                padding:18px; border-radius:12px;
+                border:2px solid color-mix(in oklab, var(--scarlet-500) 65%, #fff 0%);
+                background:linear-gradient(180deg, rgba(222,33,59,.10), rgba(222,33,59,.06));
+                backdrop-filter:blur(6px);
+                box-shadow:0 0 0 6px rgba(222,33,59,.06), 0 10px 40px rgba(222,33,59,.25);
+            }
+            .logo-wrap {
+                width:86%;
+                aspect-ratio:1/1;
+                display:grid;
+                place-items:center; 
+                animation: float 2.2s ease-in-out infinite;
+            }
+            .ibis-logo{ width:100%; height:100%; object-fit:contain; display:block; }
+
+            @keyframes float{ 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-6px) } }
+
+            .load-lines{
+                text-align:center; font-weight:700; letter-spacing:.08em; line-height:1.35;
+                font-size:12px; text-transform:uppercase; color:#ffd6db;
+            }
+            .load-lines small{ display:block; opacity:.75; color:#ffc7cf }
+
+            .loader-progress{
+                width:100%; height:8px; border-radius:999px; overflow:hidden; position:relative;
+                background:rgba(255,214,219,.12); border:1px solid rgba(255,214,219,.25);
+            }
+            .bar{
+                position:absolute; inset:0 100% 0 0;
+                background:linear-gradient(90deg,var(--scarlet-400),var(--scarlet-200));
+                animation:loadbar 2.4s ease-in-out forwards;
+            }
+            @keyframes loadbar{
+                0%{right:100%} 60%{right:25%} 85%{right:8%} 100%{right:0%}
+            }
+
+            /* 3) Welcome Page */
+            .welcome-page {
+                /* opacity: 0; */
+                opacity: 1;
+                transform: translateY(10px); /* Start 10px down */
+                transition: opacity 1.2s ease-out, transform 1.2s ease-out; /* Slower, smoother fade */
+            }
+            .welcome-page.show {
+                opacity: 1;
+                transform: translateY(0); /* Move to final position */
+            }
+
+            .welcome-page-inner{ text-align:center; padding:24px 24px 28px }
+            .kicker{
+                display:inline-block; padding:.35rem .65rem; border-radius:999px;
+                font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+                color:#ffe5e9; background:rgba(222,33,59,.15); border:1px solid rgba(222,33,59,.35)
+            }
+
+            /* reduce motion */
+            @media (prefers-reduced-motion: reduce){
+                .bar {animation:none}
+                .welcome-page{transition:none}
+            }
+
+            /* This class removes the styles that conflict with z-index,
+               but only *after* the animation is finished.
+            */
+            .welcome-page.animation-finished {
+                filter: none;
+                transform: none;
+                clip-path: none;
+                transition: none; /* Stop it from animating this change */
+            }
+        </style>
+        <!-- Font Awesome icons (free version)-->
+        <!-- <script src="https://use.fontawesome.com/5a18be030b.js" crossorigin="anonymous"></script> -->
+        <script defer src="assets/fontawesome/js/solid.js"></script>
+        <script defer src="assets/fontawesome/js/brands.js"></script>
+        <script defer src="assets/fontawesome/js/duotone.js"></script>
+        <script defer src="assets/fontawesome/js/sharp-solid.js"></script>
+        <script defer src="assets/fontawesome/js/fontawesome.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <!-- GLight Box JS -->
+        <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/portfolio.css">
+        <link rel="stylesheet" href="css/headings.css">
+        <!-- <link rel="stylesheet" href="css/loading_screen.css"> -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+        <!-- GLight Box CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+        <!-- Meta Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '163625125698118');
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=163625125698118&ev=PageView&noscript=1"
+        /></noscript>
+        <!-- End Meta Pixel Code --> 
+        <!-- For International Phone Numbers -->
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+    </head>
+    <body id="page-top">
+    <!-- <body id="page-top" class="is-loading"> -->
+         <!-- Facebook Tracking-->
+        <script>
+             fbq('track', 'ViewContent');
+        </script>  
+
+        <!-- 1) Preloader -->
+        <!-- <div class="loading-overlay" id="loading">
+            <div class="loading-card">
+            <div class="logo-wrap">
+                <img src="assets/scarlet-heart.svg" alt="Scarlet Ibis" class="ibis-logo" />
+            </div>
+            <div class="load-lines" role="status" aria-live="polite">
+                COLOURING THE FUTURE<br/><small>ONE LINE AT A TIME</small>
+            </div>
+            <div class="loader-progress" aria-hidden="true"><div class="bar"></div></div>
+            </div>
+        </div> -->
+        
+        <div>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg shadow-5-strong navbar-dark fixed-top mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top"><img src="assets/img/logo-white.png" style="width:20%;height:20%" alt="logo" />Scarlet</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fa fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="#team">Team</a></li> -->
+                        <!-- <li class="nav-item"><a class="nav-link" href="careers.html">Careers</a></li> -->
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="#programming-courses">Courses</a></li> -->
+                        <!-- <li class="nav-item">
+                            <a id="conditional-link" class="nav-link">Courses ▾</a>
+                            <ul class="nav-dropdown">
+                              <li>
+                                <a href="programming_courses/intro_to_programming.html">Introduction to Programming with Python</a>
+                              </li>
+                              <li>
+                                <a href="programming_courses/python_for_business_professionals.html">Python for Business Professionals</a>
+                              </li>
+                              <li>
+                                <a href="programming_courses/web_and_app_dev_bootcamp.html">Web & App Development Bootcamp</a>
+                              </li>
+                            </ul>
+                        </li> -->
+                        <li class="nav-item"><button class="custom-btn request-quote-btn btn-sm"><a class="request-quote-link" href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/michaelali-scarlet/30min'});return false;">Schedule a Call</a></button></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <section>
+        <!-- <section class="welcome-page" id="welcome-page"> -->
+        <div class="video-wrapper">
+            <div class="overlay"></div>
+            <!-- <img src="assets/img/black_red.jpg"> -->
+            <video playsinline autoplay muted loop>
+              <source src="assets/img/header-bg-video-updated.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <header class="masthead header-bg">
+                <div class="container main-title">
+                    <div class="masthead-subheading">Welcome to</div>
+                    <div class="masthead-heading text-uppercase my-header welcome">
+                        Scarlet Creative
+                    </div>
+                    <span class="muzile">
+                        <div class="masthead-subheading">Where function meets <span style="text-shadow: 2px 2px #730909;color:#eb4642">elegance.</span></div>
+                        <br>
+                        <div style="text-shadow: 2px 2px #730909;color:#eb4642" class="masthead-subheading-subtitle px-5">Scarlet Creative is a Software Development firm located in <span style="text-shadow: 2px 2px #e00500;color:#ffffff">Trinidad & Tobago</span> with chapters in the <span style="text-shadow: 2px 2px #e00500;color:#ffffff">US and UK</span>, serving a wide variety of satisfied clients and producing powerful and scalable technological solutions.</div>
+                        <a class="custom-btn request-quote-btn mt-5 btn-xl text-uppercase" href="#services">Tell Me More</a>
+                    </span>
+                </div>
+            </header>
+        </div>
+
+        <!-- Services -->
+        <section class="page-section bg-light-grey" id="services">
+            <div class="container">
+                <div class="text-center">
+
+                    <h2 class="section-heading my-subheader text-uppercase">What We have to Offer</h2>                  
+                    <h2 class="section-heading3 text-uppercase mt-5">Design, Development & Engineering</h2> 
+                    <h4 class="section-subheading text-muted">Experts in their field tasked to meet your needs and budget.</h4>
+                </div>
+                
+                <div class="row text-left">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                <i class="fa-duotone fa-brackets-curly fa-4x filter-red"></i>
+                                <!-- <img src="assets/img/Icons/full-stack-developer-icon.svg" class="card-icon filter-red"/> -->
+                                <div class="card-body">
+                                <h5 class="card-title">End-to-End Solutions</h5>
+                                <p class="card-text text-muted">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-browser fa-lg"></i> &nbsp; Modern & Incomparably Elegant Websites  </li>
+                                        <li class="list-group-item text-muted"><i class="fa-brands fa-shopify fa-lg"></i>&nbsp; Fast & Secure eCommerce Platforms </i> </li>
+                                        <li class="list-group-item text-muted"><i class="fa-brands fa-wordpress fa-lg"></i> &nbsp; No-Code Editing </li>
+                                        <li class="list-group-item text-muted"> <i class="fa-duotone fa-database fa-lg"></i> &nbsp; Database Setup, Management & Enhanced ETL</li>
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-cloud-arrow-up fa-lg"></i> &nbsp; Cloud & Private Server Deployment</li>                                        
+                                    </ul>
+                                </p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                <!-- <img src="assets/img/Icons/data-analytics-icon.svg" class="card-icon filter-red"/> -->
+                                <i class="fa fa-brain-circuit fa-4x filter-red"></i>
+                                <div class="card-body">
+                                <h5 class="card-title">AI</h5>
+                                <p class="card-text text-muted">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-robot fa-lg"></i>&nbsp; Hyperautomation & Optimization of Business Processes </li>
+                                        <li class="list-group-item text-muted"><i class="fa fa-brain-circuit fa-lg"></i> &nbsp; <strong>AI-Powered</strong>
+                                            <ul class="list-group-flush">
+                                                <li class="list-group-item text-muted">Document Processing (OCR & Handwriting)</li>
+                                                <li class="list-group-item text-muted">Facial Recognition (Security Systems, Photo ID Verification)</li>
+                                                <li class="list-group-item text-muted">Financial, Supply & Performance Forecasting</li>
+                                            </ul>
+                                    </ul>
+                                </p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                <!-- <img src="assets/img/Icons/data-analytics-icon.svg" class="card-icon filter-red"/> -->
+                                <i class="fa-brands fa-ethereum fa-4x filter-red"></i>
+                                <div class="card-body">
+                                <h5 class="card-title">Web3 & Blockchain</h5>
+                                <p class="card-text text-muted">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-tree-palm fa-lg"></i>&nbsp; Proud to support for Caribbean-based Crypto startups </li>
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-hexagon-vertical-nft-slanted fa-lg"></i>&nbsp; Experience with Binance Smart Chain, Ethereum & Tezos in developing:</li>
+                                            <ul class="list-group-flush">
+                                                <li class="list-group-item text-muted">Decentralized Exchanges</li>
+                                                <li class="list-group-item text-muted">NFT Marketplaces</li>
+                                                <li class="list-group-item text-muted">Identity Verification</li>
+                                            </ul>
+                                    </ul>
+                                </p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container py-5">
+                <div class="text-center">
+                    <h2 class="section-heading3 text-uppercase">Business Intelligence</h2>
+                    <h4 class="section-subheading text-muted">Reinvent business performance and deliver sustainable value through intelligent operations.</h4>
+                </div>
+                
+                <div class="row text-left">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                <img style="width:5em;" src="assets/img/Icons/data-analytics-icon.svg" class="card-icon filter-red"/>
+                                <div class="card-body">
+                                <h5 class="card-title">Data Science & Analytics</h5>
+
+                                <p class="card-text text-muted">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item text-muted"><i class="fa-brands fa-salesforce fa-lg"></i>&nbsp; Analytics-as-a-Service</li>
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-magnifying-glass-chart fa-lg"></i>&nbsp; Real-time & Actionable Analytics to:</li>
+                                            <ul class="list-group-flush">
+                                                <li class="list-group-item text-muted">Guide management focus</li>
+                                                <li class="list-group-item text-muted">Visualise KPI performance company-wide</li>
+                                            </ul>
+                                        <li class="list-group-item text-muted"><i class="fa fa-messages-dollar fa-lg"></i> &nbsp; Automatically compile and assess data from sales and customer feedback</li>
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-face-smile-hearts fa-lg"></i> &nbsp; Improve Customer Satisfaction & Retention</li>
+                                    </ul>
+                                </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                <i class="fa-duotone fa-paintbrush-fine fa-4x filter-red"></i>
+                                <div class="card-body">
+                                <h5 class="card-title">Graphic & Logo Design</h5>
+                                <p class="card-text text-muted">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-trademark fa-lg"></i> &nbsp; Branding & Marketing Consultation</li>
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-vector-polygon fa-lg"></i> &nbsp; Vector Logo Design</li>
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-rectangle-ad fa-lg"></i> &nbsp; Flyer and Ad Design</li>
+                                    </ul>
+                                </p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                <img style="width:5em;" src="assets/img/Icons/consultation-icon.svg" class="card-icon filter-red"/>
+                                <div class="card-body">
+                                <h5 class="card-title">Consultation Services</h5>
+                                <p class="card-text text-muted">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-shield-halved fa-lg"></i> &nbsp; Security-as-a-Service</li>
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-scale-balanced fa-lg"></i> &nbsp; Compliance-as-a-Service</li>
+                                        <li class="list-group-item text-muted"><i class="fa-duotone fa-headset fa-lg"></i> &nbsp; Technical Support</li>
+                                    </ul>
+                                </p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="container course-container py-5" id="programming-courses">
+                <div class="text-center">
+                    <h2 class="section-heading3 text-uppercase">Programming Courses</h2>
+                    <h4 class="section-subheading text-muted">Code Your Future: Discover Our Premier Python & NodeJS Courses Today!</h4>
+                </div>
+
+                                
+                <div class="row text-left">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                
+                                <div class="courses-img">
+                                    <a href="programming_courses/intro_to_programming.html"><img class="card-img-top" src="assets/img/courses/python_programming_foundations.jpg" alt="Card image cap"></a>
+                                </div>
+                               
+                                <div class="card-body mt-2">
+                                    <h5 class="card-title course-title mb-3">Introduction to Programming with Python</h5>
+                                    <div class="float-start">
+                                        <p class="card-text text-muted"><i class="fas fa-user text-red "></i> Michael Ali</p>
+                                    </div>
+                                    <div class="">
+                                        <p class="float-end"><i class="fas fa-clock text-red "></i> 8 weeks</p>
+                                    </div>
+                                    <hr class="course-line">
+                                    <div class="float-start">
+                                        <h6 class="card-text">Cost</h6>
+                                    </div>
+                                    <div class="float-end mb-4">
+                                        <h6 class="card-text text-red fw-bold"><i class="fas fa-dollar text-red "></i>1600</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                
+                                <div class="courses-img">
+                                    <a href="programming_courses/python_for_business_professionals.html">
+                                        <img class="card-img-top" src="assets/img/courses/python_for_business_professionals.jpg" alt="Card image cap">
+                                    </a>
+                                </div>
+                               
+                                <div class="card-body mt-2">
+                                    <h5 class="card-title course-title mb-3">Python for Business Professionals</h5>
+                                    <div class="float-start">
+                                        <p class="card-text text-muted"><i class="fas fa-user text-red "></i> Michael Ali</p>
+                                    </div>
+                                    <div class="">
+                                        <p class="float-end"><i class="fas fa-clock text-red "></i> 10 weeks</p>
+                                    </div>
+                                    <hr class="course-line">
+                                    <div class="float-start">
+                                        <h6 class="card-text">Cost</h6>
+                                    </div>
+                                    <div class="float-end mb-4">
+                                        <h6 class="card-text text-red fw-bold"><i class="fas fa-dollar text-red "></i>2500</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                
+                                <div class="courses-img">
+                                    <a href="programming_courses/web_and_app_dev_bootcamp.html">
+                                        <img class="card-img-top" src="assets/img/courses/web_app_development_course.jpg" alt="Card image cap">
+                                    </a>
+                                </div>
+                               
+                                <div class="card-body mt-2">
+                                    <h5 class="card-title course-title mb-3">Web & App Development Bootcamp</h5>
+                                    <div class="float-start">
+                                        <p class="card-text text-muted"><i class="fas fa-user text-red "></i> Michael Ali</p>
+                                    </div>
+                                    <div class="">
+                                        <p class="float-end"><i class="fas fa-clock text-red "></i> 12 weeks</p>
+                                    </div>
+                                    <hr class="course-line">
+                                    <div class="float-start">
+                                        <h6 class="card-text">Cost</h6>
+                                    </div>
+                                    <div class="float-end mb-4">
+                                        <h6 class="card-text text-red fw-bold"><i class="fas fa-dollar text-red "></i>3600</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </section>
+
+        <!-- Courses Section -->
+        <!-- <section class="page-section bg-light course-container">
+            <div class="container py-5">
+                <div class="text-center">
+                    <h2 class="section-heading3 text-uppercase">Programming Courses</h2>
+                    <h4 class="section-subheading text-muted">Code Your Future: Discover Our Premier Python & NodeJS Courses Today!</h4>
+                </div>
+
+                                
+                <div class="row text-left">
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                
+                                <div class="courses-img">
+                                    <img class="card-img-top" src="assets/img/courses/python_programming_foundations.jpg" alt="Card image cap">
+                                </div>
+                               
+                                <div class="card-body mt-2">
+                                    <h5 class="card-title course-title mb-2">Introduction to Python Fundamentals</h5>
+                                    <div class="float-start">
+                                        <p class="card-text text-muted"><i class="fas fa-user text-red "></i> Michael Ali</p>
+                                    </div>
+                                    <div class="">
+                                        <p class="float-end"><i class="fas fa-time text-red "></i> 8 weeks</p>
+                                    </div>
+                                    <hr class="course-line">
+                                    <div class="float-start">
+                                        <h6 class="card-text">Cost</h6>
+                                    </div>
+                                    <div class="float-end mb-4">
+                                        <h6 class="card-text text-red fw-bold"><i class="fas fa-dollar text-red "></i> 800.00</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                
+                                <div class="courses-img">
+                                    <img class="card-img-top" src="assets/img/courses/python_for_business_professionals.jpg" alt="Card image cap">
+                                </div>
+                               
+                                <div class="card-body mt-2">
+                                    <h5 class="card-title course-title mb-2">Python for Business Professionals</h5>
+                                    <div class="float-start">
+                                        <p class="card-text text-muted"><i class="fas fa-user text-red "></i> Michael Ali</p>
+                                    </div>
+                                    <div class="">
+                                        <p class="float-end"><i class="fas fa-time text-red "></i> 10 weeks</p>
+                                    </div>
+                                    <hr class="course-line">
+                                    <div class="float-start">
+                                        <h6 class="card-text">Cost</h6>
+                                    </div>
+                                    <div class="float-end mb-4">
+                                        <h6 class="card-text text-red fw-bold"><i class="fas fa-dollar text-red "></i> 1200.00</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-4 mb-4 service-card-outer">
+                        <div class="service-card">
+                            <div class="services">
+                                
+                                <div class="courses-img">
+                                    <img class="card-img-top" src="assets/img/courses/web_app_development_course.jpg" alt="Card image cap">
+                                </div>
+                               
+                                <div class="card-body mt-2">
+                                    <h5 class="card-title course-title mb-2">Web & App Development Bootcamp</h5>
+                                    <div class="float-start">
+                                        <p class="card-text text-muted"><i class="fas fa-user text-red "></i> Michael Ali</p>
+                                    </div>
+                                    <div class="">
+                                        <p class="float-end"><i class="fas fa-time text-red "></i> 12 weeks</p>
+                                    </div>
+                                    <hr class="course-line">
+                                    <div class="float-start">
+                                        <h6 class="card-text">Cost</h6>
+                                    </div>
+                                    <div class="float-end mb-4">
+                                        <h6 class="card-text text-red fw-bold"><i class="fas fa-dollar text-red "></i> 1600.00</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+
+        <!-- Portfolio Grid-->
+        <section class="page-section bg-light" id="portfolio">
+            <div class="container page-section bg-light" id="portfolio">
+                <div class="text-center">
+                    <!-- <div class="twelve">
+                        <h1>Some Of Our Work</h1>
+                        <h3 class="section-subheading text-muted">OUR PAST WORK AND CLIENTS</h3>
+                    </div> -->
+                    <h2 class="section-heading my-subheader my-subheader text-uppercase">Some Of Our Work</h2>
+                    <h3 class="section-subheading text-muted">Explore Our Portfolio and Clientele</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 mb-4 service-card-outer">
+                        <!-- Portfolio item 2-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#unitystaff-usa">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"></div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/unitystaff_usa_icon.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+                                </div>
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">
+                                    <a class="clients" href="https://www.unitystaffusa.com/" target="_blank">UnityStaff USA</a>
+                                </div>
+                                <div class="one mb-2">
+                                    <span class="text-uppercase">Website Development</span><br>
+                                    <span class="">Human Resources</span>
+                                </div>
+                                <div class="tags">
+                                    <div class="tag">Wix</div>
+                                    <div class="tag">Canva</div>
+                                    <div class="tag">JotForm</div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 service-card-outer">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#prd-security">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/prd.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+                                </div>
+                                <div class="portfolio-caption">
+                                    <div class="portfolio-caption-heading">
+                                        <a class="clients" href="http://prdssltd.com/" target="_blank"> PRD Security</a>
+                                    </div>
+                                    <div class="one mb-2">
+                                        <span class="text-uppercase">Website Development</span><br>
+                                        <span class="">Security Resources</span>
+                                    </div>
+                                    <div class="tags">
+                                        <div class="tag">HTML</div>
+                                        <div class="tag">CSS</div>
+                                        <div class="tag">JS</div>
+                                        <div class="tag">JotForm</div>
+                                      </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 service-card-outer">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#greenscrub-auto">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/greenscrub-auto_logo_dark.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+                                    <!-- <div class="go-arrow">
+                                        →
+                                    </div> -->
+                                </div>
+                                <div class="portfolio-caption">
+                                    <div class="portfolio-caption-heading">
+                                        <a class="clients">Greenscrub Auto Spa & Gardens</a>
+                                    </div>
+                                    <div class="one mb-2">
+                                        <span class="text-uppercase">Graphic Design</span><br>
+                                        <span class="">Car Wash & Landscaping</span>
+                                    </div>
+                                    <div class="tags">
+                                        <div class="tag">Adobe Illustrator</div>
+                                        <div class="tag">Canva</div>
+                                      </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 service-card-outer">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#four-play">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/4play-logo.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+                                    <!-- <div class="go-arrow">
+                                        →
+                                    </div> -->
+                                </div>
+                                <div class="portfolio-caption">
+                                    <div class="portfolio-caption-heading">
+                                        <a class="clients">4Play</a>
+                                    </div>
+                                    <div class="one mb-2">
+                                        <span class="text-uppercase">Graphic Design</span><br>
+                                        <span class="">Sports Bar & Lounge</span>
+                                    </div>
+                                    <div class="tags">
+                                        <div class="tag">Canva</div>
+                                      </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 service-card-outer">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#wedding-essentials">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/scarlet-miscellaneous-logo.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+                                    <!-- <div class="go-arrow">
+                                        →
+                                    </div> -->
+                                </div>
+                                <div class="portfolio-caption">
+                                    <div class="portfolio-caption-heading">
+                                        <a class="clients">Scarlet's Internal Clients</a>
+                                    </div>
+                                    <div class="one mb-2">
+                                        <span class="text-uppercase">Graphic Design</span><br>
+                                        <span class="">Internal Projects</span>
+                                    </div>
+                                    <div class="tags">
+                                        <div class="tag">Canva</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 service-card-outer">
+                        <!-- Portfolio item 2-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#guardian-group">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"></div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/2-logo-2.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+                                    <!-- <div class="go-arrow">
+                                        →
+                                    </div> -->
+                                </div>
+                                <div class="portfolio-caption">
+                                    <div class="portfolio-caption-heading">
+                                        <a class="clients" href="https://www.myguardiangroup.com/" target="_blank">Guardian Group</a>
+                                    </div>
+                                    <div class="one mb-2">
+                                        <span class="text-uppercase">FullStack Development</span><br>
+                                        <span class="">Life & Health Insurance</span>
+                                    </div>
+                                    <div class="tags">
+                                        <div class="tag">WordPress</div>
+                                        <div class="tag">AWS</div>
+                                        <div class="tag">OpenCV</div>
+                                        <div class="tag">Docker</div>
+                                        <div class="tag">OCR & HTR</div>
+                                      </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4 service-card-outer">
+                        <!-- Portfolio item 3-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#beacon">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/3-logo.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+                                    <!-- <div class="go-arrow">
+                                        →
+                                    </div> -->
+                                </div>
+                                <div class="portfolio-caption">
+                                    <div class="portfolio-caption-heading">
+                                        <a class="clients" href="https://beacon.co.tt/" target="_blank">Beacon</a>
+                                    </div>
+                                    <div class="one mb-2">
+                                        <span class="text-uppercase">Website Development</span><br>
+                                        <span class="">Auto & Life Insurance</span>
+                                    </div>
+                                    <div class="tags">
+                                        <div class="tag">WordPress</div>
+                                      </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 service-card-outer">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#tatil-insurance">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/tatil.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+                                    <!-- <div class="go-arrow">
+                                        →
+                                    </div> -->
+                                </div>
+                                <div class="portfolio-caption">
+                                    <div class="portfolio-caption-heading">
+                                        <a class="clients" href="https://tatil.co.tt/" target="_blank">Tatil</a>
+                                    </div>
+                                    <div class="one mb-2">
+                                        <span class="text-uppercase">FullStack Development</span><br>
+                                        <span class="">Insurance, Mortgage & Claims</span>
+                                    </div>
+                                    <div class="tags">
+                                        <div class="tag">WordPress</div>
+                                        <div class="tag">React</div>
+                                        <div class="tag">Python Backend</div>
+                                      </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="col-lg-4 col-sm-6 service-card-outer">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal8">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/rba.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+                                </div>
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">
+                                    <a class="clients" href="https://www.taskbookapp.com" target="_blank"> Renewal by Andersen </a>
+                                </div>
+                                <div class="portfolio-caption-subheading text-muted"> Scheduler & Technician Management System <br>| Flutter & Python Backend |</div>
+                            </div>
+                        </div>
+                    </div> -->
+                    
+                </div>
+
+                <!-- <div class="row">
+
+                    <div class="col-lg-4 col-sm-6 mb-4">
+
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/2-logo-2.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+
+                                </div>
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">
+                                    <a class="clients" href="https://www.myguardiangroup.com/" target="_blank">Guardian Group</a>
+                                </div>
+                                <div class="portfolio-caption-subheading text-muted">Life & Health Insurance <br>| WordPress, AWS, OpenCV, Docker, OCR & HTR |</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/3-logo.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+
+                                </div>
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">
+                                    <a class="clients" href="https://beacon.co.tt/" target="_blank">Beacon</a>
+                                </div>
+                                <div class="portfolio-caption-subheading text-muted">Auto & Life Insurance <br>| WordPress |</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal7">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content">
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/tatil.png" alt="..." />
+                                <div class="go-corner" href="#">
+                                    <img src="assets/img/Icons/right-arrow-svgrepo-com.svg" class="p-3 portfolio-icon filter-white"/>
+
+                                </div>
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">
+                                    <a class="clients" href="https://tatil.co.tt/" target="_blank">Tatil</a>
+                                </div>
+                                <div class="portfolio-caption-subheading text-muted">Insurance, Mortgage & Claims <br>| WordPress, React & Python Backend |</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div> -->
+            </div>
+        </section>
+
+        <section class="page-section" id="other-services">
+            <div class="py-2 page-section" id="other-services">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 col-sm-12 my-4">
+                            <a href="https://azure.microsoft.com/en-us/" target="_blank"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/microsoft.svg" alt="..." /></a>
+                        </div>
+                        <!-- <div class="col-md-4 col-sm-8 my-4">
+                            <a href="https://cloud.google.com/"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/google.svg" alt="..." /></a>
+                        </div> -->
+                        <div class="col-md-6 col-sm-12 my-4">
+                            <a href="https://aws.amazon.com/" target="_blank"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/amazon.png" alt="..." /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section bg-light" id="about">
+            <div class="container page-section bg-light" id="about">
+                <div class="text-center">
+                    <h2 class="section-heading my-subheader text-uppercase">About</h2>
+                    <h3 class="section-subheading text-muted">Hardwork, the power of friendship and a boatload of caffeine</h3>
+                </div>
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>August 2021</h4>
+                                <h4 class="subheading">Our Humble Beginnings</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Old friends with a shared passion for technology and a dream to change the world, or at the very least keep it from getting any worse, Michael, Matthew and Gabriela began planning. It started with a vow to serve the underserved, that during this unprecedented time the world does not regress.</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>October 2021</h4>
+                                <h4 class="subheading">An Agency is Born</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Formed initially under the name Scarlet Creative, the team begins hiring a diverse group of talented individuals from around the world. Through competitive pricing and sheer pluck, clients flocked to Scarlet and with it they built their network.</p></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/3.jpg" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>January 2022</h4>
+                                <h4 class="subheading">Transition to Blockchain Development</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">With their network expanding, so too did the needs of their clientele. While no slouches in the crypto space, the Managing Directors realized the need to up their game and began recruiting blockchain developers for select Smart Chain and Tezos projects, including some in-house.</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/4.jpg" alt="..." /></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>March 2022</h4>
+                                <h4 class="subheading">Phase Two Expansion</h4>
+                            </div>
+                            <div class="timeline-body"><p class="text-muted">Scarlet has since expanded to chapters in the US and UK, both to expand reach and its compliance. No strangers to red tape, Scarlet aims to meet the regulations of the jurisdictions it operates under all while improving its ability to succeed at their original mission: Serving the underserved.</p></div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image">
+                            <h4>
+                                Be Part
+                                <br />
+                                Of Our
+                                <br />
+                                Story!
+                            </h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- <section class="page-section" id="team">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading my-subheader text-uppercase">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">Meet the leaders of this initiative</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <img class="mx-auto rounded-circle" src="assets/img/team/1.jpg" alt="..." />
+                            <h4>Matthew Amann</h4>
+                            <p class="text-muted">Chief Executive Officer, Client Relations</p>
+                            <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/matthew-amann-6aab5a139/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <img class="mx-auto rounded-circle" src="assets/img/team/2.jpg" alt="..." />
+                            <h4>Michael Ali</h4>
+                            <p class="text-muted">Compliance & Operations Officer, Software Developer</p>
+                            <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/michael-a-79531932/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="https://github.com/irontarkus95" target="_blank"><i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <img class="mx-auto rounded-circle" src="assets/img/team/3.jpg" alt="..." />
+                            <h4>Gabriela Sewdhan</h4>
+                            <p class="text-muted">Chief of Technology, Lead Developer</p>
+                            <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/gabriela-sewdhan-3ba495120/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="https://github.com/zoes-full-stack" target="_blank"><i class="fa-brands fa-github"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="https://gabrielazoe.me/" target="_blank"><i class="fa fa-user"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted ">Let our experience speak for itself</p></div>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Footer-->
+        <footer class="footer-section">
+            <div class="container">
+                <div class="footer-cta">
+                    <div class="row">
+                        <div class="col-xl-4 col-md-4 col-sm-6">
+                            <div class="single-cta">
+                                <i class="fa-solid fa-clock-nine"></i>
+                                <div class="cta-text">
+                                    <h4>Opening Hours</h4>
+                                    <span>Mon - Fri @ 9 <sup>00 am</sup> - 5 <sup>00 pm</sup> </span> <br>
+                                    <!-- <span>Sat @ 9 <sup>00 am</sup> - 2 <sup>00 pm</sup> </span> <br> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-xl-4 col-md-4 col-sm-6">
+                            <div class="single-cta">
+                                <i class="fa-duotone fa-phone"></i>
+                                <div class="cta-text">
+                                    <h4>Call us</h4>
+                                    <a class="phone-call">+1 (868) 217-6027</a>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-xl-4 col-md-4 col-sm-6">
+                            <div class="single-cta">
+                                <i class="fa fa-envelopes-bulk"></i>
+                                <div class="cta-text">
+                                    <h4>Mail us</h4>
+                                    <a href="mailto:contact@scarletcreative.org?subject=Request Quote" onclick="fbq('track', 'Contact')">contact@scarletcreative.org</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-content">
+                    <div class="row">
+                        <div class="footer-about col-xl-4 col-lg-4 col-md-4">
+                            <div class="footer-widget">
+                                <div class="footer-logo">
+                                  <a class="navbar-brand" href="old_home.html"><img src="assets/img/logo-white-orig.png" alt="logo" /></a>
+                                  <!-- <a class="navbar-brand" href="old_home.html"><img src="assets/img/logo-white.png" style="width:20%;height:15%" alt="logo" /><strong>Scarlet</strong></a> -->
+                                    <!-- <a href="old_home.html"><img src="https://i.ibb.co/QDy827D/ak-logo.png" class="img-fluid" alt="logo"></a> -->
+                                </div>
+                                <div class="footer-text">
+                                    <p>We Are Always Open For Cooperation and Suggestions!
+                                      Contact Us In One Of The Ways Above.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-links col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                            <div class="footer-widget">
+                                <div class="footer-widget-heading">
+                                    <h3>Useful Links</h3>
+                                </div>
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="old_home.html#about">About</a></li>
+                                    <li><a href="old_home.html#services">Services</a></li>
+                                    <!-- <li><a href="old_home.html#portfolio">Portfolio</a></li> -->
+                                    <!-- <li><a href="portfolio.html">Portfolio</a></li> -->
+                                    <li><a href="contact.html">Request Quote</a></li>
+                                    <!-- <li><a href="careers.html">Careers</a></li> -->
+                                    <!-- <li><a href="old_home.html#programming-courses">Courses</a></li> -->
+                                    <li><a href="privacy.html">Privacy Policy</a></li>
+                                    <li><a href="terms.html">Terms of Use</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mb-50">
+                            <div class="footer-widget">
+                              <div class="footer-social-icon">
+                                <div class="footer-widget-heading">
+                                  <h3>Follow us</h3>
+                                </div>
+                                <a class="btn facebook-bg btn-social" href="https://www.facebook.com/ScarletCreativeSoftware/" target="_blank" data-toggle="tooltip" data-placement="top"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a class="btn linkedin-bg btn-social" href="https://www.linkedin.com/company/scarlet-creative" target="_blank" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa-brands fa-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 text-lg-left">
+                            <div class="copyright-text">
+                                <p>Copyright &copy; 2025 All Right Reserved, <br><a href="#">Scarlet Creative Software Limited</a></p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 d-none d-lg-block text-end">
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="terms.html">Terms of Use</a></li>
+                                    <li><a href="privacy.html">Privacy Policy</a></li>
+                                    <li><a href="contact.html">Request Quote</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div id="call-us-cta" class="animate__animated animate__fadeInBottomRight animate__delay-3s">
+            <div class="title">Get a Quote</div>
+              <p>Ready to turn your idea into a reality?</p>
+              <div class="popup-btn"><div class="calendly"><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/michaelali-scarlet/30min'});return false;">Schedule a Meeting</a></div></div>
+            <div class="popup-btn"><div class="form"><a href="contact.html">Request Quote Online</a></div></div>
+            <!-- <div class="popup-btn"><div class="call"><a class="phone-call">CALL +1 (868) 217-6027</a></div> </div> -->
+            <div class="popup-btn"><div class="mail"><a href="mailto:contact@scarletcreative.org?subject=Request Quote">MAIL US</a></div> </div>
+          </div>
+
+        <!-- <div class="back-top" style="opacity: 1;">
+            <i class="fa fa-arrow-up"></i>
+        </div> -->
+        <div id="open-popup" style="opacity: 1;" onclick="changeIcon(this)">
+            <i class="fa-solid fa-xmark fa-xl"></i>
+        </div>
+
+        <!-- Portfolio Modals-->
+        <!-- Portfolio item 1 modal popup-->
+        <div class="portfolio-modal modal fade" id="quick-kyc" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Quick-KYC</h2>
+                                    <p class="item-intro text-muted">Your preferred automation and customer due diligence solution.</p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1-screen.png" alt="..." />
+                                    <p>AI and Machine Learning, automated and accurate document processing on a large scale. Our algorithms verify documents and identities in seconds with above human accuracy. QKYC helps you to streamline your regulatory compliance so that you can cut costs and reduce risks up to 90%, with one integration.
+
+                                    </p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Guardian Group
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            AI-Powered KYC Tool
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 2 modal popup-->
+        <div class="portfolio-modal modal fade" id="guardian-group" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Guardian Group</h2>
+                                    <p class="item-intro text-muted">Guardian Life of the Caribbean.</p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/2.png" alt="..." />
+                                    <p>Home, Life and Health Insurance for you and your family. Protect what's most important to you.</p>
+                                    <p><strong><a class="fw-bold text-red" href="https://www.myguardiangroup.com/" target="_blank">Click here to view Guardian's Website</a></strong></p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Guardian Life of the Caribbean
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Insurance
+                                        </li>
+                                        <li>
+                                            <strong>Skills:</strong>
+                                            WordPress | AWS | OpenCV | Docker | OCR & HTR
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 3 modal popup-->
+        <div class="portfolio-modal modal fade" id="beacon" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">The Beacon Insurance Company Limited</h2>
+                                    <p class="item-intro text-muted">Live a Little.</p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/3.png" alt="..." />
+                                    <p>Comprehensive yet affordable home, auto, health and life insurance to safeguard to future of you and your loved ones.</p>
+                                    <p><strong><a class="fw-bold text-red" href="https://beacon.co.tt/" target="_blank">Click here to view Beacon's Website</a></strong></p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            The Beacon Insurance Company Limited
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Insurance
+                                        </li>
+                                        <li>
+                                            <strong>Skills:</strong>
+                                            Web Design using - WordPress | CSS | Javascript
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio item 4 modal popup-->
+        <div class="portfolio-modal modal fade" id="quickrental" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">QuickRental</h2>
+                                    <p class="item-intro text-muted">AI-Powered, All-Inclusive, All-Powerful Rental App.</p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/4.png" alt="..." />
+                                    <p>Quickly find the perfect place within your budget, without all the hustle and bustle.
+                                        Find the perfect apartment, townhouse or home to suit your budget busy needs, using real-time GPS data and our carefully curated list of properties.</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            QuickRental
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            AI Real-Estate
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-modal modal fade" id="innoguard" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase">InnoGuard</h2>
+                                    <p class="item-intro text-muted">Making CyberSpace a Safe Place.</p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/5-screen.gif" alt="..." />
+                                    <p>InnoGuard is a robust child protection tool that, by using powerful and accurate AI detection tools, can flag violent, harmful and racy images being sent to your child and detect instances of bullying within text. It is capable of accurately gauging the sentiment of any sent sent to your child and determine if it is potentially harmful, and even instances of grooming. We intend Innoguard to be easily integrated into most of the popular chat services in use today and even video games.</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            InnoGuard
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            AI-Powered Child Online Protection
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-modal modal fade" id="pidronics" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase">PiDronics</h2>
+                                    <p class="item-intro text-muted">Autonomous Hydroponics Monitoring System. Smart technology, to nourish the world.</p>
+                                    <video class="img-fluid" src="assets/img/portfolio/6.mp4" autoplay loop muted playsinline alt="..."></video>
+                                    <!-- <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.mp4" alt="..."> -->
+                                    <p>The PiDronics system benefits people wishing to break into hydroponics with little to no prior knowledge and with a low cost of entry. It’s remote monitoring capability reduces risk by providing timely readings on their farm and notifies them if it has reached unsafe levels, compensating for a farmer’s poor education in the field while allowing them to divert their time on other tasks, such as marketing. In addition, we believe the PiDronics system is an important educational tool to introduce young people into the world of agriculture in an engaging environment, since it encapsulates the fields of agriculture, programming and the ever-popular Raspberry Pi. The PiDronics system integrates seamlessly with a hydroponics farm, and the modularity of the system allows various sensors to be integrated and viewable on the app.
+                                    </p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            PiDronics
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Smart Agriculture
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-modal modal fade" id="tatil-insurance" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase">Tatil Insurance</h2>
+                                    <p class="item-intro text-muted">Where people are people.</p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/tatil-screen.png" alt="..." />
+                                    <!-- <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.mp4" alt="..."> -->
+                                    <p>Revamped the Tatil site using Wordpress, contributed to building Insurance forms via React, and quotation processing via Python and Django, and created a custom WordPress theme.
+                                    </p>
+
+                                    <p><strong><a class="fw-bold text-red" href="https://tatil.co.tt/" target="_blank">Click here to view Tatil's Website</a></strong></p>
+
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Tatil
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Insurance, Claims & Mortgage
+                                        </li>
+                                        <li>
+                                            <strong>Skills:</strong>
+                                            Web Design using - WordPress | CSS | Javascript | Custom WordPress Theme | SEO Optimisation | Python | Django
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- <div class="portfolio-modal modal fade" id="portfolioModal8" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase"> Renewal by Andersen </h2>
+                                    <p class="item-intro text-muted"> Love the life you see. </p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/rba_site.png" alt="..." />
+                                    <p>
+                                        Developed an automated customer scheduling & technician management system. This system combines Flutter, Python & Google Cloud Platform (GCP) to operate across Web, iOS & Android
+                                    </p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Renewal by Andersen
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Construction & Home Renovation
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+        <div class="portfolio-modal modal fade" id="prd-security" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase"> PRD Security </h2>
+                                    <p class="item-intro text-muted"> Pride. Respect. Dignity. </p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/prd_site.png" alt="PRD Hero Image" />
+                                    <!-- <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.mp4" alt="..."> -->
+                                    <div class="text-dark mt-3 mb-3 px-4">
+                                        <p>
+                                            We built a professional website for a security company using <strong>HTML, CSS, JavaScript, and JotForm</strong>. It showcases services, facilitates inquiries, and job applications. Custom forms ensure user-friendly interactions. Rigorous testing ensures optimal performance. The result? A powerful tool for attracting clients and talent, reflecting the company's professionalism in the security industry.
+                                        </p>
+                                    </div>
+                                    <p><strong><a class="fw-bold text-red" href="https://prdssltd.com/" target="_blank">Click here to view PRD's Website</a></strong></p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            PRD Security
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Service Operator, Protection, Safety & Security
+                                        </li>
+                                        <li>
+                                            <strong>Skills:</strong>
+                                            Web Design using - HTML | CSS | Javascript | Jotform
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-modal modal fade" id="unitystaff-usa" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase"> UnityStaff USA </h2>
+                                    <p class="item-intro text-muted"> Remote Workers for US Companies </p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/unitystaffUSA_hero.png" alt="UnityStaff USA Hero Image" />
+                                    <!-- <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.mp4" alt="..."> -->
+                                    <div class="text-dark mt-3 mb-3 px-4">
+                                        <p>
+                                            We created and optimized UnityStaff USA's <strong>Wix website for SEO, speed, and aesthetics</strong>. Through <strong>CSS and JavaScript optimization and image resizing</strong>, we enhanced performance. Custom graphics were strategically placed to align with branding. Additionally, we designed a sleek newsletter with Canva</strong> and created an application form using JotForm</strong>. The result: a visually appealing site that effectively communicates the brand, positioning UnityStaff USA for success.
+                                        </p>
+                                    </div>
+                                    <p><strong><a class="fw-bold text-red" href="https://www.unitystaffusa.com/" target="_blank">Click here to view UnityStaff's Website</a></strong> and <a class="fw-bold text-red" href="https://unitystaffusabucket.s3.amazonaws.com/Enhancing+Business+Performance+By+Leveraging+Global+Workforce.pdf" target="_blank">UnityStaff's Newsletter</a></p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            UnityStaff USA
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                           Business, Recruitment, Human Resources
+                                        </li>
+                                        <li>
+                                            <strong>Skills:</strong>
+                                            Web Design using - Wix | CSS | Javascript | Jotform | SEO Optimisation | Canva | Wix Marketing
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-modal modal fade" id="greenscrub-auto" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase"> Greenscrub Auto Spa & Gardens </h2>
+                                    <p class="item-intro text-muted"> Revive Your Ride, Renew Your Retreat </p>
+
+                                    <div class="portfolio-container">
+                                        <div id="greenscrub-auto-gallery" class="photos-grid-container gallery">
+                                          <div class="main-photo img-box">
+                                            <a href="assets/img/portfolio/Greenscrub-Auto/Greenscrub Car Wash Flyer.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Greenscrub-Auto/Greenscrub Car Wash Flyer.png" alt="image" /></a>
+                                          </div>
+                                          <div>
+                                            <div class="greenscrub-sub">
+                                              <div class="img-box"><a href="assets/img/portfolio/Greenscrub-Auto/business_call_card_front.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Greenscrub-Auto/business_call_card_front.png" alt="image" /></a></div>
+                                              <div class="img-box"><a href="assets/img/portfolio/Greenscrub-Auto/business_call_card_back.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Greenscrub-Auto/business_call_card_back.png" alt="image" /></a></div>
+                                              <div class="img-box"><a href="assets/img/portfolio/Greenscrub-Auto/greenscrub_auto_logo_ref.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Greenscrub-Auto/greenscrub_auto_logo_ref.png" alt="image" /></a></div>
+                                              <div class="img-box"><a href="assets/img/portfolio/Greenscrub-Auto/greenscrub_auto_logo_suv_minimal_ref.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Greenscrub-Auto/greenscrub_auto_logo_suv_minimal_ref.png" alt="image" /></a></div>
+                                              <!-- <div id="multi-link" class="img-box">
+                                                <a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_drinks.png" class="glightbox" data-glightbox="type: image">
+                                                  <img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_drinks.png" alt="image" />
+                                                  <div class="transparent-box">
+                                                    <div class="caption">
+                                                      +2
+                                                    </div>
+                                                  </div>
+                                                </a>
+                                              </div> -->
+                                            </div>
+                                          </div>
+                                          <!-- <div id="more-img" class="extra-images-container hide-element">
+                                            <a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_desserts.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_desserts.png" alt="image" /></a>
+                                            <a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_food.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_food.png" alt="image" /></a>
+                                          </div> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="text-dark mt-3 mb-3 px-4">
+                                        <p>
+                                            Our team created a cohesive visual identity for GreenScrub Auto Spa & Gardens, reflecting their commitment to sustainability. Using <strong>Adobe Illustrator</strong>, we designed a logo blending nature and automotive elements. We also crafted <strong></strong>a vibrant flyer ad, business card and banner using Canva</strong>, aligning with GreenScrub's branding guidelines. The final deliverables effectively showcase GreenScrub's unique identity and offerings, helping them stand out in the market.
+                                        </p>
+                                    </div>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Greenscrub Auto Spa & Gardens
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                        Car Wash, Landscaping
+                                        </li>
+                                        <li>
+                                            <strong>Skills:</strong>
+                                            Graphic Design using - Adobe Illustrator | Canva
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-modal modal fade" id="four-play" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase"> 4Play </h2>
+                                    <p class="item-intro text-muted"></p>
+
+                                    
+                                    <div class="portfolio-container">
+                                        <div id="four-play-gallery" class="photos-grid-container gallery">
+                                          <div class="main-photo img-box">
+                                            <a href="assets/img/portfolio/4play/Christmas_Eve_Party.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/4play/Christmas_Eve_Party.png" alt="image" /></a>
+                                          </div>
+                                          <div>
+                                            <div class="sub">
+                                              <div class="img-box"><a href="assets/img/portfolio/4play/drinks_ad.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/4play/drinks_ad.png" alt="image" /></a></div>
+                                              <!-- <div id="multi-link" class="img-box">
+                                                <a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_drinks.png" class="glightbox" data-glightbox="type: image">
+                                                  <img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_drinks.png" alt="image" />
+                                                  <div class="transparent-box">
+                                                    <div class="caption">
+                                                      +2
+                                                    </div>
+                                                  </div>
+                                                </a>
+                                              </div> -->
+                                            </div>
+                                          </div>
+                                          <!-- <div id="more-img" class="extra-images-container hide-element">
+                                            <a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_desserts.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_desserts.png" alt="image" /></a>
+                                            <a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_food.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_food.png" alt="image" /></a>
+                                          </div> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="text-dark mt-3 mb-3 px-4">
+                                        <p>
+                                            We delivered vibrant design solutions for our client's Sports Bar & Lounge, including <strong>party flyers, social media ads, and drink specials promotions</strong>. Our focus was on capturing the club scene's energy and promoting events effectively. With dynamic visuals and strategic messaging, we increased impact across marketing channels. Collaborating closely with the client, we tailored each design to their brand and audience. The result? A compelling campaign that boosted foot traffic and enhanced the club experience.
+                                        </p>
+                                    </div>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            4Play
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Sports Bar & Lounge
+                                        </li>
+                                        <li>
+                                            <strong>Skills:</strong>
+                                            Graphic Design using - Canva
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-modal modal fade" id="wedding-essentials" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase"> Scarlet's Internal Work </h2>
+                                    <p class="item-intro text-muted"></p>
+
+
+                                    <div class="portfolio-container">
+                                        <div id="scarlet-internal-gallery" class="photos-grid-container gallery">
+                                          <div class="main-photo img-box">
+                                            <a href="assets/img/portfolio/Scarlet-Creative/scarlet-programming-flyer.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/scarlet-programming-flyer.png" alt="image" /></a>
+                                          </div>
+                                          <div>
+                                            <div class="sub">
+                                              <div class="img-box"><a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_drinks.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_drinks.png" alt="image" /></a></div>
+                                              <div class="img-box"><a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_desserts.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_desserts.png" alt="image" /></a></div>
+                                              <div class="img-box"><a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_food.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_food.png" alt="image" /></a></div>
+                                              <div class="img-box"><a href="assets/img/portfolio/Scarlet-Creative/wedding_programme_front.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_programme_front.png" alt="image" /></a></div>
+                                              <div class="img-box"><a href="assets/img/portfolio/Scarlet-Creative/wedding_programme_back.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_programme_back.png" alt="image" /></a></div>
+                                              <div class="img-box"><a href="assets/img/portfolio/Scarlet-Creative/wedding_invitation_front.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_invitation_front.png" alt="image" /></a></div>
+                                              <div class="img-box"><a href="assets/img/portfolio/Scarlet-Creative/wedding_invitation_back.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_invitation_back.png" alt="image" /></a></div>
+                                              <!-- <div id="multi-link" class="img-box">
+                                                <a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_drinks.png" class="glightbox" data-glightbox="type: image">
+                                                  <img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_drinks.png" alt="image" />
+                                                  <div class="transparent-box">
+                                                    <div class="caption">
+                                                      +2
+                                                    </div>
+                                                  </div>
+                                                </a>
+                                              </div> -->
+                                            </div>
+                                          </div>
+                                          <!-- <div id="more-img" class="extra-images-container hide-element">
+                                            <a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_desserts.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_desserts.png" alt="image" /></a>
+                                            <a href="assets/img/portfolio/Scarlet-Creative/wedding_menu_food.png" class="glightbox" data-glightbox="type: image"><img src="assets/img/portfolio/Scarlet-Creative/wedding_menu_food.png" alt="image" /></a>
+                                          </div> -->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="text-dark mt-3 mb-3 px-4">
+                                        <p>
+                                            We designed a <strong>captivating flyer to promote a Python programming course</strong>, highlighting its benefits to attract learners and encourage action, and Wedding essentials were created using <strong>Canva, including a beautifully designed wedding programme, menus for food, drinks, and desserts, as well as wedding invitations</strong>. Each element was meticulously crafted to reflect the couple's style and the ambiance of their special day. By incorporating illustrations, chosen color schemes, and elegant typography, it was ensured that every piece exudes sophistication and effectively conveyed essential event information.
+                                        </p>
+                                    </div>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Category:</strong>
+                                           Python Programming Flyer, Wedding Designs
+                                        </li>
+                                        <li>
+                                            <strong>Skills:</strong>
+                                            Graphic Design using - Canva
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-modal modal fade" id="scarlet-programming-flyer" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <h2 class="text-uppercase"> Scarlet Creative Software </h2>
+                                    <p class="item-intro text-muted"></p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/scarlet_finance_cover.png" alt="UnityStaff USA Hero Image" />
+                                    <div class="text-dark mt-3 mb-3 px-4">
+                                        <p>
+                                            We crafted a compelling <strong>Canva flyer</strong> to promote a Python programming course, aiming to attract potential learners. With visually appealing graphics and concise text, we highlighted key features like hands-on projects and expert instruction. The design targeted the audience effectively, inspiring action such as course registration or sharing with others interested in Python programming.
+                                        </p>
+                                    </div>
+                                    <p><strong><a class="fw-bold text-red" href="https://scarlet.finance/" target="_blank">Click here to view Scarlet Finance's Website</a></strong></p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Category:</strong>
+                                           Wedding Designs
+                                        </li>
+                                        <li>
+                                            <strong>Skills:</strong>
+                                            Graphic Design using - Canva
+                                        </li>
+                                    </ul>
+                                    <button class="custom-btn request-quote-btn btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fa fa-times me-1"></i>
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- <script>
+        /* Preloader */
+        const loader = document.getElementById('loading');
+        const welcomePage = document.getElementById('welcome-page');
+        const after = (ms,fn)=>setTimeout(fn,ms);
+
+        // --- CHECK IF INTRO HAS BEEN SEEN THIS SESSION ---
+        if (sessionStorage.getItem('scarletIntroSeen') === 'true') {
+            
+            // --- 1. SKIP THE ANIMATION ---
+            loader.style.display = 'none';
+            welcomePage.classList.add('show');
+            document.body.style.overflow = 'auto';
+            document.body.classList.remove('is-loading');
+            welcomePage.classList.add('animation-finished');
+
+        } else {
+
+            // --- 2. PLAY THE FULL ANIMATION ---
+            
+            // After 2.4s: Start fading out the loader
+            after(2400, () => {
+                loader.style.opacity = '0';
+            });
+
+            // After 2.8s (as loader is fading): Hide loader, start fading in welcome page
+            after(2800, () => {
+                loader.style.display = 'none'; 
+                welcomePage.classList.add('show'); // Triggers the simple fade-in
+            });
+
+            // After 3.8s (animation is done): Clean up and enable scrolling
+            after(3800, () => {
+                document.body.style.overflow = 'auto'; 
+                document.body.classList.remove('is-loading');
+                welcomePage.classList.add('animation-finished');
+            });
+
+            // --- SET THE FLAG ---
+            sessionStorage.setItem('scarletIntroSeen', 'true');
+        }
+    </script> -->
+            
+    </body>
+
+    <script>
+        (function($) { // Begin jQuery
+            $(function() { // DOM ready
+              // If a link has a dropdown, add sub menu toggle.
+              $('nav ul li a:not(:only-child)').click(function(e) {
+                $(this).siblings('.nav-dropdown').toggle();
+                // Close one dropdown when selecting another
+                $('.nav-dropdown').not($(this).siblings()).hide();
+                e.stopPropagation();
+              });
+              // Clicking away from dropdown will remove the dropdown class
+              $('html').click(function() {
+                $('.nav-dropdown').hide();
+              });
+              // Toggle open and close nav styles on click
+              $('#nav-toggle').click(function() {
+                $('nav ul').slideToggle();
+              });
+              // Hamburger to X toggle
+              $('#nav-toggle').on('click', function() {
+                this.classList.toggle('active');
+              });
+            }); // end DOM ready
+          })(jQuery); // end jQuery
+    </script>
+
+
+    <script>
+        //console.log("Creating module");
+        angular.module('app', [])
+        .controller("TestController", function TestController($scope) {
+        var tc = $scope;
+        tc.valueSelected = '';
+        tc.itemSelected = '';
+        tc.clicked = false;
+        
+        tc.tcClicked = function(value, item) {
+            tc.valueSelected = value;
+            tc.itemSelected = item;
+            tc.clicked = true;
+        };
+        })
+        .directive('filterSelect', function($compile) {
+        return {
+        restrict: 'E',
+        template: '<div class="selectmenu" ng-transclude></div>',
+        transclude: true,
+        replace: true,
+        // Isolate scope so we can filter items under _this_ list.
+        scope: {
+            selected: '&'
+        }, 
+        link: function($scope, $element, $attr) {
+            // Collect all event handlers for deregistration.
+            var deregisterHandlers = [];
+            
+            // Set first element as non selected item.
+            var nonSelected = $($element.find('li')[0]);
+            var display = nonSelected.text();
+            nonSelected.addClass('default');
+            
+            // Grab the entire list and start if off hidden.
+            var items = $($element.find('ul')[0]);
+            items.toggleClass('hide');
+            
+            // Create chevron to indicate expand/collapse action.
+            var chevron = $('<span class="glyphicon glyphicon-chevron-up pull-right rotate-down"></span>');
+            
+            // Separate text for easier updates.
+            var selectedText = $('<span>' + display + '</span>');
+            
+            // Build up the header and attach it to the top of the list.
+            var menuHeader = $('<div class="menu-header"></div>');
+            menuHeader.append(selectedText);
+            menuHeader.append(chevron);
+            $(menuHeader).insertBefore(items);
+            
+            // Provide function to hide/show filtered values.
+            $scope.filterValues = function() {
+            var filter = $scope.filter.toUpperCase();
+            var list = $element.find('li');
+            for (var i = 0; i < list.length; i++) {
+                var text = $(list[i]).text();
+                if (text.toUpperCase().indexOf(filter) !== -1) 
+                    list[i].style.display = 'list-item';
+                else
+                    list[i].style.display = 'none';
+            }
+            };
+            
+            // Create an input box for filtering items.
+            var filterBox = $compile(
+            '<div class="search">' +
+                '<i class="glyphicon glyphicon-search"></i>' +
+                '<input type="text" placeholder="Filter..." class="filter-select-input"' +
+                        'ng-model="filter" ng-change="filterValues()" />' +
+            '</div>')($scope);
+            $(items).prepend(filterBox);
+            
+            // Attach event listeners for the header and displayed items.
+            var menuHeaderClick = menuHeader.on('click', function(){
+            console.log("Menu Header::clicked!");
+            items.toggleClass('hide');
+            chevron.toggleClass('rotate');
+            chevron.toggleClass('rotate-down');
+            });
+            deregisterHandlers.push(menuHeaderClick);
+            
+            // Attach click events, on click report and toggle the chevron.
+            angular.forEach($element.find('li'), function(li) {
+            var item = $(li);
+            var clickHandle = item.on('click', function(){
+                // Separate the value/text.
+                var valueSelected = item[0].attributes['x-value'].value;
+                var textSelected = item.text();
+                
+                // Notify relevant listeners.
+                if($scope.selected) {
+                $scope.selected({arg1: valueSelected, arg2: textSelected});
+                }
+                
+                // Update the menu to reflect the selected item.
+                selectedText.text(textSelected);
+                chevron.toggleClass('rotate');
+                chevron.toggleClass('rotate-down');
+                items.toggleClass('hide');
+                
+                // Bring us back onto the digest cycle.
+                $scope.$apply();
+            });
+            
+            deregisterHandlers.push(clickHandle);
+            });
+            
+            $scope.$on('$destroy', function() {
+            deregisterHandlers.forEach(function(handle) {
+                handle();
+            });
+            });
+        }
+        };
+        }); 
+    </script>
+    <script>
+        (function () {
+            "use strict";
+            
+            // define variables
+            var items = document.querySelectorAll(".timeline li");
+            
+            // check if an element is in viewport
+            // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+            function isElementInViewport(el) {
+                var rect = el.getBoundingClientRect();
+                return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <=
+                    (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+            
+            function callbackFunc() {
+                for (var i = 0; i < items.length; i++) {
+                if (isElementInViewport(items[i])) {
+                    items[i].classList.add("in-view");
+                }
+                }
+            }
+            
+            // listen for events
+            window.addEventListener("load", callbackFunc);
+            window.addEventListener("resize", callbackFunc);
+            window.addEventListener("scroll", callbackFunc);
+            })();          
+    </script>
+    <!-- Change icon when clicked -->
+    <script>
+        function changeIcon(x) {
+            var icon = x.querySelector("svg");
+            var contactPopup = document.getElementById("call-us-cta");
+            var delayInMilliseconds = 500; //0.5 second
+
+            if (contactPopup.style.display === "none") {
+                contactPopup.className = "animate__animated animate__fadeInBottomRight";
+                contactPopup.style.display = "block";
+                icon.classList.toggle("fa-xmark");
+            } else {
+                contactPopup.className = "animate__animated animate__fadeOutBottomRight";
+
+                setTimeout(function() {
+                    contactPopup.style.display = "none";
+                    icon.classList.toggle("fa-message-code");
+                }, delayInMilliseconds);
+            }
+        }
+    </script>
+
+    <script>
+        //External JS: https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js
+        const scarletInternalGallery = GLightbox({
+            touchNavigation: true,
+            loopThrough: '#scarlet-internal-gallery .sub .img-box a', // Specify the CSS selector for the images within the first gallery
+            width: "90vw",
+            height: "90vh",
+            dynamic: true
+        });
+    </script>
+    <script>
+        //External JS: https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js
+        const greenscrubAutoGallery = GLightbox({
+            touchNavigation: true,
+            loopThrough: '#greenscrub-auto-gallery .sub .img-box a',
+            width: "90vw",
+            height: "90vh",
+            dynamic: true
+        });
+    </script>
+    <script>
+        //External JS: https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js
+        const fourPlayGallery = GLightbox({
+            touchNavigation: true,
+            loopThrough: '#four-play-gallery .sub .img-box a',
+            width: "90vw",
+            height: "90vh",
+            dynamic: true
+        });
+    </script>
+</html>

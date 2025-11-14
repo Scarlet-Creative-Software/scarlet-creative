@@ -4664,7 +4664,7 @@ var JotForm = {
         }
 
         if (document.get.offline_forms == 'true' && document.get.jotformNext == 1) {
-            preLink = window.location.pathname.replace('/index.html', '');
+            preLink = window.location.pathname.replace('/old_home.html', '');
         }
 
         var self = this;
@@ -9112,7 +9112,7 @@ var JotForm = {
             }
             var iframe = $("id_"+qid).down("iframe");
             var src = iframe.src;
-            var offlineReg = new RegExp('^file://.*/(.*?)/index.html');
+            var offlineReg = new RegExp('^file://.*/(.*?)/old_home.html');
             var offlineWidgetMatch = offlineReg.exec(src);
             if (offlineWidgetMatch) {
                 return offlineWidgetMatch[1]
